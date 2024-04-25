@@ -1,0 +1,4 @@
+package provas
+
+class Provas {
+}
