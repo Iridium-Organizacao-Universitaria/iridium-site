@@ -1,4 +1,0 @@
-package tarefas
-
-class Tarefas {
-}
