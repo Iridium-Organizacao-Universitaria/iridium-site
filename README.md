@@ -18,16 +18,16 @@ Desenvolvido como projeto da disciplina MAC0350 - Introdução a Desenvolvimento
 <a name="sobre"></a>
 ## Sobre 
 
-> Imagine um aplicativo que se torna o seu melhor aliado na jornada universitária. Apresentamos o nosso aplicativo de organização, cuidadosamente projetado para atender às necessidades específicas dos estudantes universitários. Aqui, você encontrará uma plataforma completa que não apenas ajuda a gerenciar suas datas de provas, projetos e atividades, mas também simplifica sua vida acadêmica de todas as formas possíveis.\
+> Imagine um site que se torna o seu melhor aliado na jornada universitária. Apresentamos o nosso site de organização, cuidadosamente projetado para atender às necessidades específicas dos estudantes universitários. Aqui, você encontrará uma plataforma completa que não apenas ajuda a gerenciar suas datas de provas, projetos e atividades, mas também simplifica sua vida acadêmica de todas as formas possíveis.\
 \
 Com nossa interface intuitiva, você pode facilmente criar e visualizar seu calendário, garantindo que nunca perca um prazo importante. Seja uma prova daquela matéria desafiadora ou a entrega de um projeto crucial, tudo estará organizado de forma clara e acessível.\
 \
-Mas nosso aplicativo vai além da simples organização de datas. Sabemos o quão valiosas são as informações compartilhadas durante as aulas. É por isso que oferecemos uma maneira fácil e rápida de capturar notas e até mesmo salvar fotos de quadros ou slides importantes. Dessa forma, você pode revisar e estudar de forma mais eficaz, aproveitando ao máximo cada momento de aprendizado.\
+Mas nosso site vai além da simples organização de datas. Sabemos o quão valiosas são as informações compartilhadas durante as aulas. É por isso que oferecemos uma maneira fácil e rápida de capturar notas e até mesmo salvar fotos de quadros ou slides importantes. Dessa forma, você pode revisar e estudar de forma mais eficaz, aproveitando ao máximo cada momento de aprendizado.\
 \
-E quando se trata de acessibilidade, garantimos que você possa estar sempre conectado à sua vida acadêmica. Com sincronização em múltiplas plataformas, você pode acessar suas informações de qualquer dispositivo, a qualquer momento. Esteja você no campus, em casa ou em movimento, seu mundo acadêmico está sempre ao seu alcance.
 \
 Portanto, se você deseja simplificar sua vida universitária, nosso aplicativo é a escolha certa. Experimente hoje mesmo e descubra como podemos tornar sua jornada acadêmica mais tranquila e produtiva.
 
+<!---E quando se trata de acessibilidade, garantimos que você possa estar sempre conectado à sua vida acadêmica. Com sincronização em múltiplas plataformas, você pode acessar suas informações de qualquer dispositivo, a qualquer momento. Esteja você no campus, em casa ou em movimento, seu mundo acadêmico está sempre ao seu alcance.--->
 
 
 
@@ -64,9 +64,9 @@ Imagens ebaa -->
 
 As seguintes ferramentas foram utilizadas na construção do projeto:
 
-* [![Kotlin](https://img.shields.io/badge/Kotlin-0095D5?&style=for-the-badge&logo=kotlin&logoColor=white)](https://kotlinlang.org)
+<!---* [![Kotlin](https://img.shields.io/badge/Kotlin-0095D5?&style=for-the-badge&logo=kotlin&logoColor=white)](https://kotlinlang.org)
 * [![Android Studio](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://developer.android.com/studio)
-* [![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com)
+* [![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com)--->
 
 
 
