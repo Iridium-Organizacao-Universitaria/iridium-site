@@ -38,8 +38,8 @@ nav {
     padding: 20px 0px;
 }
 
-header a, p {
-    color: white; /* Cor do texto */
+header a, header p {
+    color: white;
     text-decoration: none; /* Remove sublinhado padrão */
     padding: 0 10px; /* Espaçamento entre os links */
 }
@@ -62,4 +62,77 @@ body {
     margin: 0;
     padding: 0px;
     box-sizing: border-box;
+}
+
+h2 {
+    color: #535353;
+}
+
+.title {
+    color: #CECECE;
+    position: absolute;
+    top: 80px; /* Ajuste a distância do topo conforme necessário */
+    left: 20px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container p{
+    text-align: justify;
+}
+
+.half {
+    width: 50%;
+}
+
+.right, .left {
+    padding-right: 40px;
+    padding-left: 40px;
+}
+
+.botoes {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px; /* Adicione um espaço entre os botões e o parágrafo acima */
+}
+
+.profiles {
+    margin-top: 20px;
+}
+
+.btn, .profile-btn {
+
+    display: inline-block;
+    padding: 10px 20px;
+    margin-right: 100px;
+    background-color: white;
+    color: black;
+    text-decoration: none;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.botoes .btn:hover, .botoes .profile-btn:hover {
+    background-color: black;
+    color: white;
+}
+
+footer {
+    text-align: center;
+    padding: 10px; /* Adiciona um padding para espaçamento interno */
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    position: fixed; /* Define a posição fixa */
+    bottom: 0; /* Alinha o footer na parte inferior */
+    width: 100%; /* Define a largura total */
+}
+
+footer p {
+    font-size: 23px;
+    color: #CECECE; /* Cor do texto preto */
 }
