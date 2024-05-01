@@ -1,0 +1,65 @@
+header {
+    background: rgb(238,174,202);
+    background: linear-gradient(90deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+    letter-spacing: 1px;
+    padding: 10px;
+    position: fixed;
+    width: 100%; /* Largura total */
+    z-index: 1000; /* Garante que o header fique por cima de outros elementos */
+    height: 50px; /* Altura do header */
+    display: flex;
+    flex-direction: linear;
+    align-items: center;
+    font-family: "Poppins";
+    font-size: 17px;
+}
+
+header img{
+    width:80px;
+    max-width: 100px; /* Largura máxima da imagem */
+    float: left; /* Alinha a imagem à esquerda */
+}
+
+#marca{
+    display: flex;
+    flex-direction: linear;
+    align-items: center;
+    justify-content: start;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+nav {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 85%;
+    max-width: calc(100% - 100px);
+    padding: 20px 0px;
+}
+
+header a, p {
+    color: white; /* Cor do texto */
+    text-decoration: none; /* Remove sublinhado padrão */
+    padding: 0 10px; /* Espaçamento entre os links */
+}
+
+nav p {
+    color: white; /* Cor do texto */
+    margin: 0 10px; /* Espaçamento entre o separador e os links */
+}
+
+nav a:hover {
+    border: 1px solid white; /* Adiciona borda branca ao passar o mouse */
+    border-radius: 40px;
+    padding: 4px 8px;
+}
+
+body {
+    font-family: 'Poppins';
+    font-size: 16;
+    font-color: black;
+    margin: 0;
+    padding: 0px;
+    box-sizing: border-box;
+}
