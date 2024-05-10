@@ -55,9 +55,9 @@ nav a:hover {
     padding: 4px 8px;
 }
 
-body {
+body, button {
     font-family: 'Poppins';
-    font-size: 16;
+    font-size: 16px;
     font-color: black;
     margin: 0;
     padding: 0px;
@@ -89,7 +89,18 @@ body {
     border: transparent;
     border-radius: 10px; /* Bordas arredondadas */
     background-color: #E6E6E6; /* Cor de fundo #E6E6E6 */
-    margin: 5px 0;
+    margin: 5px;
+}
+
+.input-group button{
+    display: inline-block;
+    padding: 10px 85px; /* Adicionando padding à esquerda para acomodar a imagem */
+    background-color: transparent; /* Botão transparente */
+    color: #000; /* Cor do texto preto */
+    text-decoration: none;
+    border: 1px solid #000; /* Bordas pretas */
+    border-radius: 8px; /* Bordas arredondadas */
+    position: relative; /* Define posição relativa */
 }
 
 .input-group input:focus {
@@ -108,7 +119,7 @@ body {
 
 .google-login a {
     display: inline-block;
-    padding: 10px 20px 10px 40px; /* Adicionando padding à esquerda para acomodar a imagem */
+    padding: 11px 20px 10px 70px; /* Adicionando padding à esquerda para acomodar a imagem */
     background-color: transparent; /* Botão transparente */
     color: #000; /* Cor do texto preto */
     text-decoration: none;
@@ -126,7 +137,7 @@ body {
     height: auto; /* Mantém a proporção da altura */
 }
 
-.google-login a:hover {
+.google-login a:hover, .input-group button:hover {
     background-color: #000; /* Mudança de cor no hover */
     color: #fff; /* Mudança de cor do texto para branco no hover */
 }

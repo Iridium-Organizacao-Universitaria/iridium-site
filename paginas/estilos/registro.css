@@ -55,9 +55,9 @@ nav a:hover {
     padding: 4px 8px;
 }
 
-body {
+body, button {
     font-family: 'Poppins';
-    font-size: 16;
+    font-size: 16px;
     font-color: black;
     margin: 0;
     padding: 0px;
@@ -91,10 +91,10 @@ body {
     font-weight: bold;
 }
 
-.registration-form {
+.registration-form   {
     flex: 1;
     max-width: 400px;
-    margin-left= 50px;
+    margin-left: 50px;
 }
 
 .input-group {
@@ -115,6 +115,17 @@ body {
     margin: 5px 0;
 }
 
+.input-group button {
+    display: inline-block;
+    padding: 10px 155px; /* Adicionando padding à esquerda para acomodar a imagem */
+    background-color: transparent; /* Botão transparente */
+    color: #000; /* Cor do texto preto */
+    text-decoration: none;
+    border: 1px solid #000; /* Bordas pretas */
+    border-radius: 8px; /* Bordas arredondadas */
+    position: relative; /* Define posição relativa */
+}
+
 .input-group input:focus {
     border-color: #535353; /* Altera a cor da borda ao clicar na caixa de input */
 }
@@ -131,7 +142,7 @@ body {
 
 .google-login a {
     display: inline-block;
-    padding: 10px 20px 10px 40px; /* Adicionando padding à esquerda para acomodar a imagem */
+    padding: 11px 110px 10px 100px; /* Adicionando padding à esquerda para acomodar a imagem */
     background-color: transparent; /* Botão transparente */
     color: #000; /* Cor do texto preto */
     text-decoration: none;
@@ -142,14 +153,14 @@ body {
 
 .google-login a img {
     position: absolute; /* Define posição absoluta */
-    left: 10px; /* Posiciona a imagem 10px à esquerda do início do botão */
+    left: 15px; /* Posiciona a imagem 10px à esquerda do início do botão */
     top: 50%; /* Alinha a imagem verticalmente */
     transform: translateY(-50%); /* Corrige o alinhamento vertical */
     width: 20px; /* Define a largura da imagem */
     height: auto; /* Mantém a proporção da altura */
 }
 
-.google-login a:hover {
+.google-login a:hover, .input-group button:hover {
     background-color: #000; /* Mudança de cor no hover */
     color: #fff; /* Mudança de cor do texto no hover */
 }
