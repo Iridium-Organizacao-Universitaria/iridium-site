@@ -15,7 +15,8 @@ header {
 }
 
 header img{
-    width:80px;
+    margin: 0px 10px 0px 10px;
+    width:40px;
     max-width: 100px; /* Largura máxima da imagem */
     float: left; /* Alinha a imagem à esquerda */
 }
@@ -55,11 +56,28 @@ nav a:hover {
     padding: 4px 8px;
 }
 
-body {
+body, button {
     font-family: 'Poppins';
-    font-size: 16;
+    font-size: 16px;
     font-color: black;
     margin: 0;
     padding: 0px;
     box-sizing: border-box;
+}
+
+
+
+footer {
+    text-align: center;
+    padding: 10px; /* Adiciona um padding para espaçamento interno */
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    position: fixed; /* Define a posição fixa */
+    bottom: 0; /* Alinha o footer na parte inferior */
+    width: 100%; /* Define a largura total */
+}
+
+footer p {
+    font-size: 23px;
+    color: #CECECE; /* Cor do texto preto */
 }
