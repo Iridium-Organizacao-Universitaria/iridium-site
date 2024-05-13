@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iridium - Login</title>
+    <link rel="stylesheet" type="text/css" href="estilos/geral.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="estilos/login.css" media="screen" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div id="marca">
+            <img src="imgs/Starfruit.png" id="logo" alt="starfruit :3">
+            <p>Iridium </p>
+        </div>
+        <nav>
+            <a href="index.html">início</a>
+            <p> | </p>
+            <a href="quemsomos.html">quem somos</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <form class="login-form" onsubmit="return redirectToProfile()">
+            <div class="input-group">
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" placeholder="Insira seu e-mail">
+            </div>
+            <div class="input-group">
+                <label for="password">Senha:</label>
+                <input type="password" id="password" placeholder="Insira sua senha">
+            </div>
+            <div class="input-group">
+                <button type="submit"> Continue </button>
+            </div>
+            <div class="google-login">
+                <p>Ou continue com o Google:</p>
+                <a href="#">
+                    <img src="https://logopng.com.br/logos/google-37.png" alt="logo da Google">
+                    Entrar com Google
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <footer>
+        <p>Iridium</p>
+    </footer>
+
+    <script src="scripts/login_script.js" defer></script>
+
+    <script>
+        function redirectToProfile() {
+            if (validateForm()) {
+                window.location.href = "perfil.html";
+            }
+            return false;
+        }
+    </script>
+</body>
+</html>

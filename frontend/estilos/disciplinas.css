@@ -1,0 +1,35 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.center-content {
+    text-align: center;
+}
+
+.right-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(100%);
+    background-color: #f0f0f0;
+}
+
+.hidden {
+    display: none;
+}
+
+#discipline-details {
+    text-align: center;
+}
+
+#discipline-details button {
+    margin-top: 20px;
+}
