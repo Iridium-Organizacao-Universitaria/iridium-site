@@ -5,8 +5,60 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="43de6201-036e-4b14-b80f-36ac33635423" name="Changes" comment="Dois diretórios, um com as coisas do front e outro com as coisas do back, pra conseguir rodar o gradle tem que entrar no diretório backend na IDLE, se não por padrão ele procura a gradle build no diretorio principal e não no back">
-      <change beforePath="$PROJECT_DIR$/paginas/estilos/calendario.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/estilos/geral.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/paginas/estilos/perfil.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/settings.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/iridium/Application.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/iridium/models/Atividade.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/iridium/models/Disciplina.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/iridium/plugins/CitySchema.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/iridium/plugins/Databases.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/iridium/plugins/HTTP.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/iridium/plugins/Monitoring.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/iridium/plugins/Routing.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/iridium/plugins/Serialization.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/iridium/plugins/UsersSchema.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/iridium/routes/AtividadeRoute.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/iridium/routes/DisciplinaRoute.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/logback.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/test/kotlin/com/iridium/ApplicationTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/teste.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.idea/frontend.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/atividades.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/calendario.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/disciplinas.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/estilos/atividades.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/estilos/calendario.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/estilos/disciplinas.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/estilos/geral.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/estilos/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/estilos/login.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/estilos/perfil.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/estilos/quemsomos.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/estilos/registro.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/imgs/Starfruit.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/perfil.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/quemsomos.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/registro.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/scripts/calendario_script.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/scripts/disciplina_script.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/scripts/login_script.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/scripts/registro_script.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/teste.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +105,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Iridium-Organizacao-Universitaria/iridium-site.git&quot;,
-    &quot;accountId&quot;: &quot;a4de4f0e-2185-4d1a-b755-c5a8b098d738&quot;
+    &quot;accountId&quot;: &quot;9d682d45-fe71-415f-9f8a-39f829e5af04&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -65,21 +117,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Gradle.iridium-site [build].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/beatr/IdeaProjects/iridium-site/backend&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Gradle.iridium-site [build].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/beatr/IdeaProjects/iridium-site/backend"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;kotlin-gradle-user-dirs&quot;: [
-      &quot;C:\\Users\\beatr\\.gradle&quot;
+  "keyToStringList": {
+    "kotlin-gradle-user-dirs": [
+      "C:\\Users\\maysa\\.gradle"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\beatr\IdeaProjects\iridium-site\backend" />
@@ -113,17 +165,6 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <RunAsTest>false</RunAsTest>
       <method v="2" />
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
     </configuration>
     <recent_temporary>
       <list>
