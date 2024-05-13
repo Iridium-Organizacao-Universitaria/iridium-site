@@ -4,61 +4,32 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="43de6201-036e-4b14-b80f-36ac33635423" name="Changes" comment="Dois diretórios, um com as coisas do front e outro com as coisas do back, pra conseguir rodar o gradle tem que entrar no diretório backend na IDLE, se não por padrão ele procura a gradle build no diretorio principal e não no back">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+    <list default="true" id="43de6201-036e-4b14-b80f-36ac33635423" name="Changes" comment="O frontend está dentro do diretório resources">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build.gradle.kts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/gradle.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/settings.gradle.kts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/iridium/Application.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/iridium/models/Atividade.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/iridium/models/Disciplina.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/iridium/plugins/CitySchema.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/iridium/plugins/Databases.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/iridium/plugins/HTTP.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/iridium/plugins/Monitoring.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/iridium/plugins/Routing.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/iridium/plugins/Serialization.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/iridium/plugins/UsersSchema.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/iridium/routes/AtividadeRoute.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/iridium/routes/DisciplinaRoute.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/logback.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/test/kotlin/com/iridium/ApplicationTest.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/teste.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.idea/frontend.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/atividades.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/calendario.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/disciplinas.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/estilos/atividades.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/estilos/calendario.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/estilos/disciplinas.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/estilos/geral.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/estilos/index.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/estilos/login.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/estilos/perfil.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/estilos/quemsomos.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/estilos/registro.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/imgs/Starfruit.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/login.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/perfil.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/quemsomos.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/registro.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/scripts/calendario_script.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/scripts/disciplina_script.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/scripts/login_script.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/scripts/registro_script.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/teste.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/iridium/plugins/Routing.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/iridium/plugins/Routing.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/front/atividades.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/frontend/atividades.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/front/calendario.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/frontend/calendario.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/front/disciplinas.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/frontend/disciplinas.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/front/estilos/atividades.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/frontend/estilos/atividades.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/front/estilos/calendario.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/frontend/estilos/calendario.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/front/estilos/disciplinas.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/frontend/estilos/disciplinas.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/front/estilos/geral.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/frontend/estilos/geral.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/front/estilos/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/frontend/estilos/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/front/estilos/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/frontend/estilos/login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/front/estilos/perfil.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/frontend/estilos/perfil.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/front/estilos/quemsomos.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/frontend/estilos/quemsomos.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/front/estilos/registro.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/frontend/estilos/registro.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/front/imgs/Starfruit.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/frontend/imgs/Starfruit.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/front/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/frontend/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/front/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/frontend/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/front/perfil.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/frontend/perfil.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/front/quemsomos.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/frontend/quemsomos.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/front/registro.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/frontend/registro.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/front/scripts/calendario_script.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/frontend/scripts/calendario_script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/front/scripts/disciplina_script.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/frontend/scripts/disciplina_script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/front/scripts/login_script.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/frontend/scripts/login_script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/front/scripts/registro_script.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/frontend/scripts/registro_script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/front/teste.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/frontend/teste.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,6 +56,17 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="com.iridium.iridium" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="com.iridium.iridium" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="com.iridium.iridium" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="application" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -120,7 +102,10 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Gradle.Build iridium-site.executor": "Run",
     "Gradle.iridium-site [build].executor": "Run",
+    "Gradle.iridium-site [run].executor": "Run",
+    "Kotlin script (Beta).build.gradle.kts.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
@@ -143,7 +128,7 @@
       <command value="gradle build" />
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Gradle.iridium-site [run]">
     <configuration name="iridium-site [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -166,8 +151,31 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
+    <configuration name="iridium-site [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="run" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.iridium-site [run]" />
         <item itemvalue="Gradle.iridium-site [build]" />
       </list>
     </recent_temporary>
@@ -189,11 +197,28 @@
       <option name="project" value="LOCAL" />
       <updated>1715621272096</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="O frontend está dentro do diretório resources">
+      <option name="closed" value="true" />
+      <created>1715626901271</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1715626901271</updated>
+    </task>
+    <task id="LOCAL-00003" summary="O frontend está dentro do diretório resources">
+      <option name="closed" value="true" />
+      <created>1715627019431</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1715627019431</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Dois diretórios, um com as coisas do front e outro com as coisas do back, pra conseguir rodar o gradle tem que entrar no diretório backend na IDLE, se não por padrão ele procura a gradle build no diretorio principal e não no back" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dois diretórios, um com as coisas do front e outro com as coisas do back, pra conseguir rodar o gradle tem que entrar no diretório backend na IDLE, se não por padrão ele procura a gradle build no diretorio principal e não no back" />
+    <MESSAGE value="O frontend está dentro do diretório resources" />
+    <option name="LAST_COMMIT_MESSAGE" value="O frontend está dentro do diretório resources" />
   </component>
 </project>
