@@ -5,6 +5,8 @@ import io.ktor.server.application.*
 import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.response.*
 
+// se tiver erro de CORS -> avisar o Gui
+
 fun Application.configureHTTP() {
     install(CORS) {
         allowMethod(HttpMethod.Options)

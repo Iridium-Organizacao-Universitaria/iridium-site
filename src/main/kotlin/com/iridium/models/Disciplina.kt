@@ -1,7 +1,6 @@
 //package com.iridium.models
 
 import kotlinx.serialization.Serializable
-
 @Serializable
 data class Disciplina(
     var name: String,
@@ -18,6 +17,7 @@ data class Disciplina(
 //    val disciplina: Disciplina = disciplinaStorage.find { it.sigla == siglaDisciplina } ?: throw Exception("nao existe essa disciplina")
 //    return disciplina
 //}
+
 //
 //object Disciplinas:Table(){
 //    var nome = varchar("nome", 255)

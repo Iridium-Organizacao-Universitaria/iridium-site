@@ -13,6 +13,7 @@ enum class Tipo {
     Tarefa, Prova
 }
 
+/*
 @Serializable
 data class Atividade(
     var nome: String,
