@@ -11,11 +11,9 @@ import io.ktor.server.http.content.* // staticResources
 
 fun Application.configureRouting() {
     routing {
-        disciplinaRouting()
+//        disciplinaRouting()
         atividadeRouting()
 
-        // Cria paginas da pasta mycontent no endpoint content (link.com/content/sample.html)
-        // a pasta mycontent deve estar em src/main/resources
         staticResources("/", "frontend")
 
 //        get("/") {

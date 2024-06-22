@@ -1,4 +1,4 @@
-package com.iridium.plugins
+    package com.iridium.plugins
 
 import io.ktor.server.application.*
 import io.ktor.server.plugins.callloging.*
