@@ -2,16 +2,8 @@ package com.iridium
 
 import com.iridium.plugins.*
 import io.ktor.server.application.*
-import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
-
-/*
-fun main(args: Array<String>) {
-    io.ktor.server.netty.EngineMain.main(args)
-}
- */
-
 
 fun main() {
     embeddedServer(Netty, port = 8080, host = "0.0.0.0", module = Application::module)
@@ -19,15 +11,9 @@ fun main() {
 }
 
 fun Application.module() {
-    /*
-    como já instalou o plugin, não precisa instalar dnv (erro de pacote duplicado)
-    install(CORS) {
-        anyHost()
-    }
-     */
-    //configureHTTP()
-    configureSerialization()
-    //configureDatabases()
-    //configureMonitoring()
+    val repository = com.iridium.FakeDisciplinaRepository()
+
+    configureSerialization(repository)
     configureRouting()
+//    configureMonitoring() // n sei oq eh nao tava no tutorial
 }

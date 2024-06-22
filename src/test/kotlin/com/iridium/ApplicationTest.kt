@@ -1,58 +1,66 @@
-/*package com.iridium
+package com.iridium
 
+import Disciplina
 import com.iridium.plugins.*
+import io.ktor.client.call.*
+import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
-import io.ktor.client.statement.*
 import io.ktor.http.*
+import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.testing.*
 import kotlin.test.*
 
+import io.ktor.server.application.*
+import io.ktor.server.engine.*
+import io.ktor.server.netty.*
+
 class ApplicationTest {
     @Test
-    fun testRoot() = testApplication {
+    fun invalidPriorityProduces400() = testApplication {
+        val response = client.get("/disciplinas/byPriority/Invalid")
+        assertEquals(HttpStatusCode.BadRequest, response.status)
+    }
+
+    @Test
+    fun unusedPriorityProduces404() = testApplication {
         application {
-            configureRouting()
+            module()
         }
-        client.get("/").apply {
-            assertEquals(HttpStatusCode.OK, status)
-            assertEquals("Hello World!", bodyAsText())
-        }
-    }
-}
- */
 
-import com.iridium.models.*
-import com.iridium.routes.*
-
-import io.ktor.client.request.*
-import io.ktor.client.statement.*
-import io.ktor.http.*
-import io.ktor.server.routing.*
-import io.ktor.server.testing.*
-import org.junit.Assert.assertEquals
-import org.junit.Test
-import kotlin.test.assertContains
-
-class ApplicationTest {
-    @Test
-    fun testRoot() = testApplication {
-//        application {
-//            module()
-//        }
-        val response = client.get("/")
-
-        assertEquals(HttpStatusCode.OK, response.status)
-        assertEquals("Iridium - Organização Universitária", response.bodyAsText())
+        val response = client.get("/disciplinas/byPriority/Vital")
+        assertEquals(HttpStatusCode.NotFound, response.status)
     }
 
     @Test
-    fun testNewEndpoint() = testApplication {
-//    application {
-//        module()
-//    }
-        val response = client.get("/test1")
-        assertEquals(HttpStatusCode.OK, response.status)
-        assertEquals("html", response.contentType()?.contentSubtype)
-        assertContains(response.bodyAsText(), "Página de test1")
+    fun newDisciplinasCanBeAdded() = testApplication {
+        application {
+            module()
+        }
+
+        val client = createClient {
+            install(ContentNegotiation) {
+                json()
+            }
+        }
+
+        val disciplina = Disciplina("materiateste", "professorteste")
+        val response1 = client.post("/disciplinas") {
+            header(
+                HttpHeaders.ContentType,
+                ContentType.Application.Json
+            )
+
+            setBody(disciplina)
+        }
+        assertEquals(HttpStatusCode.NoContent, response1.status)
+
+        val response2 = client.get("/disciplinas")
+        assertEquals(HttpStatusCode.OK, response2.status)
+
+        val disciplinaNames = response2
+            .body<List<Disciplina>>()
+            .map { it.name }
+
+        assertContains(disciplinaNames, "swimming")
     }
 }
