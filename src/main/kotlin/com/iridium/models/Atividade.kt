@@ -6,6 +6,7 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 
+/*
 @Serializable
 data class Atividade(
     var nome: String,
@@ -29,3 +30,4 @@ data class Atividade(
 // – in a real application, we would be storing this information in a database so that it doesn't
 // get lost after restarting our application.
 val atividadeStorage = mutableListOf<Atividade>()
+ */

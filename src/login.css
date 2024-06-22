@@ -1,0 +1,80 @@
+/* Estilos específicos da página Login */
+
+.container {
+    display: flex;
+    justify-content: center; /* Centraliza os itens horizontalmente */
+    align-items: center; /* Centraliza os itens verticalmente */
+    height: 100vh;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza os itens horizontalmente */
+    align-items: center; /* Centraliza os itens verticalmente */
+    margin-top: 50px; /* Ajusta o espaçamento superior */
+}
+
+.input-group {
+    margin-bottom: 20px; /* Adiciona espaçamento entre os elementos */
+}
+
+.input-group input {
+    width: calc(100% - 40px); /* Reduz a largura da caixa de input */
+    padding: 14px; /* Aumenta o padding para tornar a caixa de input mais gordinha */
+    border: transparent;
+    border-radius: 10px; /* Bordas arredondadas */
+    background-color: #E6E6E6; /* Cor de fundo #E6E6E6 */
+    margin: 5px;
+}
+
+.input-group button {
+    display: inline-block;
+    padding: 10px 85px; /* Adicionando padding à esquerda para acomodar a imagem */
+    background-color: transparent; /* Botão transparente */
+    color: #000; /* Cor do texto preto */
+    text-decoration: none;
+    border: 1px solid #000; /* Bordas pretas */
+    border-radius: 8px; /* Bordas arredondadas */
+    position: relative; /* Define posição relativa */
+}
+
+.input-group input:focus {
+    border-color: #535353; /* Altera a cor da borda ao clicar na caixa de input */
+}
+
+.google-login {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.google-login p {
+    margin-bottom: 10px;
+    color: #000; /* Cor do texto preto */
+}
+
+.google-login a {
+    display: inline-block;
+    padding: 11px 20px 10px 70px; /* Adicionando padding à esquerda para acomodar a imagem */
+    background-color: transparent; /* Botão transparente */
+    color: #000; /* Cor do texto preto */
+    text-decoration: none;
+    border: 1px solid #000; /* Bordas pretas */
+    border-radius: 8px; /* Bordas arredondadas */
+    position: relative; /* Define posição relativa */
+}
+
+.google-login a img {
+    position: absolute; /* Define posição absoluta */
+    left: 10px; /* Posiciona a imagem 10px à esquerda do início do botão */
+    top: 50%; /* Alinha a imagem verticalmente */
+    transform: translateY(-50%); /* Corrige o alinhamento vertical */
+    width: 20px; /* Define a largura da imagem */
+    height: auto; /* Mantém a proporção da altura */
+}
+
+.google-login a:hover,
+.input-group button:hover {
+    background-color: #000; /* Mudança de cor no hover */
+    color: #fff; /* Mudança de cor do texto para branco no hover */
+}

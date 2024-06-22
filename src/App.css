@@ -1,0 +1,77 @@
+/* Estilos gerais */
+body, button {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background: rgb(238,174,202);
+    background: linear-gradient(90deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+    letter-spacing: 1px;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    font-size: 17px;
+}
+
+header img {
+    margin: 0 10px;
+    width: 40px;
+    max-width: 100px;
+    float: left;
+}
+
+#marca {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+nav {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 85%;
+    max-width: calc(100% - 100px);
+    padding: 20px 0;
+}
+
+header a, p {
+    color: white;
+    text-decoration: none;
+    padding: 0 10px;
+}
+
+nav p {
+    color: white;
+    margin: 0 10px;
+}
+
+nav a:hover {
+    border: 1px solid white;
+    border-radius: 40px;
+    padding: 4px 8px;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    font-weight: 600;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    font-size: 23px;
+    color: #CECECE;
+}
