@@ -35,7 +35,7 @@ const Disciplinas = () => {
                 <div className="disc_atu">
                     <h3>Disciplinas em andamento</h3>
                     <div className="disciplinas_andamento">
-                        {Array.from({ length: 40 }, (_, index) => (
+                        {Array.from({ length: 15 }, (_, index) => (
                             <button
                                 key={index}
                                 className="botao_disciplina"
@@ -50,13 +50,13 @@ const Disciplinas = () => {
                     <h3>Disciplinas de semestres anteriores</h3>
                     <div className="disciplinas_passadas"></div>
                     <div className="disciplinas_andamento">
-                        {Array.from({ length: 40 }, (_, index) => (
+                        {Array.from({ length: 30 }, (_, index) => (
                             <button
                                 key={index}
                                 className="botao_disciplina"
                                 onClick={() => handleClick(`Disciplina ${index + 1}`)}
                             >
-                                Disciplina {index + 1}
+                                Disciplina {index + 16}
                             </button>
                         ))}
                     </div>
