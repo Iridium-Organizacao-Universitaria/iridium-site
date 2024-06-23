@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../App.css'; // Importa o estilo geral
 
-const Header1 = () => {
+const Header = () => {
     return (
         <header>
             <div id="marca">
