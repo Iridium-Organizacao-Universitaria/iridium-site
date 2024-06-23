@@ -1,5 +1,5 @@
 import React from 'react';
-import '../App.css'; // Importa o estilo geral
+import '../../App.css'; // Importa o estilo geral
 
 const Home = () => {
     return (
@@ -10,12 +10,19 @@ const Home = () => {
                     <p>Iridium</p>
                 </div>
                 <nav>
-                    <a href="/registro">registro</a>
+                    <a href="/registro/Registro">Registro</a>
                     <p> | </p>
-                    <a href="/quemsomos">quem somos</a>
+                    <a href="/login/Login">Login</a>
+                    <p> | </p>
+                    <a href="/qmsomos/QuemSomos">Quem somos</a>
                 </nav>
             </header>
-            <p>oii</p>
+
+            <h2 className="title">Início</h2>
+
+            <footer>
+                <p>Iridium</p>
+            </footer>
         </div>
     );
 };

@@ -1,8 +1,9 @@
 import React from 'react';
-import '../App.css'; // Importa o estilo geral
-import './calendario.css'; // Importa os estilos específicos da página
+import '../../App.css'; // Importa o estilo geral
+import './disciplina.css'; // Importa os estilos específicos da página
 
-const Calendario = () => {
+
+const Disciplinas = () => {
     return (
         <div>
             <header>
@@ -11,15 +12,16 @@ const Calendario = () => {
                     <p>Iridium</p>
                 </div>
                 <nav>
-                    <a href="/disciplinas">disciplinas</a>
+                    <a href="/disciplinas">Disciplinas</a>
                     <p> | </p>
-                    <a href="/atividades">atividades</a>
+                    <a href="/atividades/Atividades">Atividades</a>
                     <p> | </p>
-                    <a href="/calendario">calendário</a>
+                    <a href="/calendario/Calendario">Calendário</a>
                     <p> | </p>
-                    <a href="/perfil">perfil</a>
+                    <a href="/perfil/Perfil">Perfil</a>
                 </nav>
             </header>
+
 
             <footer>
                 <p>Iridium</p>
@@ -28,4 +30,4 @@ const Calendario = () => {
     );
 };
 
-export default Calendario;
+export default Disciplina;

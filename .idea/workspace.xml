@@ -5,40 +5,51 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="43de6201-036e-4b14-b80f-36ac33635423" name="Changes" comment="Tentativa de mover as coisas do html pro react">
-      <change afterPath="$PROJECT_DIR$/public/imgs/Starfruit.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/calendario.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Footer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Header.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/disciplinas.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/imgs/Starfruit.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/login.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/iridium/requests/AtividadeRequest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/iridium/requests/DisciplinaRequest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/iridium/responses/DisciplinaResponse.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/iridium/services/AtividadeServices.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/iridium/services/DisciplinaServices.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Calendario.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Disciplinas.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Home.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Login.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Perfil.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/QuemSomos.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Registro.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/perfil.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/quemsomos.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/registro.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/imgs/default_profile_picture.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/atividades/Atividades.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/login/login.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/iridium/models/Atividade.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/iridium/models/Atividade.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/iridium/models/Disciplina.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/iridium/models/Disciplina.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/iridium/plugins/HTTP.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/iridium/plugins/HTTP.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/frontend/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/teste.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/calendario.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/calendario/calendario.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/disciplinas.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/disciplinas/disciplinas.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/login.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/atividades.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/calendario.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/disciplinas.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/estilos/atividades.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/atividades/atividades.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/estilos/calendario.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/disciplinas/disciplina.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/estilos/disciplinas.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/estilos/geral.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/estilos/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/disciplinas/disciplina.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/estilos/login.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/estilos/perfil.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/perfil/perfil.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/estilos/quemsomos.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/qmsomos/quemsomos.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/estilos/registro.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/imgs/Starfruit.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/perfil.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/quemsomos.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/registro.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/scripts/calendario_script.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/scripts/disciplina_script.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/scripts/login_script.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/scripts/registro_script.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/teste.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Calendario.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/calendario/Calendario.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Disciplinas.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/disciplinas/Disciplinas.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/home/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/login/Login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Perfil.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/perfil/Perfil.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/QuemSomos.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/qmsomos/QuemSomos.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Registro.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/registro/Registro.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/perfil.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/quemsomos.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/registro.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/registro/registro.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,6 +101,7 @@
         <option value="Kotlin Class" />
         <option value="Kotlin File" />
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -136,11 +148,14 @@
     "git-widget-placeholder": "react",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/beatr/IdeaProjects/iridium-site/src/imgs",
+    "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "npm.build.executor": "Run",
+    "npm.start.executor": "Run",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
@@ -162,8 +177,11 @@
       <recent name="C:\Users\beatr\IdeaProjects\iridium-site\backend" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\beatr\IdeaProjects\iridium-site\public\imgs" />
-      <recent name="C:\Users\beatr\IdeaProjects\iridium-site\src\main\resources\front2\react" />
+      <recent name="C:\Users\beatr\IdeaProjects\iridium-site\src\pages\registro" />
+      <recent name="C:\Users\beatr\IdeaProjects\iridium-site\src\pages\qmsomos" />
+      <recent name="C:\Users\beatr\IdeaProjects\iridium-site\src\pages\perfil" />
+      <recent name="C:\Users\beatr\IdeaProjects\iridium-site\src\pages\disciplinas" />
+      <recent name="C:\Users\beatr\IdeaProjects\iridium-site\src\pages\calendario" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -171,7 +189,7 @@
       <command value="gradle build" />
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.iridium-site [build]">
+  <component name="RunManager" selected="npm.build">
     <configuration name="iridium-site [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -216,10 +234,30 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
+    <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="build" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.iridium-site [run]" />
-        <item itemvalue="Gradle.iridium-site [build]" />
+        <item itemvalue="npm.build" />
+        <item itemvalue="npm.start" />
         <item itemvalue="Gradle.iridium-site [run]" />
         <item itemvalue="Gradle.iridium-site [build]" />
         <item itemvalue="Gradle.iridium-site [run]" />
@@ -247,6 +285,8 @@
       <workItem from="1715860675543" duration="10761000" />
       <workItem from="1719024472140" duration="3128000" />
       <workItem from="1719028846809" duration="3500000" />
+      <workItem from="1719032417632" duration="363000" />
+      <workItem from="1719089803395" duration="17883000" />
     </task>
     <task id="LOCAL-00001" summary="Dois diretórios, um com as coisas do front e outro com as coisas do back, pra conseguir rodar o gradle tem que entrar no diretório backend na IDLE, se não por padrão ele procura a gradle build no diretorio principal e não no back">
       <option name="closed" value="true" />
@@ -280,7 +320,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715867591102</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Tentativa de mover as coisas do html pro react">
+      <option name="closed" value="true" />
+      <created>1719032448663</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1719032448664</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

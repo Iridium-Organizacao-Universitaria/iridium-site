@@ -1,10 +1,16 @@
-/* Estilos específicos da página Perfil */
-
 .profile-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
+    align-self: center;
+    z-index: 1; /* Garante que o conteúdo do perfil fique na frente do cabeçalho */
+}
+
+.profile-container hr {
+    width: 80%; /* A largura pode ser ajustada conforme necessário */
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid #ccc; /* Linha cinza */
 }
 
 .profile-container p {
@@ -12,7 +18,12 @@
     padding: 5px;
 }
 
+.profile-container label {
+    margin-left: 10px;
+}
+
 .profile-image {
+    background-color: grey;
     width: 150px;
     height: 150px;
     border-radius: 50%;
@@ -38,11 +49,8 @@
     line-height: 150px; /* Centraliza verticalmente */
 }
 
-.profile-info p {
-    margin-bottom: 10px;
-}
-
 .edit-button {
+    margin-top: 20px;
     padding: 10px 20px; /* Adicionando padding à esquerda para acomodar a imagem */
     background-color: transparent; /* Botão transparente */
     color: #000; /* Cor do texto preto */
@@ -50,9 +58,24 @@
     border: 1px solid #000; /* Bordas pretas */
     border-radius: 8px; /* Bordas arredondadas */
     position: relative; /* Define posição relativa */
+    font-weight: normal;
+    width: 350px;
 }
 
 .edit-button:hover {
     background-color: #000; /* Mudança de cor no hover */
     color: #fff; /* Mudança de cor do texto para branco no hover */
+}
+
+.info_box {
+    display: flex;
+    align-items: center;
+    margin: 15px;
+    padding: 14px; /* Padding interno */
+    border: transparent; /* Sem borda visível */
+    border-radius: 10px; /* Bordas arredondadas */
+    background-color: #e6e6e6; /* Cor de fundo */
+    box-sizing: border-box; /* Garante que o padding está incluído na largura total */
+    width: 350px;
+    height: 50px;
 }

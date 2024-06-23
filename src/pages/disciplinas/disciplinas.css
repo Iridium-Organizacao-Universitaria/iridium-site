@@ -1,5 +1,4 @@
 /* Estilos específicos da página Disciplinas */
-
 .title {
     color: #cecece;
     position: absolute;
@@ -7,16 +6,17 @@
     left: 50px;
 }
 
-.container {
+.container_dis {
     display: flex;
     flex-direction: column;
     justify-content: center;
     height: 110vh;
     padding: 0px 80px 0px 80px;
     row-gap: 50px;
+    width: 90%;
 }
 
-.container h2 {
+.container_dis h3, .container_dis h2 {
     color: #cecece;
 }
 
@@ -24,7 +24,7 @@ button {
     background-color: #f4bad9;
     color: white;
     padding: 30px;
-    border-radius: 10px;
+    border-radius: 15px;
     border: transparent;
     font-weight: bold;
 }
@@ -42,7 +42,7 @@ button:hover {
     width: 100%;
 }
 
-.container p {
+.container_dis p {
     color: black;
     text-align: justify;
 }
@@ -64,3 +64,25 @@ button:hover {
     background: #cecece;
     border-radius: 10px;
 }
+
+.botao_disciplina {
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #f4bad9; /* Cor de fundo rosa */
+    border-radius: 15px; /* Bordas arredondadas */
+    padding: 10px; /* Espaçamento interno */
+    margin-bottom: 7px; /* Espaçamento entre disciplinas */
+    width: 200px; /* Largura da disciplina individual */
+    text-align: center; /* Centraliza o conteúdo */
+}
+
+.botao_disciplina p {
+    color: white; /* Cor do texto branco */
+}
+
+.botao_disciplina:hover {
+    background-color: white; /* Mudança de cor no hover */
+    color: black; /* Mudança de cor do texto no hover */
+    border: 1px solid black; /* Adiciona borda no hover */
+}
+

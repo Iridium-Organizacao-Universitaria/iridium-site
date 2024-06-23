@@ -1,0 +1,86 @@
+.container {
+    display: flex;
+    justify-content: center; /* Centraliza os itens horizontalmente */
+    align-items: center; /* Centraliza os itens verticalmente */
+    height: 100vh;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza os itens horizontalmente */
+    align-items: center; /* Centraliza os itens verticalmente */
+    width: 350px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.input-group {
+    width: 350px;
+    margin-bottom: 20px; /* Adiciona espaçamento entre os elementos */
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 10px;
+    color: #333333; /* Cor do texto */
+}
+
+.input-group input {
+    width: 350px;
+    padding: 10px; /* Padding interno */
+    border: 1px solid #cccccc; /* Borda cinza */
+    border-radius: 5px; /* Bordas arredondadas */
+    font-size: 15px; /* Tamanho da fonte */
+}
+
+.input-group button {
+    text-align: center;
+    width: 350px;
+    color: #ffffff; /* Cor do texto branco */
+    border: none; /* Sem borda */
+    border-radius: 5px; /* Bordas arredondadas */
+    cursor: pointer; /* Cursor apontador */
+    font-size: 15px; /* Tamanho da fonte */
+    box-sizing: border-box;
+    font-weight: normal;
+}
+
+.input-group input:focus {
+    border-color: #535353; /* Altera a cor da borda ao clicar na caixa de input */
+}
+
+.google-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 350px;
+}
+
+.google-login p {
+    margin-bottom: 10px;
+    color: #000; /* Cor do texto preto */
+}
+
+.google-login a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff; /* Cor de fundo branca */
+    color: #000000; /* Cor do texto preto */
+    border: 1px solid #000000; /* Borda preta */
+    border-radius: 5px; /* Bordas arredondadas */
+    text-decoration: none; /* Sem decoração de texto */
+    cursor: pointer; /* Cursor apontador */
+}
+
+.google-login a img {
+    width: 20px; /* Largura da imagem */
+    height: auto; /* Altura automática */
+    vertical-align: middle; /* Alinhamento vertical */
+}
+
+.google-login a:hover {
+    background-color: #000000; /* Mudança de cor no hover */
+    color: #ffffff; /* Mudança de cor do texto para branco no hover */
+}

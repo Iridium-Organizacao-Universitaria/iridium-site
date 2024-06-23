@@ -1,5 +1,5 @@
 import React from 'react';
-import '../App.css'; // Importa o estilo geral
+import '../../App.css'; // Importa o estilo geral
 import './quemsomos.css'; // Importa os estilos específicos da página
 
 const QuemSomos = () => {
@@ -11,9 +11,11 @@ const QuemSomos = () => {
                     <p>Iridium</p>
                 </div>
                 <nav>
-                    <a href="/">início</a>
+                    <a href="/">Início</a>
                     <p> | </p>
-                    <a href="/registro">registro</a>
+                    <a href="/registro/Registro">Registro</a>
+                    <p> | </p>
+                    <a href="/login/Login">Login</a>
                 </nav>
             </header>
 
@@ -29,12 +31,12 @@ const QuemSomos = () => {
                     <h2>Informações Adicionais</h2>
                     <p>Acesse a página do projeto Iridium - Organização Universitária, no Github, para mais informações.</p>
                     <div className="botoes">
-                        <a href="https://github.com/Iridium-Organizacao-Universitaria" className="btn">Iridium</a>
+                        <a href="https://github.com/Iridium-Organizacao-Universitaria" className="btn app-btn">Iridium</a>
                     </div>
                     <p>Acesse também as páginas pessoais das desenvolvedoras do projeto.</p>
                     <div className="botoes">
-                        <a href="https://github.com/beavct" className="profile-btn">Beatriz</a>
-                        <a href="https://github.com/maysaclaudino" className="profile-btn">Maysa</a>
+                        <a href="https://github.com/beavct" className="profile-btn app-btn">Beatriz</a>
+                        <a href="https://github.com/maysaclaudino" className="profile-btn app-btn">Maysa</a>
                     </div>
                 </div>
             </div>

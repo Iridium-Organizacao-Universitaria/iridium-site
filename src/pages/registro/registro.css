@@ -1,0 +1,116 @@
+.container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100vh;
+    padding: 0px 5%;
+}
+
+.welcome {
+    flex: 1;
+    text-align: left;
+    word-wrap: break-word;
+    margin: 0;
+    padding: 0;
+}
+
+.welcome h1 {
+    font-size: 7rem;
+    margin: 0;
+    padding-left: 0;
+    margin-bottom: 30px;
+    font-family: 'Open Sans', sans-serif;
+    -webkit-text-stroke: 3px #797979; /* Aumentando a largura da borda e definindo a cor */
+    color: transparent;
+    font-weight: bold;
+}
+
+.registration-form {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    max-width: 400px;
+    margin-left: 50px;
+    margin-top: 80px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.input-group input {
+    width: calc(100% - 40px); /* Ajuste para o tamanho do input */
+    padding: 14px; /* Padding interno */
+    border: transparent; /* Sem borda visível */
+    border-radius: 10px; /* Bordas arredondadas */
+    background-color: #E6E6E6; /* Cor de fundo */
+    margin: 5px 0; /* Espaçamento entre inputs */
+}
+
+.input-group button {
+    width: calc(100% - 10px); /* Ajuste para o tamanho do botão */
+    padding: 14px; /* Padding interno */
+    background-color: transparent; /* Fundo transparente */
+    color: #000; /* Cor do texto */
+    text-decoration: none; /* Sem decoração de texto */
+    border: 1px solid #000; /* Borda sólida preta */
+    border-radius: 10px; /* Bordas arredondadas */
+    cursor: pointer; /* Cursor apontador */
+}
+
+.input-group input:focus {
+    border-color: #535353; /* Cor da borda ao focar */
+}
+
+.google-login {
+    width: calc(100% - 40px);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.google-login p {
+    margin-bottom: 10px;
+    color: #000;
+}
+
+.google-login a {
+    display: inline-block;
+    padding: 14px; /* Padding interno */
+    background-color: transparent; /* Fundo transparente */
+    color: #000; /* Cor do texto */
+    text-decoration: none; /* Sem decoração de texto */
+    border: 1px solid #000; /* Borda sólida preta */
+    border-radius: 10px; /* Bordas arredondadas */
+    position: relative; /* Posição relativa */
+    cursor: pointer; /* Cursor apontador */
+    width: 100%;
+    text-align: center;
+}
+
+.google-login a img {
+    position: absolute; /* Posição absoluta */
+    left: 15px; /* Posicionamento à esquerda */
+    top: 50%; /* Alinhamento vertical */
+    transform: translateY(-50%); /* Ajuste fino do alinhamento vertical */
+    width: 20px; /* Largura da imagem */
+    height: auto; /* Altura automática */
+}
+
+.google-login a:hover,
+.input-group button:hover {
+    background-color: #000; /* Cor de fundo no hover */
+    color: #fff; /* Cor do texto no hover */
+}
+
+/* Estilo para o hr */
+.registration-form hr {
+    margin: 10px 0; /* Margem superior e inferior */
+    border: none; /* Sem borda */
+    border-top: 2px solid #ccc; /* Borda superior de 1px sólida cinza */
+    width: 100%; /* Largura total */
+}
