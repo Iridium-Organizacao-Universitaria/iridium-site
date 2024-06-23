@@ -69,8 +69,8 @@
 
 .google-login {
     width: calc(100% - 40px);
-    text-align: center;
     margin-bottom: 20px;
+    text-align: left;
 }
 
 .google-login p {
@@ -88,7 +88,7 @@
     border-radius: 10px; /* Bordas arredondadas */
     position: relative; /* Posição relativa */
     cursor: pointer; /* Cursor apontador */
-    width: 100%;
+    width: calc(100% - 40px);
     text-align: center;
 }
 

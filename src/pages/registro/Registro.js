@@ -7,7 +7,7 @@ const Registro = () => {
         event.preventDefault(); // Previne o comportamento padrão do formulário
         if (validateForm()) {
             // Simula o redirecionamento após validação
-            window.location.href = "/perfil";
+            window.location.href = "/perfil/Perfil";
         }
     };
 
