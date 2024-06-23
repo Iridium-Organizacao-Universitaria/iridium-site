@@ -13,7 +13,6 @@
     height: 110vh;
     padding: 0px 80px 0px 80px;
     row-gap: 50px;
-    width: 90%;
 }
 
 .container_dis h3, .container_dis h2 {
@@ -25,8 +24,8 @@ button {
     color: white;
     padding: 30px;
     border-radius: 15px;
-    border: transparent;
     font-weight: bold;
+    border: 1px solid #f4bad9;
 }
 
 button:hover {
@@ -50,12 +49,11 @@ button:hover {
 .disciplinas_andamento,
 .disciplinas_passadas {
     display: flex;
-    margin-right: 15px;
     overflow-x: auto; /* Adicionando barra de rolagem horizontal */
 }
 
 ::-webkit-scrollbar {
-    height: 10px;
+    height: 8px;
     width: 4px;
     border-radius: 10px;
     background-color: #e6e6e6;
@@ -74,6 +72,7 @@ button:hover {
     margin-bottom: 7px; /* Espaçamento entre disciplinas */
     width: 200px; /* Largura da disciplina individual */
     text-align: center; /* Centraliza o conteúdo */
+    border: 1px solid #f4bad9;
 }
 
 .botao_disciplina p {
