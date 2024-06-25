@@ -8,3 +8,4 @@ interface DisciplinaRepository {
     suspend fun addDisciplina(disciplina: Disciplina)
     suspend fun removeDisciplina(name: String): Boolean
 }
+

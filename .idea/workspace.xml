@@ -5,24 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="43de6201-036e-4b14-b80f-36ac33635423" name="Changes" comment="O frontend está dentro do diretório resources">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/iridium/models/DisciplinaRepository.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/iridium/models/FakeDisciplinaRepository.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/iridium/db/mapping.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/iridium/models/PostgresDisciplinaRepository.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/iridium/Application.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/iridium/Application.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/iridium/models/Atividade.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/iridium/models/Atividade.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/iridium/models/Disciplina.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/iridium/models/Disciplina.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/iridium/plugins/CitySchema.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/iridium/models/DisciplinaRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/iridium/models/DisciplinaRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/iridium/models/FakeDisciplinaRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/com/iridium/FakeDisciplinaRepository.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/iridium/plugins/Databases.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/iridium/plugins/Databases.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/iridium/plugins/Monitoring.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/iridium/plugins/Monitoring.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/iridium/plugins/Routing.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/iridium/plugins/Routing.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/iridium/plugins/Serialization.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/iridium/plugins/Serialization.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/iridium/plugins/UsersSchema.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/iridium/routes/AtividadeRoute.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/iridium/routes/AtividadeRoute.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/iridium/routes/DisciplinaRoute.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/iridium/routes/DisciplinaRoute.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/frontend/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/iridium/ApplicationTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/com/iridium/ApplicationTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -60,7 +50,7 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="com.iridium.iridium" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="application" type="c8890929:TasksNode$1" />
+                <item name="build" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -70,7 +60,13 @@
     </system>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="bancoDeDados" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -108,7 +104,7 @@
     "Gradle.iridium-site [run].executor": "Run",
     "Kotlin script (Beta).build.gradle.kts.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "bancodedados",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/beatr/IdeaProjects/iridium-site/backend",
     "node.js.detected.package.eslint": "true",
@@ -130,13 +126,16 @@
       <recent name="C:\Users\beatr\IdeaProjects\iridium-site\backend" />
       <recent name="C:\Users\beatr\IdeaProjects\iridium-site\frontend" />
     </key>
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="com.iridium" />
+    </key>
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="gradle build" />
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.ApplicationTest.newDisciplinasCanBeAdded">
+  <component name="RunManager" selected="Gradle.iridium-site [run]">
     <configuration name="ApplicationTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -161,7 +160,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="ApplicationTest.newDisciplinasCanBeAdded" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="ApplicationTest.newTasksCanBeAdded" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -174,7 +173,31 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.iridium.ApplicationTest.newDisciplinasCanBeAdded&quot;" />
+            <option value="&quot;com.iridium.ApplicationTest.newTasksCanBeAdded&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="ApplicationTest.tasksCanBeFoundByPriority" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.iridium.ApplicationTest.tasksCanBeFoundByPriority&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -231,10 +254,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.ApplicationTest.newDisciplinasCanBeAdded" />
-        <item itemvalue="Gradle.ApplicationTest" />
         <item itemvalue="Gradle.iridium-site [run]" />
         <item itemvalue="Gradle.iridium-site [build]" />
+        <item itemvalue="Gradle.ApplicationTest.tasksCanBeFoundByPriority" />
+        <item itemvalue="Gradle.ApplicationTest.newTasksCanBeAdded" />
+        <item itemvalue="Gradle.ApplicationTest" />
       </list>
     </recent_temporary>
   </component>
@@ -279,6 +303,44 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="bancoDeDados" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="bancoDeDados" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Dois diretórios, um com as coisas do front e outro com as coisas do back, pra conseguir rodar o gradle tem que entrar no diretório backend na IDLE, se não por padrão ele procura a gradle build no diretorio principal e não no back" />
