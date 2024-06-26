@@ -1,7 +1,9 @@
 package com.iridium.plugins
 
 import Disciplina
+import Atividade
 import com.iridium.models.DisciplinaRepository
+import com.iridium.models.AtividadeRepository
 import io.ktor.http.*
 import io.ktor.serialization.*
 import io.ktor.serialization.kotlinx.json.*
@@ -11,10 +13,10 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.request.*
 
-fun Application.configureSerialization(repository: DisciplinaRepository) {
-    install(ContentNegotiation) {
-        json()
-    }
+fun Application.configureDisciplinaSerialization(repository: DisciplinaRepository) {
+//    install(ContentNegotiation) {
+//        json()
+//    }
     routing {
         route("/disciplinas") {
             get {
@@ -55,6 +57,59 @@ fun Application.configureSerialization(repository: DisciplinaRepository) {
                     return@delete
                 }
                 if (repository.removeDisciplina(nome)) {
+                    call.respond(HttpStatusCode.NoContent)
+                } else {
+                    call.respond(HttpStatusCode.NotFound)
+                }
+            }
+        }
+    }
+}
+
+fun Application.configureAtividadeSerialization(repository: AtividadeRepository) {
+//    install(ContentNegotiation) {
+//        json()
+//    }
+    routing {
+        route("/atividades") {
+            get {
+                val atividades = repository.allAtividades()
+                call.respond(atividades)
+            }
+
+            get("/byName/{atividadeName}") {
+                val nome = call.parameters["atividadeName"]
+                if (nome == null) {
+                    call.respond(HttpStatusCode.BadRequest)
+                    return@get
+                }
+                val atividade = repository.atividadeByName(nome)
+                if (atividade == null) {
+                    call.respond(HttpStatusCode.NotFound)
+                    return@get
+                }
+                call.respond(atividade)
+            }
+
+            post {
+                try {
+                    val atividade = call.receive<Atividade>()
+                    repository.addAtividade(atividade)
+                    call.respond(HttpStatusCode.NoContent)
+                } catch (ex: IllegalStateException) {
+                    call.respond(HttpStatusCode.BadRequest)
+                } catch (ex: JsonConvertException) {
+                    call.respond(HttpStatusCode.BadRequest)
+                }
+            }
+
+            delete("/{atividadeName}") {
+                val nome = call.parameters["atividadeName"]
+                if (nome == null) {
+                    call.respond(HttpStatusCode.BadRequest)
+                    return@delete
+                }
+                if (repository.removeAtividade(nome)) {
                     call.respond(HttpStatusCode.NoContent)
                 } else {
                     call.respond(HttpStatusCode.NotFound)

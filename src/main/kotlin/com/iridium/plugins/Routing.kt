@@ -4,16 +4,13 @@ import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
-import com.iridium.routes.*
+//import com.iridium.routes.*
 import io.ktor.http.* // ContentType
 import io.ktor.server.http.content.* // staticResources
 //import io.ktor.server.plugins.statuspages.*
 
 fun Application.configureRouting() {
     routing {
-//        disciplinaRouting()
-        atividadeRouting()
-
         staticResources("/", "frontend")
 
 //        get("/") {

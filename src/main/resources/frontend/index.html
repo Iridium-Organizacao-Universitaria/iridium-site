@@ -30,6 +30,11 @@
     <input type="submit" value="Go">
 </form>
 
+<form action="javascript:displayAllAtividades()">
+    <span>View all the atividades</span>
+    <input type="submit" value="Go">
+</form>
+
 <form name="addDisciplinaForm" action="javascript:addNewDisciplina()">
     <span>Criar nova disciplina :D </span>
 
@@ -48,21 +53,48 @@
     <input type="submit" value="Go">
 </form>
 
+<form name="addAtividadeForm" action="javascript:addNewAtividade()">
+    <span>Criar nova atividade :D </span>
+
+    <label for="newAtividadeName">Nome:</label>
+    <input type="text" id="newAtividadeName" name="newAtividadeName" size="10">
+
+    <label for="newAtividadeDescricao">Descricao:</label>
+    <input type="text" id="newAtividadeDescricao" name="newAtividadeDescricao" size="20">
+
+    <input type="submit" value="Go">
+</form>
+
 <hr>
     <div>
         Matéria atual -> <em id="currentDisciplinaDisplay">None</em>
+    </div>
+
+    <div>
+        Atividade atual -> <em id="currentAtividadeDisplay">None</em>
     </div>
 <hr>
 
 <table>
     <thead>
         <tr>
-            <th>Name</th>
+            <th>Nome da matéria</th>
             <th></th>
             <th></th>
         </tr>
     </thead>
     <tbody id="disciplinasTableBody"></tbody>
+</table>
+
+<table>
+    <thead>
+    <tr>
+        <th>Nome da atividade</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody id="atividadesTableBody"></tbody>
 </table>
 
 <script src="scripts/index_script.js" defer></script>
