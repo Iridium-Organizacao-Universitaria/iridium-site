@@ -9,10 +9,14 @@ import java.sql.*
 import kotlinx.coroutines.*
 import org.jetbrains.exposed.sql.*
 
+//DROP TABLE IF EXISTS disciplina;
+//CREATE TABLE disciplina(id SERIAL PRIMARY KEY, name VARCHAR(50), docente VARCHAR(50));
+//INSERT INTO disciplina (name, docente) VALUES ('calculo', 'zara');
+
 fun Application.configureDatabases() {
     Database.connect(
-        "jdbc:postgresql://localhost:5432/ktor_tutorial_db",
-        driver = "org.postgresql.Driver",
+        "jdbc:postgresql://localhost:5432/iridium_db",
+//        driver = "org.postgresql.Driver",
         user = "postgres",  
         password = "bancodados"
     )
