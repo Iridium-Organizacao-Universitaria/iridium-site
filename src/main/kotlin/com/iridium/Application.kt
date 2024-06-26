@@ -4,11 +4,6 @@ import com.iridium.models.PostgresDisciplinaRepository
 import com.iridium.plugins.*
 import io.ktor.server.application.*
 
-//fun main() {
-//    embeddedServer(Netty, port = 8080, host = "0.0.0.0", module = Application::module)
-//        .start(wait = true)
-//}
-
 fun Application.module() {
     val repository = PostgresDisciplinaRepository()
 

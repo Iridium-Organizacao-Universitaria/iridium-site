@@ -9,146 +9,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <script type="application/javascript">
-        function displayAllDisciplinas() {
-            clearDisciplinasTable();
-            fetchAllDisciplinas().then(displayDisciplinas)
-        }
-
-        function displayDisciplina(name) {
-            fetchDisciplinaWithName(name).then(t =>
-                disciplinaDisplay().innerHTML
-                    = `Nome: ${t.name} Docente: "${t.docente}"`
-            )
-        }
-
-        function deleteDisciplina(name) {
-            deleteDisciplinaWithName(name).then(() => {
-                clearDisciplinaDisplay();
-                displayAllDisciplinas();
-            })
-        }
-
-        function deleteDisciplinaWithName(name) {
-            return sendDELETE(`/disciplinas/${name}`)
-        }
-
-        function addNewDisciplina() {
-            const disciplina = buildDisciplinaFromForm();
-            sendPOST("/disciplinas", disciplina).then(displayAllDisciplinas);
-        }
-
-        function buildDisciplinaFromForm() {
-            return {
-                name: getDisciplinaFormValue("newDisciplinaName"),
-                docente: getDisciplinaFormValue("newDisciplinaDocente"),
-            }
-        }
-
-        function getDisciplinaFormValue(controlName) {
-            return document.addDisciplinaForm[controlName].value;
-        }
-
-        function disciplinaDisplay() {
-            return document.getElementById("currentDisciplinaDisplay");
-        }
-
-        function fetchDisciplinaWithName(name) {
-            return sendGET(`/disciplinas/byName/${name}`);
-        }
-
-        function fetchAllDisciplinas() {
-            return sendGET("/disciplinas")
-        }
-
-        function sendGET(url) {
-            return fetch(
-                url,
-                {headers: {'Accept': 'application/json'}}
-            ).then(response => {
-                if (response.ok) {
-                    return response.json()
-                }
-                return [];
-            });
-        }
-
-        function sendPOST(url, data) {
-            return fetch(url, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(data)
-            });
-        }
-
-        function sendDELETE(url) {
-            return fetch(url, {
-                method: "DELETE"
-            });
-        }
-
-        function disciplinasTable() {
-            return document.getElementById("disciplinasTableBody");
-        }
-
-        function clearDisciplinasTable() {
-            disciplinasTable().innerHTML = "";
-        }
-
-        function clearDisciplinaDisplay() {
-            disciplinaDisplay().innerText = "None";
-        }
-
-        function displayDisciplinas(disciplinas) {
-            const disciplinasTableBody = disciplinasTable()
-            disciplinas.forEach(disciplina => {
-                const newRow = disciplinaRow(disciplina);
-                disciplinasTableBody.appendChild(newRow);
-            });
-        }
-
-        function disciplinaRow(disciplina) {
-            return tr([
-                td(disciplina.name),
-                td(viewLink(disciplina.name)),
-                td(deleteLink(disciplina.name)),
-            ]);
-        }
-
-        function tr(children) {
-            const node = document.createElement("tr");
-            children.forEach(child => node.appendChild(child));
-            return node;
-        }
-
-        function td(content) {
-            const node = document.createElement("td");
-            if (content instanceof Element) {
-                node.appendChild(content)
-            } else {
-                node.appendChild(document.createTextNode(content));
-            }
-            return node;
-        }
-
-        function viewLink(disciplinaName) {
-            const node = document.createElement("a");
-            node.setAttribute(
-                "href", `javascript:displayDisciplina("${disciplinaName}")`
-            )
-            node.appendChild(document.createTextNode("view"));
-            return node;
-        }
-
-        function deleteLink(disciplinaName) {
-            const node = document.createElement("a");
-            node.setAttribute(
-                "href", `javascript:deleteDisciplina("${disciplinaName}")`
-            )
-            node.appendChild(document.createTextNode("delete"));
-            return node;
-        }
-    </script>
 </head>
 <body onload="displayAllDisciplinas()">
 <header>
@@ -162,34 +22,49 @@
         <a href="quemsomos.html">quem somos</a>
     </nav>
 </header>
+
 <h1>Disciplina Manager Client</h1>
+
 <form action="javascript:displayAllDisciplinas()">
     <span>View all the disciplinas</span>
     <input type="submit" value="Go">
 </form>
+
 <form name="addDisciplinaForm" action="javascript:addNewDisciplina()">
     <span>Criar nova disciplina :D </span>
+
     <label for="newDisciplinaName">Nome:</label>
     <input type="text" id="newDisciplinaName" name="newDisciplinaName" size="10">
+
     <label for="newDisciplinaDocente">Docente:</label>
     <input type="text" id="newDisciplinaDocente" name="newDisciplinaDocente" size="20">
+
+    <label for="newDisciplinaSigla">Sigla:</label>
+    <input type="text" id="newDisciplinaSigla" name="newDisciplinaSigla" size="20">
+
+    <label for="newDisciplinaApelido">Apelido:</label>
+    <input type="text" id="newDisciplinaApelido" name="newDisciplinaApelido" size="20">
+
     <input type="submit" value="Go">
 </form>
+
 <hr>
-<div>
-    Matéria atual -> <em id="currentDisciplinaDisplay">None</em>
-</div>
+    <div>
+        Matéria atual -> <em id="currentDisciplinaDisplay">None</em>
+    </div>
 <hr>
+
 <table>
     <thead>
-    <tr>
-        <th>Name</th>
-        <th></th>
-        <th></th>
-    </tr>
+        <tr>
+            <th>Name</th>
+            <th></th>
+            <th></th>
+        </tr>
     </thead>
-    <tbody id="disciplinasTableBody">
-    </tbody>
+    <tbody id="disciplinasTableBody"></tbody>
 </table>
+
+<script src="scripts/index_script.js" defer></script>
 </body>
 </html>

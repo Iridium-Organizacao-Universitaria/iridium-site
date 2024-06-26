@@ -1,0 +1,140 @@
+function displayAllDisciplinas() {
+    clearDisciplinasTable();
+    fetchAllDisciplinas().then(displayDisciplinas)
+}
+
+function displayDisciplina(name) {
+    fetchDisciplinaWithName(name).then(t =>
+        disciplinaDisplay().innerHTML
+            = `Nome: ${t.name} Docente: ${t.docente} Sigla: ${t.sigla} Apelido: ${t.apelido}`
+    )
+}
+
+function deleteDisciplina(name) {
+    deleteDisciplinaWithName(name).then(() => {
+        clearDisciplinaDisplay();
+        displayAllDisciplinas();
+    })
+}
+
+function deleteDisciplinaWithName(name) {
+    return sendDELETE(`/disciplinas/${name}`)
+}
+
+function addNewDisciplina() {
+    const disciplina = buildDisciplinaFromForm();
+    sendPOST("/disciplinas", disciplina).then(displayAllDisciplinas);
+}
+
+function buildDisciplinaFromForm() {
+    return {
+        name: getDisciplinaFormValue("newDisciplinaName"),
+        docente: getDisciplinaFormValue("newDisciplinaDocente"),
+        sigla: getDisciplinaFormValue("newDisciplinaSigla"),
+        apelido: getDisciplinaFormValue("newDisciplinaApelido"),
+    }
+}
+
+function getDisciplinaFormValue(controlName) {
+    return document.addDisciplinaForm[controlName].value;
+}
+
+function disciplinaDisplay() {
+    return document.getElementById("currentDisciplinaDisplay");
+}
+
+function fetchDisciplinaWithName(name) {
+    return sendGET(`/disciplinas/byName/${name}`);
+}
+
+function fetchAllDisciplinas() {
+    return sendGET("/disciplinas")
+}
+
+function sendGET(url) {
+    return fetch(
+        url,
+        {headers: {'Accept': 'application/json'}}
+    ).then(response => {
+        if (response.ok) {
+            return response.json()
+        }
+        return [];
+    });
+}
+
+function sendPOST(url, data) {
+    return fetch(url, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+    });
+}
+
+function sendDELETE(url) {
+    return fetch(url, {
+        method: "DELETE"
+    });
+}
+
+function disciplinasTable() {
+    return document.getElementById("disciplinasTableBody");
+}
+
+function clearDisciplinasTable() {
+    disciplinasTable().innerHTML = "";
+}
+
+function clearDisciplinaDisplay() {
+    disciplinaDisplay().innerText = "None";
+}
+
+function displayDisciplinas(disciplinas) {
+    const disciplinasTableBody = disciplinasTable()
+    disciplinas.forEach(disciplina => {
+        const newRow = disciplinaRow(disciplina);
+        disciplinasTableBody.appendChild(newRow);
+    });
+}
+
+function disciplinaRow(disciplina) {
+    return tr([
+        td(disciplina.name),
+        td(viewLink(disciplina.name)),
+        td(deleteLink(disciplina.name)),
+    ]);
+}
+
+function tr(children) {
+    const node = document.createElement("tr");
+    children.forEach(child => node.appendChild(child));
+    return node;
+}
+
+function td(content) {
+    const node = document.createElement("td");
+    if (content instanceof Element) {
+        node.appendChild(content)
+    } else {
+        node.appendChild(document.createTextNode(content));
+    }
+    return node;
+}
+
+function viewLink(disciplinaName) {
+    const node = document.createElement("a");
+    node.setAttribute(
+        "href", `javascript:displayDisciplina("${disciplinaName}")`
+    )
+    node.appendChild(document.createTextNode("view"));
+    return node;
+}
+
+function deleteLink(disciplinaName) {
+    const node = document.createElement("a");
+    node.setAttribute(
+        "href", `javascript:deleteDisciplina("${disciplinaName}")`
+    )
+    node.appendChild(document.createTextNode("delete"));
+    return node;
+}

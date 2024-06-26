@@ -25,6 +25,8 @@ class PostgresDisciplinaRepository : DisciplinaRepository {
         DisciplinaDAO.new {
             name = disciplina.name
             docente = disciplina.docente
+            sigla = disciplina.sigla
+            apelido = disciplina.apelido
         }
     }
 

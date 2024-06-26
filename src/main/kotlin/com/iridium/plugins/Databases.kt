@@ -1,17 +1,11 @@
 package com.iridium.plugins
 
-import io.ktor.http.*
 import io.ktor.server.application.*
-import io.ktor.server.request.*
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
-import java.sql.*
-import kotlinx.coroutines.*
 import org.jetbrains.exposed.sql.*
 
 //DROP TABLE IF EXISTS disciplina;
-//CREATE TABLE disciplina(id SERIAL PRIMARY KEY, name VARCHAR(50), docente VARCHAR(50));
-//INSERT INTO disciplina (name, docente) VALUES ('calculo', 'zara');
+//CREATE TABLE disciplina(id SERIAL PRIMARY KEY, name VARCHAR(50), docente VARCHAR(50), sigla VARCHAR(50), apelido VARCHAR(50));
+//INSERT INTO disciplina (name, docente, sigla, apelido) VALUES ('calculo', 'zara', 'MAT0123, 'calcpi');
 
 fun Application.configureDatabases() {
     Database.connect(
