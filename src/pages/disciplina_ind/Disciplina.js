@@ -32,7 +32,7 @@ const Disciplina = () => {
     };
 
     return (
-        <div className="h" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+        <div className="h">
             <header>
                 <div id="marca">
                     <img src="/imgs/Starfruit.png" id="logo" alt="starfruit :3"/>

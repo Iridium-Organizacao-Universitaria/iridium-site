@@ -9,12 +9,14 @@ import Calendario from "./pages/calendario/Calendario";
 import Disciplinas from "./pages/disciplinas/Disciplinas";
 import Atividades from "./pages/atividades/Atividades";
 import Disciplina from "./pages/disciplina_ind/Disciplina";
+import Atividade from "./pages/atividade_ind/Atividade";
 
 function App() {
     return (
         <Router>
             <div>
                 <Routes>
+                    <Route path="/atividade_ind/Atividade" element={<Atividade />} />
                     <Route path="/disciplina_ind/Disciplina" element={<Disciplina />} />
                     <Route path="/atividades/Atividades" element={<Atividades />} />
                     <Route path="/calendario/Calendario" element={<Calendario />} />
