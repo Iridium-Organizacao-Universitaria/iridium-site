@@ -6,17 +6,12 @@ import com.iridium.models.DisciplinaRepository
 import com.iridium.models.AtividadeRepository
 import io.ktor.http.*
 import io.ktor.serialization.*
-import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
-import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.request.*
 
 fun Application.configureDisciplinaSerialization(repository: DisciplinaRepository) {
-//    install(ContentNegotiation) {
-//        json()
-//    }
     routing {
         route("/disciplinas") {
             get {
@@ -67,9 +62,6 @@ fun Application.configureDisciplinaSerialization(repository: DisciplinaRepositor
 }
 
 fun Application.configureAtividadeSerialization(repository: AtividadeRepository) {
-//    install(ContentNegotiation) {
-//        json()
-//    }
     routing {
         route("/atividades") {
             get {
@@ -89,6 +81,48 @@ fun Application.configureAtividadeSerialization(repository: AtividadeRepository)
                     return@get
                 }
                 call.respond(atividade)
+            }
+
+            get("/byTipo/{tipo}") {
+                val tipoAsText = call.parameters["tipo"]
+                if (tipoAsText == null) {
+                    call.respond(HttpStatusCode.BadRequest)
+                    return@get
+                }
+                try {
+                    val tipo = Tipo.valueOf(tipoAsText)
+                    val atividades = repository.atividadesByTipo(tipo)
+
+
+                    if (atividades.isEmpty()) {
+                        call.respond(HttpStatusCode.NotFound)
+                        return@get
+                    }
+                    call.respond(atividades)
+                } catch (ex: IllegalArgumentException) {
+                    call.respond(HttpStatusCode.BadRequest)
+                }
+            }
+
+            get("/byConcluido/{concluido}") {
+                val concluidoAsBoolean = call.parameters["concluido"]
+                if (concluidoAsBoolean == null) {
+                    call.respond(HttpStatusCode.BadRequest)
+                    return@get
+                }
+                try {
+                    val concluido = concluidoAsBoolean?.toBoolean()?: false
+                    val atividades = repository.atividadesByConcluido(concluido)
+
+
+                    if (atividades.isEmpty()) {
+                        call.respond(HttpStatusCode.NotFound)
+                        return@get
+                    }
+                    call.respond(atividades)
+                } catch (ex: IllegalArgumentException) {
+                    call.respond(HttpStatusCode.BadRequest)
+                }
             }
 
             post {
