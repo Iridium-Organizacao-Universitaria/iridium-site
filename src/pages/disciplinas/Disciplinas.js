@@ -34,6 +34,7 @@ const Disciplinas = () => {
                 <h2 className="title_dis">Disciplinas</h2>
                 <div className="container_dis">
                     <div className="criar_btn">
+                        <a href="/atividade_ind/Atividade">oie</a>
                         <button> Criar uma nova disciplina</button>
                     </div>
                     <div className="disc_atu">

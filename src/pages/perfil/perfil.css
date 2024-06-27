@@ -54,7 +54,7 @@
     line-height: 150px; /* Centraliza verticalmente */
 }
 
-.edit-button {
+.b_editar_perfil, .b_save_perfil {
     margin-top: 20px;
     padding: 10px 20px; /* Adicionando padding à esquerda para acomodar a imagem */
     background-color: transparent; /* Botão transparente */
@@ -67,7 +67,7 @@
     width: 350px;
 }
 
-.edit-button:hover {
+.b_editar_perfil:hover, .b_save_perfil:hover {
     background-color: #000; /* Mudança de cor no hover */
     color: #fff; /* Mudança de cor do texto para branco no hover */
 }
@@ -83,4 +83,11 @@
     box-sizing: border-box; /* Garante que o padding está incluído na largura total */
     width: 350px;
     height: 50px;
+}
+
+.edit-mode-perfil input {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 17px;
 }
