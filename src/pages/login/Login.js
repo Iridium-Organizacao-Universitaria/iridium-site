@@ -28,11 +28,13 @@ const Login = () => {
         <div>
             <header>
                 <div id="marca">
-                    <img src="/imgs/Starfruit.png" id="logo" alt="starfruit :3" />
+                    <img src="/imgs/Starfruit.png" id="logo" alt="starfruit :3"/>
                     <p>Iridium</p>
                 </div>
                 <nav>
                     <a href="/">Início</a>
+                    <p> | </p>
+                    <a href="/login/Login">Login</a>
                     <p> | </p>
                     <a href="/registro/Registro">Registro</a>
                     <p> | </p>
@@ -40,7 +42,8 @@ const Login = () => {
                 </nav>
             </header>
 
-            <div className="container">
+            <div className="login_tudo">
+                <h2 className="title_login">Login</h2>
                 <form className="login-form" onSubmit={handleSubmit}>
                     <div className="input-group">
                         <label htmlFor="email">E-mail:</label>

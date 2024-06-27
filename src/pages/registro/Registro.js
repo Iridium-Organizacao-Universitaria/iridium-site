@@ -36,11 +36,13 @@ const Registro = () => {
                     <p> | </p>
                     <a href="/login/Login">Login</a>
                     <p> | </p>
+                    <a href="/registro/Registro">Registro</a>
+                    <p> | </p>
                     <a href="/qmsomos/QuemSomos">Quem somos</a>
                 </nav>
             </header>
 
-            <div class="container">
+            <div class="registro_tudo">
                 <div class="welcome">
                     <h1>Bem-vindo ao Iridium</h1>
                 </div>

@@ -1,16 +1,21 @@
 /* Estilos específicos da página Disciplinas */
-.title {
+.disciplinas_tudo {
+    flex: 1;
+    overflow: auto;
+    padding-top: 50px; /*altura da header*/
+    display: flex;
+    flex-direction: column;
+}
+
+.title_dis {
     color: #cecece;
-    position: absolute;
-    top: 80px; /* Ajuste a distância do topo conforme necessário */
-    left: 50px;
+    margin: 60px;
 }
 
 .container_dis {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 110vh;
     padding: 0px 80px 0px 80px;
     row-gap: 50px;
 }
@@ -22,10 +27,10 @@
 button {
     background-color: #f4bad9;
     color: white;
-    padding: 30px;
+    padding: 20px;
     border-radius: 15px;
     font-weight: bold;
-    border: 1px solid #f4bad9;
+    border: 2px solid #f4bad9;
 }
 
 button:hover {

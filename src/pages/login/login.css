@@ -1,8 +1,14 @@
-.container {
+.title_login{
+    color: #cecece;
+}
+.login_tudo {
+    flex: 1;
+    overflow: auto;
+    padding-top: 150px; /*altura da header*/
     display: flex;
+    flex-direction: column;
     justify-content: center; /* Centraliza os itens horizontalmente */
     align-items: center; /* Centraliza os itens verticalmente */
-    height: 100vh;
 }
 
 .login-form {
@@ -38,12 +44,12 @@
     text-align: center;
     width: 350px;
     color: #ffffff; /* Cor do texto branco */
-    border: none; /* Sem borda */
     border-radius: 5px; /* Bordas arredondadas */
     cursor: pointer; /* Cursor apontador */
     font-size: 15px; /* Tamanho da fonte */
     box-sizing: border-box;
     font-weight: normal;
+    border: 1px solid white;
 }
 
 .input-group input:focus {
@@ -53,7 +59,6 @@
 .google-login {
     display: flex;
     flex-direction: column;
-    align-items: center;
     width: 350px;
 }
 
@@ -64,7 +69,6 @@
 
 .google-login a {
     display: flex;
-    align-items: center;
     justify-content: center;
     background-color: #ffffff; /* Cor de fundo branca */
     color: #000000; /* Cor do texto preto */
@@ -72,6 +76,7 @@
     border-radius: 5px; /* Bordas arredondadas */
     text-decoration: none; /* Sem decoração de texto */
     cursor: pointer; /* Cursor apontador */
+    width: 350px;
 }
 
 .google-login a img {

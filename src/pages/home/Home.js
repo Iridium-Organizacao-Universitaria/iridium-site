@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../App.css'; // Importa o estilo geral
+import './home.css';
 
 const Home = () => {
     return (
@@ -10,15 +11,19 @@ const Home = () => {
                     <p>Iridium</p>
                 </div>
                 <nav>
-                    <a href="/registro/Registro">Registro</a>
+                    <a href="/">Início</a>
                     <p> | </p>
                     <a href="/login/Login">Login</a>
+                    <p> | </p>
+                    <a href="/registro/Registro">Registro</a>
                     <p> | </p>
                     <a href="/qmsomos/QuemSomos">Quem somos</a>
                 </nav>
             </header>
 
-            <h2 className="title">Início</h2>
+            <div className="home_tudo">
+                <h2 className="title_ini">Início</h2>
+            </div>
 
             <footer>
                 <p>Iridium</p>

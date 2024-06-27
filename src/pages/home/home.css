@@ -1,7 +1,12 @@
-.calendario_tudo {
+.home_tudo {
     flex: 1;
     overflow: auto;
     padding-top: 50px; /*altura da header*/
     display: flex;
     flex-direction: column;
+}
+
+.title_ini {
+    margin-left: 50px;
+    margin-top: 50px;
 }

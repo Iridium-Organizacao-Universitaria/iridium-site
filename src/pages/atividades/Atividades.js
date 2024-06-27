@@ -21,6 +21,10 @@ const Atividades = () => {
                 </nav>
             </header>
 
+            <div className="atividades_tudo">
+
+            </div>
+
             <footer>
                 <p>Iridium</p>
             </footer>

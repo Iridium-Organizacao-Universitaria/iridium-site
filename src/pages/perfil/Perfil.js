@@ -1,8 +1,18 @@
 import React from 'react';
+import { useState } from 'react';
 import '../../App.css'; // Importa o estilo geral
 import './perfil.css'; // Importa os estilos específicos da página
 
 const Perfil = () => {
+    const [profileImage, setProfileImage] = useState('/imgs/default_profile_picture.jpeg'); // Estado inicial com a imagem padrão
+
+    // Função para lidar com a seleção de uma nova imagem de perfil
+    const handleImageChange = (event) => {
+        const selectedFile = event.target.files[0];
+        const imageUrl = URL.createObjectURL(selectedFile);
+        setProfileImage(imageUrl);
+    };
+
     return (
         <div>
             <header>
@@ -22,9 +32,13 @@ const Perfil = () => {
             </header>
 
             <div className="profile-container">
+                <h2 id="title">Perfil</h2>
                 <div className="profile-image">
-                    <img src="../../imgs/default_profile_picture.jpeg" alt="Foto de Perfil" id="profile-image"/>
-                    <i className="fas fa-user-circle"></i> {/* Ícone de perfil padrão */}
+                    <img src={profileImage} alt="Foto de Perfil" id="profile-image"/>
+                    {/* <label htmlFor="file-upload" className="custom-file-upload">
+                        Escolher arquivo
+                    </label>
+                    <input id="file-upload" type="file" onChange={handleImageChange} accept="image/*"/> */}
                 </div>
                 <div className="profile-info">
                     <label htmlFor="name">Nome:</label>

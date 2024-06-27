@@ -1,9 +1,9 @@
-.container {
+.registro_tudo {
+    flex: 1;
+    overflow: auto;
     display: flex;
-    justify-content: space-around;
     align-items: center;
-    height: 100vh;
-    padding: 0px 5%;
+    padding: 5%;
 }
 
 .welcome {
@@ -113,4 +113,8 @@
     border: none; /* Sem borda */
     border-top: 2px solid #ccc; /* Borda superior de 1px sólida cinza */
     width: 100%; /* Largura total */
+}
+
+.login-link p {
+    color: black;
 }
