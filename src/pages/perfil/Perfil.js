@@ -52,7 +52,7 @@ const Perfil = () => {
     const getMaskedPassword = (password) => '•'.repeat(password.length);
 
     return (
-        <div>
+        <div className="h">
             <header>
                 <div id="marca">
                     <img src="/imgs/Starfruit.png" id="logo" alt="starfruit :3"/>
