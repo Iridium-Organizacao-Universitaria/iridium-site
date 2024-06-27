@@ -1,6 +1,5 @@
 package com.iridium
 
-import Disciplina
 import com.iridium.plugins.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.contentnegotiation.*

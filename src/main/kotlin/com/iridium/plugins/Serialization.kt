@@ -1,7 +1,5 @@
 package com.iridium.plugins
 
-import Disciplina
-import com.iridium.models.DisciplinaRepository
 import io.ktor.http.*
 import io.ktor.serialization.*
 import io.ktor.serialization.kotlinx.json.*
