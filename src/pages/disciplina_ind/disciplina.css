@@ -1,0 +1,228 @@
+.h {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Garante que a div ocupe pelo menos a altura total da viewport */
+}
+
+.disciplina-page {
+    flex: 1;
+    overflow: auto;
+    padding-top: 50px; /*altura da header*/
+    display: flex;
+    justify-content: space-around;
+    max-width: 100%; /* Definindo uma largura máxima para a página */
+    max-height: 100%;
+}
+
+.disciplina-info {
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    background-color: #cecece; /* Cinza claro */
+    padding: 30px;
+}
+
+.disciplina-info h2 {
+    font-size: 30px;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.info-box {
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    padding: 20px 60px;
+    margin-bottom: 60px;
+    background: #cecece;
+    border-radius: 10px;
+    border: 2px solid white;
+}
+
+.info-box p {
+    font-size: 18px;
+}
+
+.info-box button {
+    display:block;
+    margin: 10px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px; /* Aumentando o tamanho da fonte */
+    border: 1px solid transparent;
+}
+
+.info_box_ind {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.disciplina-page label {
+    margin-right: 5px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.em_andamento {
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.em_andamento button {
+    text-align: center;
+}
+
+.b_sim_nao {
+    display: flex;
+    gap: 10px;
+}
+
+.b_sim, .b_sim:hover {
+    background-color: seagreen;
+}
+
+.b_nao, .b_nao:hover {
+    background-color: crimson;
+}
+
+.b_sim.selected, .b_nao.selected {
+    border: 2px solid white; /* Borda branca para o botão selecionado */
+}
+
+.botoes {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.b_delete-dis, .b_edita-dis, .b_save_disc {
+    display: block;
+    width: fit-content;
+    align-self: center;
+    background-color: #ff85a2;
+}
+
+.b_delete-dis:hover, .b_edita-dis:hover, .b_save_disc:hover {
+    background-color: #ff5e82; /* Cor rosa mais escura ao passar o mouse */
+}
+
+.atv_pro {
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.atividades, .provas {
+    flex: 1;
+    background-color: #ffffff; /* Branco */
+    padding: 20px;
+    margin-top: 10px;
+}
+
+.atividades h3, .provas h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #cecece;
+}
+
+.atividades-list, .provas-list  {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    padding: 0;
+    overflow-y: auto;
+    max-height: 150px;
+}
+
+.atividades-list li , .provas-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.atividades-list li img, .provas-list li img {
+    width: 20px;  /* Defina a largura desejada */
+    height: 20px; /* Mantém a proporção da imagem */
+    margin-right: 5px; /* Adiciona um espaço à direita da imagem */
+}
+
+.atividades-list li span, .provas-list li span  {
+    font-size: 17px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.data-entrega {
+    font-size: 14px;
+    color: black;
+}
+
+.btn-nova-atividade, .btn-nova-prova {
+    display:block;
+    margin:0 auto;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #ff85a2; /* Cor rosa */
+    color: white;
+    cursor: pointer;
+    font-size: 16px; /* Aumentando o tamanho da fonte */
+    border: 1px solid transparent;
+}
+
+.btn-nova-atividade:hover, .btn-nova-prova:hover {
+    background-color: white; /* Mudança de cor no hover */
+    color: black; /* Mudança de cor do texto no hover */
+    border: 1px solid black; /* Adiciona borda no hover */
+}
+
+
+.atividades-list::-webkit-scrollbar, .provas-list::-webkit-scrollbar {
+    height: 4px;
+    width: 8px;
+    border-radius: 10px;
+    background-color: #e6e6e6;
+}
+
+.atividades-list::-webkit-scrollbar-thumb, .provas-list::-webkit-scrollbar-thumb {
+    background: #cecece;
+    border-radius: 10px;
+}
+
+.edit-mode-disc{
+    display: flex;
+}
+
+.edit-mode-disc {
+    display: flex;
+    gap: 10px;
+}
+
+.edit-mode-disc input {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 30px;
+    outline: none;
+    border:none;
+    padding: 10px;
+    font-size: 17px;
+    margin: 5px 0;
+    color:white;
+}
+
+
