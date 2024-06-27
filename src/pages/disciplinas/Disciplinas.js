@@ -13,7 +13,7 @@ const Disciplinas = () => {
     };
 
     return (
-        <div>
+        <div className="h">
             <header>
                 <div id="marca">
                     <img src="/imgs/Starfruit.png" id="logo" alt="starfruit :3" />
@@ -34,6 +34,7 @@ const Disciplinas = () => {
                 <h2 className="title_dis">Disciplinas</h2>
                 <div className="container_dis">
                     <div className="criar_btn">
+                        <a href="/atividade_ind/Atividade">oie</a>
                         <button> Criar uma nova disciplina</button>
                     </div>
                     <div className="disc_atu">

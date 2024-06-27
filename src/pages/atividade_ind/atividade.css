@@ -3,3 +3,103 @@
     flex-direction: column;
     min-height: 100vh; /* Garante que a div ocupe pelo menos a altura total da viewport */
 }
+
+.atividade_tudo {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #535353;
+}
+
+.info-atv {
+    padding: 30px;
+    border-radius: 10px;
+    border: 2px solid #ccc;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.info-box-atv {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.info-box-atv label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.info-box-atv p {
+    margin: 0;
+}
+
+.info-box-atv input {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    background-color: transparent; /* Torna o fundo transparente */
+}
+
+.info-box-atv input:focus {
+    outline: none;
+}
+
+.edit-mode .info-box-atv input {
+    border: none; /* Remove a borda no modo de edição */
+}
+
+.em_andamento {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.em_andamento button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    color: white;
+    cursor: pointer;
+}
+
+.b_sim_atv, .b_sim_atv:hover {
+    background-color: seagreen;
+}
+
+.b_nao_atv, .b_nao_atv:hover {
+    background-color: crimson;
+}
+
+.b_sim_atv.selected, .b_nao_atv.selected {
+    border: 2px solid white; /* Borda branca para o botão selecionado */
+}
+
+.b_editar_atv {
+    background-color: #ff85a2;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.b_editar_atv:hover {
+    background-color: #ff5e82; /* Cor rosa mais escura ao passar o mouse */
+}
+
+.info-box-atv-atv input {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 30px;
+    outline: none;
+    border:none;
+    padding: 10px;
+    font-size: 17px;
+    margin: 5px 10px;
+    color:white;
+}

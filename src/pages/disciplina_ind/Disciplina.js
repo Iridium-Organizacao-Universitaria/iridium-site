@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import '../../App.css'; // Importa o estilo geral
 import './disciplina.css'; // Importa os estilos específicos da página
 
@@ -25,10 +25,48 @@ const Disciplina = () => {
         { nome: 'Prova 10', dataEntrega: '17/08/2024' },
     ]);
 
-    const [selected, setSelected] = useState(null);
+    const [selected, setSelected] = useState('sim'); // Valor inicial como 'sim'
+    const [editing, setEditing] = useState(false); // Estado para controlar o modo de edição
+    const [disciplina, setDisciplina] = useState({
+        nome: 'Nome da disciplina',
+        sigla: 'Sigla',
+        docente: 'Docente',
+        apelido: 'Apelido',
+        emAndamento: 'sim', // Exemplo de valor inicial
+    });
+
+    const nameInputRef = useRef(null);
+
+    useEffect(() => {
+        if (editing) {
+            // Foca no input do nome quando entrar no modo edição
+            nameInputRef.current.focus();
+        }
+    }, [editing]);
 
     const handleSelect = (button) => {
         setSelected(button);
+        setDisciplina((prevState) => ({
+            ...prevState,
+            emAndamento: button,
+        }));
+    };
+
+    const handleEdit = () => {
+        setEditing(true); // Ativa o modo de edição
+    };
+
+    const handleSave = () => {
+        // Aqui você pode implementar a lógica para salvar as alterações
+        setEditing(false); // Desativa o modo de edição
+    };
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setDisciplina(prevState => ({
+            ...prevState,
+            [name]: value,
+        }));
     };
 
     return (
@@ -51,37 +89,113 @@ const Disciplina = () => {
 
             <div className="disciplina-page">
                 <div className="disciplina-info">
-                    <h2>Nome da Disciplina</h2>
-                    <div className="info-box">
-                        <div className="info_box_ind">
-                            <label htmlFor="sigla">Sigla:</label>
-                            <p><span id="sigla">MAC0110</span></p>
-                        </div>
-                        <div className="info_box_ind">
-                            <label htmlFor="docente">Docente:</label>
-                            <p><span id="docente">meirelles</span></p>
-                        </div>
-                        <div className="info_box_ind">
-                            <label htmlFor="apelido">Apelido:</label>
-                            <p><span id="apelido">labmeirelles</span></p>
-                        </div>
-                        <div className="em_andamento">
-                            <label>Em andamento:</label>
-                            <button
-                                className={`b_sim ${selected === 'sim' ? 'selected' : ''}`}
-                                onClick={() => handleSelect('sim')}
-                            >
-                                Sim
-                            </button>
-                            <button
-                                className={`b_nao ${selected === 'nao' ? 'selected' : ''}`}
-                                onClick={() => handleSelect('nao')}
-                            >
-                                Não
-                            </button>
-                        </div>
-                        <button className="b_delete">Deletar disciplina</button>
-                    </div>
+                    {/*Modo edição das informações da disciplina*/}
+                    {editing ? (
+                        <>
+                            <h2>Editar disciplina</h2>
+                            <div className="info-box">
+                                <div className={`info_box_ind ${editing ? 'edit-mode-disc' : ''}`}>
+                                    <label htmlFor="nome">Nome:</label>
+                                    <input
+                                        type="text"
+                                        id="nome"
+                                        name="nome"
+                                        value={disciplina.nome}
+                                        onChange={handleChange}
+                                        ref={nameInputRef}
+                                        autoFocus
+                                    />
+                                </div>
+                                <div className={`info_box_ind ${editing ? 'edit-mode-disc' : ''}`}>
+                                    <label htmlFor="sigla">Sigla:</label>
+                                    <input
+                                        type="text"
+                                        id="sigla"
+                                        name="sigla"
+                                        value={disciplina.sigla}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div className={`info_box_ind ${editing ? 'edit-mode-disc' : ''}`}>
+                                    <label htmlFor="docente">Docente:</label>
+                                    <input
+                                        type="text"
+                                        id="docente"
+                                        name="docente"
+                                        value={disciplina.docente}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div className={`info_box_ind ${editing ? 'edit-mode-disc' : ''}`}>
+                                    <label htmlFor="apelido">Apelido:</label>
+                                    <input
+                                        type="text"
+                                        id="apelido"
+                                        name="apelido"
+                                        value={disciplina.apelido}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div className="em_andamento">
+                                    <label>Em andamento:</label>
+                                    <button
+                                        className={`b_sim ${selected === 'sim' ? 'selected' : ''}`}
+                                        onClick={() => handleSelect('sim')}
+                                    >
+                                        Sim
+                                    </button>
+                                    <button
+                                        className={`b_nao ${selected === 'nao' ? 'selected' : ''}`}
+                                        onClick={() => handleSelect('nao')}
+                                    >
+                                        Não
+                                    </button>
+                                </div>
+                                <div className="botoes">
+                                <button className="b_save_disc" onClick={handleSave}>Salvar alterações</button>
+                                </div>
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <h2>{disciplina.nome}</h2>
+                            <div className="info-box">
+                                <div className="info_box_ind">
+                                    <label htmlFor="sigla">Sigla:</label>
+                                    <p><span id="sigla">{disciplina.sigla}</span></p>
+                                </div>
+                                <div className="info_box_ind">
+                                    <label htmlFor="docente">Docente:</label>
+                                    <p><span id="docente">{disciplina.docente}</span></p>
+                                </div>
+                                <div className="info_box_ind">
+                                    <label htmlFor="apelido">Apelido:</label>
+                                    <p><span id="apelido">{disciplina.apelido}</span></p>
+                                </div>
+                                <div className="em_andamento">
+                                    <label>Em andamento:</label>
+                                    <div className="b_sim_nao">
+                                        <button
+                                            className={`b_sim ${disciplina.emAndamento === 'sim' ? 'selected' : ''}`}
+                                            disabled
+                                        >
+                                            Sim
+                                        </button>
+                                        <button
+                                            className={`b_nao ${disciplina.emAndamento === 'nao' ? 'selected' : ''}`}
+                                            disabled
+                                        >
+                                            Não
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className="botoes">
+                                    <button className="b_edita-dis" onClick={handleEdit}>Editar disciplina</button>
+                                    <button className="b_delete-dis">Deletar disciplina</button>
+                                </div>
+                            </div>
+                        </>
+                    )}
                 </div>
                 <div className="atv_pro">
                     <div className="atividades">
@@ -110,7 +224,6 @@ const Disciplina = () => {
                     </div>
                 </div>
             </div>
-
         </div>
     );
 };
