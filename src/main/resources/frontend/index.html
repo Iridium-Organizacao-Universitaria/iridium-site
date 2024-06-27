@@ -53,6 +53,15 @@
     <input type="submit" value="Go">
 </form>
 
+<form name="tipoForm" action="javascript:displayAtividadesWithTipo()">
+    <span>View atividades with tipo</span>
+    <select name="tipo">
+        <option name="Tarefa">Tarefa</option>
+        <option name="Prova">Prova</option>
+    </select>
+    <input type="submit" value="Go">
+</form>
+
 <form name="addAtividadeForm" action="javascript:addNewAtividade()">
     <span>Criar nova atividade :D </span>
 
@@ -61,6 +70,12 @@
 
     <label for="newAtividadeDescricao">Descricao:</label>
     <input type="text" id="newAtividadeDescricao" name="newAtividadeDescricao" size="20">
+
+    <label for="newAtividadeTipo">tipo</label>
+    <select id="newAtividadeTipo" name="newAtividadeTipo">
+        <option name="Tarefa">Tarefa</option>
+        <option name="Prova">Prova</option>
+    </select>
 
     <input type="submit" value="Go">
 </form>
@@ -90,6 +105,7 @@
     <thead>
     <tr>
         <th>Nome da atividade</th>
+        <th>Tipo</th>
         <th></th>
         <th></th>
     </tr>

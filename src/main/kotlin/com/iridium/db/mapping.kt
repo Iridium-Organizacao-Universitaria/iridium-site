@@ -41,12 +41,14 @@ fun daoToModel(dao: DisciplinaDAO) = Disciplina(
 object AtividadeTable : IntIdTable("atividade") {
     val name = varchar("name", 50)
     val descricao = varchar("descricao", 50)
+    val tipo = varchar("tipo", 10)
 }
 
 class AtividadeDAO(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<AtividadeDAO>(AtividadeTable)
     var name by AtividadeTable.name
     var descricao by AtividadeTable.descricao
+    var tipo by AtividadeTable.tipo
 }
 
 suspend fun <T> suspendTransaction(block: Transaction.() -> T): T =
@@ -55,4 +57,5 @@ suspend fun <T> suspendTransaction(block: Transaction.() -> T): T =
 fun daoToModel(dao: AtividadeDAO) = Atividade(
     dao.name,
     dao.descricao,
+    Tipo.valueOf(dao.tipo)
 )

@@ -1,6 +1,7 @@
 package com.iridium.models
 
 import Atividade
+import Tipo
 import com.iridium.db.AtividadeDAO
 import com.iridium.db.AtividadeTable
 import com.iridium.db.daoToModel
@@ -11,6 +12,12 @@ import org.jetbrains.exposed.sql.deleteWhere
 class PostgresAtividadeRepository : AtividadeRepository {
     override suspend fun allAtividades(): List<Atividade> = suspendTransaction {
         AtividadeDAO.all().map(::daoToModel)
+    }
+
+    override suspend fun atividadesByTipo(tipo: Tipo): List<Atividade> = suspendTransaction {
+        AtividadeDAO
+            .find { (AtividadeTable.tipo eq tipo.toString()) }
+            .map(::daoToModel)
     }
 
     override suspend fun atividadeByName(name: String): Atividade? = suspendTransaction {
@@ -25,6 +32,7 @@ class PostgresAtividadeRepository : AtividadeRepository {
         AtividadeDAO.new {
             name = atividade.name
             descricao = atividade.descricao
+            tipo = atividade.tipo.toString()
         }
     }
 

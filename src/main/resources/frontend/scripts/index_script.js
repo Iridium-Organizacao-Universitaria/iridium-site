@@ -148,10 +148,16 @@ function displayAllAtividades() {
     fetchAllAtividades().then(displayAtividades)
 }
 
+function displayAtividadesWithTipo() {
+    clearAtividadesTable();
+    const tipo = readAtividadeTipo();
+    fetchAtividadesWithTipo(tipo).then(displayAtividades)
+}
+
 function displayAtividade(name) {
     fetchAtividadeWithName(name).then(t =>
         atividadeDisplay().innerHTML
-            = `Nome: ${t.name} Descricao: ${t.descricao}`
+            = `Nome: ${t.name} Descricao: ${t.descricao} Tipo: ${t.tipo}`
     )
 }
 
@@ -175,6 +181,7 @@ function buildAtividadeFromForm() {
     return {
         name: getAtividadeFormValue("newAtividadeName"),
         descricao: getAtividadeFormValue("newAtividadeDescricao"),
+        tipo: getAtividadeFormValue("newAtividadeTipo")
     }
 }
 
@@ -184,6 +191,14 @@ function getAtividadeFormValue(controlName) {
 
 function atividadeDisplay() {
     return document.getElementById("currentAtividadeDisplay");
+}
+
+function readAtividadeTipo() {
+    return document.tipoForm.tipo.value
+}
+
+function fetchAtividadesWithTipo(tipo) {
+    return sendGET(`/atividades/byTipo/${tipo}`);
 }
 
 function fetchAtividadeWithName(name) {
@@ -217,6 +232,7 @@ function displayAtividades(atividades) {
 function atividadeRow(atividade) {
     return tr([
         td(atividade.name),
+        td(atividade.tipo),
         td(viewLinkAtividade(atividade.name)),
         td(deleteLinkAtividade(atividade.name)),
     ]);
