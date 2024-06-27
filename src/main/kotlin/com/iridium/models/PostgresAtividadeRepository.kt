@@ -20,6 +20,12 @@ class PostgresAtividadeRepository : AtividadeRepository {
             .map(::daoToModel)
     }
 
+    override suspend fun atividadesByConcluido(concluido: Boolean): List<Atividade> = suspendTransaction {
+        AtividadeDAO
+            .find{ (AtividadeTable.concluido eq concluido) }
+            .map(::daoToModel)
+    }
+
     override suspend fun atividadeByName(name: String): Atividade? = suspendTransaction {
         AtividadeDAO
             .find { (AtividadeTable.name eq name) }

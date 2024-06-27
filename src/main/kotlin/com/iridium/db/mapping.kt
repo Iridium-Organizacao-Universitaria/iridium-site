@@ -11,6 +11,9 @@ import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IntIdTable
 
+suspend fun <T> suspendTransaction(block: Transaction.() -> T): T =
+    newSuspendedTransaction(Dispatchers.IO, statement = block)
+
 ////////////////// Disciplinas
 object DisciplinaTable : IntIdTable("disciplina") {
     val name = varchar("name", 50)
@@ -27,9 +30,6 @@ class DisciplinaDAO(id: EntityID<Int>) : IntEntity(id) {
     var apelido by DisciplinaTable.apelido
 }
 
-//suspend fun <T> suspendTransaction(block: Transaction.() -> T): T =
-//    newSuspendedTransaction(Dispatchers.IO, statement = block)
-
 fun daoToModel(dao: DisciplinaDAO) = Disciplina(
     dao.name,
     dao.docente,
@@ -41,7 +41,8 @@ fun daoToModel(dao: DisciplinaDAO) = Disciplina(
 object AtividadeTable : IntIdTable("atividade") {
     val name = varchar("name", 50)
     val descricao = varchar("descricao", 50)
-    val tipo = varchar("tipo", 10)
+    val tipo = varchar("tipo", 50)
+    val concluido = bool("concluido").default(false)
 }
 
 class AtividadeDAO(id: EntityID<Int>) : IntEntity(id) {
@@ -49,13 +50,12 @@ class AtividadeDAO(id: EntityID<Int>) : IntEntity(id) {
     var name by AtividadeTable.name
     var descricao by AtividadeTable.descricao
     var tipo by AtividadeTable.tipo
+    var concluido by AtividadeTable.concluido
 }
-
-suspend fun <T> suspendTransaction(block: Transaction.() -> T): T =
-    newSuspendedTransaction(Dispatchers.IO, statement = block)
 
 fun daoToModel(dao: AtividadeDAO) = Atividade(
     dao.name,
     dao.descricao,
-    Tipo.valueOf(dao.tipo)
+    Tipo.valueOf(dao.tipo),
+    dao.concluido,
 )

@@ -11,5 +11,5 @@ data class Atividade(
     var tipo: Tipo,
 //    var prazo: String,
 //    var disciplina: Disciplina,
-//    var concluido: Boolean = false
+    var concluido: Boolean
 )

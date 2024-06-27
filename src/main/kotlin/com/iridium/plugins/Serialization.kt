@@ -91,19 +91,39 @@ fun Application.configureAtividadeSerialization(repository: AtividadeRepository)
                 }
                 try {
                     val tipo = Tipo.valueOf(tipoAsText)
-                    val tasks = repository.atividadesByTipo(tipo)
+                    val atividades = repository.atividadesByTipo(tipo)
 
 
-                    if (tasks.isEmpty()) {
+                    if (atividades.isEmpty()) {
                         call.respond(HttpStatusCode.NotFound)
                         return@get
                     }
-                    call.respond(tasks)
+                    call.respond(atividades)
                 } catch (ex: IllegalArgumentException) {
                     call.respond(HttpStatusCode.BadRequest)
                 }
             }
 
+            get("/byConcluido/{concluido}") {
+                val concluidoAsBoolean = call.parameters["concluido"]
+                if (concluidoAsBoolean == null) {
+                    call.respond(HttpStatusCode.BadRequest)
+                    return@get
+                }
+                try {
+                    val concluido = concluidoAsBoolean?.toBoolean()?: false
+                    val atividades = repository.atividadesByConcluido(concluido)
+
+
+                    if (atividades.isEmpty()) {
+                        call.respond(HttpStatusCode.NotFound)
+                        return@get
+                    }
+                    call.respond(atividades)
+                } catch (ex: IllegalArgumentException) {
+                    call.respond(HttpStatusCode.BadRequest)
+                }
+            }
 
             post {
                 try {
