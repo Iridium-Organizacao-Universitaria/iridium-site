@@ -7,6 +7,12 @@ body, button {
     box-sizing: border-box;
 }
 
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 header {
     background: rgb(238,174,202);
     background: linear-gradient(90deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
@@ -19,6 +25,7 @@ header {
     display: flex;
     align-items: center;
     font-size: 17px;
+    margin: 0;
 }
 
 header img {

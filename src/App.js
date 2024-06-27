@@ -8,12 +8,14 @@ import Perfil from './pages/perfil/Perfil';
 import Calendario from "./pages/calendario/Calendario";
 import Disciplinas from "./pages/disciplinas/Disciplinas";
 import Atividades from "./pages/atividades/Atividades";
+import Disciplina from "./pages/disciplina_ind/Disciplina";
 
 function App() {
     return (
         <Router>
             <div>
                 <Routes>
+                    <Route path="/disciplina_ind/Disciplina" element={<Disciplina />} />
                     <Route path="/atividades/Atividades" element={<Atividades />} />
                     <Route path="/calendario/Calendario" element={<Calendario />} />
                     <Route path="/disciplinas/Disciplinas" element={<Disciplinas />} />
