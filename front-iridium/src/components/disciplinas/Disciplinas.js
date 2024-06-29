@@ -29,7 +29,7 @@ const Disciplinas = () => {
             return;
         }
 
-        console.log("teste1 ", disciplinaName, docente, sigla, apelido);
+        //console.log("teste1 ", disciplinaName, docente, sigla, apelido);
 
         const newDisciplina = { name: disciplinaName, docente, sigla, apelido };
         sendPOST('/disciplinas', newDisciplina)
