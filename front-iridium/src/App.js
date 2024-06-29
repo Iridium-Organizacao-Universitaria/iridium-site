@@ -12,7 +12,6 @@ import Disciplinas from "./components/disciplinas/Disciplinas";
 import Atividades from "./components/atividades/Atividades";
 import Disciplina from "./components/disciplina_ind/Disciplina";
 import Atividade from "./components/atividade_ind/Atividade";
-import CriarDisciplina from "./components/criar_disciplina/CriarDisciplina";
 
 function App() {
     return (
@@ -28,7 +27,6 @@ function App() {
                     <Route path="/login/Login" element={<Login />} />
                     <Route path="/registro/Registro" element={<Registro />} />
                     <Route path="/perfil/Perfil" element={<Perfil />} />
-                    <Route path="/criar_disciplina" element={<CriarDisciplina />} /> {/* Nova rota */}
                     <Route path="/" element={<Home />} />
                 </Routes>
             </div>

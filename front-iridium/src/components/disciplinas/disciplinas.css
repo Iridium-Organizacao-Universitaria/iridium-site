@@ -96,3 +96,30 @@ button:hover {
     border: 1px solid black; /* Adiciona borda no hover */
 }
 
+.criar_btn {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.cria_dis_infos {
+    display: flex;
+    flex-direction: column;
+}
+
+.cria_dis_infos label {
+    font-family: 'Poppins', sans-serif;
+    color: #cecece;
+    font-weight: bold;
+}
+
+.cria_dis_infos input {
+    color: black;
+    background-color: #e6e6e6;
+    border-radius: 30px;
+    border: none;
+    outline: none;
+    padding: 10px 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+}

@@ -8,16 +8,34 @@ import './disciplinas.css';
 const Disciplinas = () => {
     const navigate = useNavigate();
     const [disciplinas_em_andamento, setDisciplinas] = useState([]);
+    const [disciplinaName, setDisciplinaName] = useState('');
+    const [docente, setDocente] = useState('');
+    const [sigla, setSigla] = useState('');
+    const [apelido, setApelido] = useState('');
 
-    // Toda fez que a página e carregada, isto é renderizado antes de completar o carregamento
     useEffect(() => {
         displayAllDisciplinas();
-    });
+    }, []);
 
     const handleClick = (disciplinaName) => {
         navigate(`/disciplina_ind/${disciplinaName}`, {
             state: { disciplinaName }
         });
+    };
+
+    const handleCreate = () => {
+        if (!disciplinaName || !docente || !sigla || !apelido) {
+            alert('Por favor, preencha todos os campos para criar a disciplina.');
+            return;
+        }
+
+        console.log("teste1 ", disciplinaName, docente, sigla, apelido);
+
+        const newDisciplina = { name: disciplinaName, docente, sigla, apelido };
+        sendPOST('/disciplinas', newDisciplina)
+            .then(() => navigate(`/disciplina_ind/${disciplinaName}`, {
+                state: { disciplinaName }
+            }));
     };
 
     function sendGET(url) {
@@ -75,8 +93,39 @@ const Disciplinas = () => {
                 <h2 className="title_dis">Disciplinas</h2>
                 <div className="container_dis">
                     <div className="criar_btn">
-                        <a href="/atividade_ind/Atividade">oie</a>
-                        <button onClick={() => navigate('/criar_disciplina')}>Criar uma nova disciplina</button>
+                        <div className="cria_dis_infos">
+                            <label htmlFor="disciplinaName">Nome da Disciplina</label>
+                            <input
+                                id="disciplinaName"
+                                value={disciplinaName}
+                                onChange={(e) => setDisciplinaName(e.target.value)}
+                            />
+                        </div>
+                        <div className="cria_dis_infos">
+                            <label htmlFor="docente">Docente</label>
+                            <input
+                                id="docente"
+                                value={docente}
+                                onChange={(e) => setDocente(e.target.value)}
+                            />
+                        </div>
+                        <div className="cria_dis_infos">
+                            <label htmlFor="sigla">Sigla</label>
+                            <input
+                                id="sigla"
+                                value={sigla}
+                                onChange={(e) => setSigla(e.target.value)}
+                            />
+                        </div>
+                        <div className="cria_dis_infos">
+                            <label htmlFor="apelido">Apelido</label>
+                            <input
+                                id="apelido"
+                                value={apelido}
+                                onChange={(e) => setApelido(e.target.value)}
+                            />
+                        </div>
+                        <button onClick={handleCreate}>Criar uma nova disciplina</button>
                     </div>
                     <div className="disc_atu">
                         <h3>Disciplinas em andamento ({disciplinas_em_andamento.length})</h3>
