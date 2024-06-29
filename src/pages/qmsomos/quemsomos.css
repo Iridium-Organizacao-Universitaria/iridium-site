@@ -1,0 +1,63 @@
+.h {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Garante que a div ocupe pelo menos a altura total da viewport */
+}
+
+h2 {
+    color: #CECECE;
+}
+
+.qm_tudo {
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 70px;
+}
+
+.qm_tudo p {
+    color: black;
+    text-align: justify;
+
+}
+
+.infos_qm {
+    flex: 1;
+    display: flex;
+    margin-bottom: 150px;
+    align-items: center;
+}
+
+.half_right_qm, .half_left_qm {
+    padding-right: 40px;
+    padding-left: 40px;
+    flex: 1;
+}
+
+.botoes {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px; /* Adicione um espaço entre os botões e o parágrafo acima */
+}
+
+.profiles {
+    margin-top: 20px;
+}
+
+.btn, .profile-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-right: 100px;
+    background-color: white;
+    color: black;
+    text-decoration: none;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.botoes .btn:hover, .botoes .profile-btn:hover {
+    background-color: black;
+    color: white;
+}

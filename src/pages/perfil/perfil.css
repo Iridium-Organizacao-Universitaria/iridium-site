@@ -1,0 +1,99 @@
+.h {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Garante que a div ocupe pelo menos a altura total da viewport */
+}
+
+#title {
+    color: #cecece;
+}
+
+.profile-container {
+    flex: 1;
+    overflow: auto;
+    padding-top: 75px; /*altura da header*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-container hr {
+    width: 80%; /* A largura pode ser ajustada conforme necessário */
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid #ccc; /* Linha cinza */
+}
+
+.profile-container p {
+    color: #000;
+    padding: 5px;
+}
+
+.profile-container label {
+    margin-left: 10px;
+}
+
+.profile-image {
+    background-color: grey;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 20px;
+    position: relative; /* Para posicionar o ícone dentro do contêiner */
+}
+
+.profile-image img,
+.profile-image i {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-image i {
+    font-size: 100px; /* Tamanho do ícone */
+    color: #ccc; /* Cor do ícone */
+    text-align: center;
+    line-height: 150px; /* Centraliza verticalmente */
+}
+
+.b_editar_perfil, .b_save_perfil {
+    margin-top: 20px;
+    padding: 10px 20px; /* Adicionando padding à esquerda para acomodar a imagem */
+    background-color: transparent; /* Botão transparente */
+    color: #000; /* Cor do texto preto */
+    text-decoration: none;
+    border: 1px solid #000; /* Bordas pretas */
+    border-radius: 8px; /* Bordas arredondadas */
+    position: relative; /* Define posição relativa */
+    font-weight: normal;
+    width: 350px;
+}
+
+.b_editar_perfil:hover, .b_save_perfil:hover {
+    background-color: #000; /* Mudança de cor no hover */
+    color: #fff; /* Mudança de cor do texto para branco no hover */
+}
+
+.info_box {
+    display: flex;
+    align-items: center;
+    margin: 15px;
+    padding: 14px; /* Padding interno */
+    border: transparent; /* Sem borda visível */
+    border-radius: 10px; /* Bordas arredondadas */
+    background-color: #e6e6e6; /* Cor de fundo */
+    box-sizing: border-box; /* Garante que o padding está incluído na largura total */
+    width: 350px;
+    height: 50px;
+}
+
+.edit-mode-perfil input {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 17px;
+}
