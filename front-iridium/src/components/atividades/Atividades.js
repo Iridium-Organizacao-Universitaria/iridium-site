@@ -3,25 +3,7 @@ import '../../App.css';
 import './atividades.css';
 
 const Atividades = () => {
-    const [atividades_teste, setAtividades] = useState([
-        { nome: 'Atividade 1', dataEntrega: new Date('2024-06-22') },
-        { nome: 'Atividade 2', dataEntrega: new Date('2024-06-25') },
-        { nome: 'Atividade 3', dataEntrega: new Date('2024-06-22') },
-        { nome: 'Atividade 4', dataEntrega: new Date('2024-06-25') },
-        { nome: 'Atividade 5', dataEntrega: new Date('2024-06-22') },
-        { nome: 'Atividade 6', dataEntrega: new Date('2024-06-25') },
-        { nome: 'Prova 1', dataEntrega: new Date('2024-07-15') },
-        { nome: 'Prova 2', dataEntrega: new Date('2024-08-17') },
-        { nome: 'Prova 3', dataEntrega: new Date('2024-07-15') },
-        { nome: 'Prova 4', dataEntrega: new Date('2024-08-17') },
-        { nome: 'Prova 5', dataEntrega: new Date('2024-07-15') },
-        { nome: 'Prova 6', dataEntrega: new Date('2024-08-17') },
-        { nome: 'Prova 7', dataEntrega: new Date('2024-07-15') },
-        { nome: 'Prova 8', dataEntrega: new Date('2024-08-17') },
-        { nome: 'Prova 9', dataEntrega: new Date('2024-07-15') },
-        { nome: 'Prova 10', dataEntrega: new Date('2024-08-17') },
-    ]);
-
+    const [atividades, setAtividades] = useState([]);
     const [filtroTipo, setFiltroTipo] = useState('Todos');
     const [filtroData, setFiltroData] = useState('Hoje');
     const [tipoMenuOpen, setTipoMenuOpen] = useState(false);
@@ -33,58 +15,53 @@ const Atividades = () => {
     const datas = ['Hoje', '1 semana', '1 mês', 'Todas'];
 
     useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (tipoMenuRef.current && !tipoMenuRef.current.contains(event.target)) {
-                setTipoMenuOpen(false);
-            }
-            if (dataMenuRef.current && !dataMenuRef.current.contains(event.target)) {
-                setDataMenuOpen(false);
-            }
-        };
-
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
+        fetchAllAtividades().then(atividadesFromAPI => {
+            setAtividades(atividadesFromAPI);
+        });
     }, []);
 
-    const filtrarAtividades = () => {
-        const hoje = new Date();
-        let atividadesFiltradas = atividades_teste;
-
-        if (filtroTipo !== 'Todos') {
-            atividadesFiltradas = atividadesFiltradas.filter(atividade =>
-                filtroTipo === 'Provas' ? atividade.nome.startsWith('Prova') : !atividade.nome.startsWith('Prova')
-            );
-        }
-
-        if (filtroData === 'Hoje') {
-            atividadesFiltradas = atividadesFiltradas.filter(atividade =>
-                atividade.dataEntrega.toDateString() === hoje.toDateString()
-            );
-        } else if (filtroData === '1 semana') {
-            const umaSemanaDepois = new Date(hoje);
-            umaSemanaDepois.setDate(hoje.getDate() + 7);
-            atividadesFiltradas = atividadesFiltradas.filter(atividade =>
-                atividade.dataEntrega >= hoje && atividade.dataEntrega <= umaSemanaDepois
-            );
-        } else if (filtroData === '1 mês') {
-            const umMesDepois = new Date(hoje);
-            umMesDepois.setMonth(hoje.getMonth() + 1);
-            atividadesFiltradas = atividadesFiltradas.filter(atividade =>
-                atividade.dataEntrega >= hoje && atividade.dataEntrega <= umMesDepois
-            );
-        }
-
-        // Se filtroData for 'Todas', retornar todas as atividades sem filtrar por data
-        if (filtroData === 'Todas') {
-            return atividadesFiltradas;
-        }
-
-        return atividadesFiltradas.sort((a, b) => a.dataEntrega - b.dataEntrega);
+    const fetchAllAtividades = () => {
+        return sendGET('/atividades').then(response => response.json());
     };
 
-    const atividadesFiltradas = filtrarAtividades();
+    const sendGET = (url) => {
+        return fetch(url, {
+            headers: { 'Accept': 'application/json' }
+        }).then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            return [];
+        });
+    };
+
+    const displayAtividades = (atividades) => {
+        return atividades.filter(atividade => {
+            if (filtroTipo === 'Todos') {
+                return true;
+            } else {
+                return atividade.tipo === filtroTipo;
+            }
+        }).map((atividade, index) => (
+            <li key={index} className="atividade_item">
+                <span>
+                    <img src={atividade.tipo === 'Prova' ? '/imgs/giz.png' : '/imgs/pin.png'} alt={atividade.tipo} />
+                    {atividade.name}
+                </span>
+                <span className="data-entrega">{new Date(atividade.prazo).toLocaleDateString()}</span>
+            </li>
+        ));
+    };
+
+    const handleTipoChange = (tipo) => {
+        setFiltroTipo(tipo);
+        setTipoMenuOpen(false);
+    };
+
+    const handleDataChange = (data) => {
+        setFiltroData(data);
+        setDataMenuOpen(false);
+    };
 
     return (
         <div className="h">
@@ -108,7 +85,7 @@ const Atividades = () => {
                 <h2 className="title_atvs">Atividades</h2>
                 <div className="topo_atvs">
                     <div className="contagem-itens">
-                        {`Total de Atividades: ${atividadesFiltradas.length}`}
+                        {`Total de Atividades: ${atividades.length}`}
                     </div>
                     <div className="b_filtros_atvs">
                         <div className="dropdown" ref={tipoMenuRef}>
@@ -121,10 +98,7 @@ const Atividades = () => {
                                         <div
                                             key={tipo}
                                             className="dropdown-item"
-                                            onClick={() => {
-                                                setFiltroTipo(tipo);
-                                                setTipoMenuOpen(false);
-                                            }}
+                                            onClick={() => handleTipoChange(tipo)}
                                         >
                                             {tipo}
                                         </div>
@@ -142,10 +116,7 @@ const Atividades = () => {
                                         <div
                                             key={data}
                                             className="dropdown-item"
-                                            onClick={() => {
-                                                setFiltroData(data);
-                                                setDataMenuOpen(false);
-                                            }}
+                                            onClick={() => handleDataChange(data)}
                                         >
                                             {data}
                                         </div>
@@ -157,12 +128,7 @@ const Atividades = () => {
                 </div>
                 <div className="atividades_lista_div">
                     <ul className="atividades_lista">
-                        {atividadesFiltradas.map((atividade, index) => (
-                            <li key={index} className="atividade_item">
-                                <span><img src="/imgs/pin.png" alt="pin" /> {atividade.nome}</span>
-                                <span className="data-entrega">{atividade.dataEntrega.toLocaleDateString()}</span>
-                            </li>
-                        ))}
+                        {displayAtividades(atividades)}
                     </ul>
                 </div>
             </div>

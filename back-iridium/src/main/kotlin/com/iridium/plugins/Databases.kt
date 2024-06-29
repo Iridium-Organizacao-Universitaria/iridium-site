@@ -13,7 +13,7 @@ import org.jetbrains.exposed.sql.*
 //);
 //INSERT INTO disciplina (name, docente, sigla, apelido)
 //    VALUES ('calculo', 'zara', 'MAT0123', 'calcpi');
-
+//
 //DROP TABLE IF EXISTS atividade;
 //CREATE TABLE atividade(
 //    id SERIAL PRIMARY KEY,
@@ -34,6 +34,8 @@ fun Application.configureDatabases() {
         "jdbc:postgresql://localhost:5432/iridium_db",
 //        driver = "org.postgresql.Driver",
         user = "postgres",
-        password = "bancodados"
+        //password = "bancodados"
+        password = "Bibi2004!"
+
     )
 }
