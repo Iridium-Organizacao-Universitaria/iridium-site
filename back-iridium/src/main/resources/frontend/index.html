@@ -86,26 +86,29 @@
         <option name="Prova">Prova</option>
     </select>
 
+    <label>Data de Entrega:</label>
+    <input type="date" id="newAtividadePrazo" name="newAtividadePrazo"/>
+
     <input type="submit" value="Go">
 </form>
 
 <hr>
-    <div>
-        Matéria atual -> <em id="currentDisciplinaDisplay">None</em>
-    </div>
+<div>
+    Matéria atual -> <em id="currentDisciplinaDisplay">None</em>
+</div>
 
-    <div>
-        Atividade atual -> <em id="currentAtividadeDisplay">None</em>
-    </div>
+<div>
+    Atividade atual -> <em id="currentAtividadeDisplay">None</em>
+</div>
 <hr>
 
 <table>
     <thead>
-        <tr>
-            <th>Nome da matéria</th>
-            <th></th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>Nome da matéria</th>
+        <th></th>
+        <th></th>
+    </tr>
     </thead>
     <tbody id="disciplinasTableBody"></tbody>
 </table>
@@ -116,6 +119,7 @@
         <th>Nome da atividade</th>
         <th>Tipo</th>
         <th>Concluido</th>
+        <th>Prazo</th>
         <th></th>
         <th></th>
     </tr>

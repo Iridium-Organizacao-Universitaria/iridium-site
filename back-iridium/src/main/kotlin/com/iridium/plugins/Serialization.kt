@@ -10,6 +10,25 @@ import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.request.*
+import kotlinx.serialization.*
+import kotlinx.serialization.descriptors.*
+import kotlinx.serialization.encoding.*
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+
+object LocalDateSerializer : KSerializer<LocalDate> {
+    private val formatter: DateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE
+
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("LocalDate", PrimitiveKind.STRING)
+
+    override fun serialize(encoder: Encoder, value: LocalDate) {
+        encoder.encodeString(value.format(formatter))
+    }
+
+    override fun deserialize(decoder: Decoder): LocalDate {
+        return LocalDate.parse(decoder.decodeString(), formatter)
+    }
+}
 
 fun Application.configureDisciplinaSerialization(repository: DisciplinaRepository) {
     routing {

@@ -49,6 +49,7 @@ dependencies {
 
     implementation("io.insert-koin:koin-ktor:$koinKtor")
     implementation("com.zaxxer:HikariCP:$hikaricpVersion")
+    implementation("org.jetbrains.exposed:exposed-java-time:$exposed_version")
 
     testImplementation("io.ktor:ktor-server-test-host:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test:$kotlin_version")

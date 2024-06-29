@@ -160,11 +160,10 @@ function displayAtividadesWithConcluido() {
     fetchAtividadesWithConcluido(concluido).then(displayAtividades)
 }
 
-
 function displayAtividade(name) {
     fetchAtividadeWithName(name).then(t =>
         atividadeDisplay().innerHTML
-            = `Nome: ${t.name} Descricao: ${t.descricao} Tipo: ${t.tipo} Concluido: ${t.concluido}`
+            = `Nome: ${t.name} Descricao: ${t.descricao} Tipo: ${t.tipo} Concluido: ${t.concluido} Prazo: ${t.prazo}`
     )
 }
 
@@ -188,7 +187,9 @@ function buildAtividadeFromForm() {
     return {
         name: getAtividadeFormValue("newAtividadeName"),
         descricao: getAtividadeFormValue("newAtividadeDescricao"),
-        tipo: getAtividadeFormValue("newAtividadeTipo")
+        tipo: getAtividadeFormValue("newAtividadeTipo"),
+        concluido: false,
+        prazo: getAtividadeFormValue("newAtividadePrazo")
     }
 }
 
@@ -206,6 +207,10 @@ function readAtividadeTipo() {
 
 function readAtividadeConcluido() {
     return document.concluidoForm.concluido.value
+}
+
+function readAtividadePrazo() {
+    return document.prazoForm.prazo.value
 }
 
 function fetchAtividadesWithConcluido(concluido) {
@@ -249,6 +254,7 @@ function atividadeRow(atividade) {
         td(atividade.name),
         td(atividade.tipo),
         td(atividade.concluido),
+        td(atividade.prazo),
         td(viewLinkAtividade(atividade.name)),
         td(deleteLinkAtividade(atividade.name)),
     ]);
@@ -271,3 +277,14 @@ function deleteLinkAtividade(atividadeName) {
     node.appendChild(document.createTextNode("delete"));
     return node;
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    const atividade = {
+        prazo: '2023-12-31'  // Defina a data que deseja usar aqui
+    };
+
+    const newAtividadePrazo = document.getElementById("newAtividadePrazo");
+    if (newAtividadePrazo) {
+        newAtividadePrazo.value = atividade.prazo;
+    }
+});
