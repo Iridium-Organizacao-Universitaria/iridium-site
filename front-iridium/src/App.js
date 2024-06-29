@@ -18,7 +18,7 @@ function App() {
         <Router>
             <div>
                 <Routes>
-                    <Route path="/atividade_ind/Atividade" element={<Atividade />} />
+                    <Route path="/atividade_ind/:atividadeName" element={<Atividade />} />
                     <Route path="/disciplina_ind/:disciplinaName" element={<Disciplina />} />
                     <Route path="/atividades/Atividades" element={<Atividades />} />
                     <Route path="/calendario/Calendario" element={<Calendario />} />

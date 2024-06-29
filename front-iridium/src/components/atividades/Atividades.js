@@ -1,4 +1,6 @@
+// Atividades.js
 import React, { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import '../../App.css';
 import './atividades.css';
 
@@ -10,47 +12,42 @@ const Atividades = () => {
     const [dataMenuOpen, setDataMenuOpen] = useState(false);
     const tipoMenuRef = useRef(null);
     const dataMenuRef = useRef(null);
+    const [atividadesFiltradas, setAtividadesFiltradas] = useState([]);
+    const navigate = useNavigate(); // Usando useNavigate para navegação programática
 
-    const tipos = ['Todos', 'Provas', 'Atividades'];
+    const tipos = ['Todos', 'Provas', 'Tarefas'];
     const datas = ['Hoje', '1 semana', '1 mês', 'Todas'];
 
     useEffect(() => {
-        fetchAllAtividades().then(atividadesFromAPI => {
-            setAtividades(atividadesFromAPI);
-        });
+        fetchAllAtividades().then(setAtividades);
+        // Adicionar event listener para fechar menus ao clicar fora
+        document.addEventListener('click', handleClickOutside);
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
     }, []);
 
+    useEffect(() => {
+        const atividadesFiltradas = filterAtividades(atividades);
+        setAtividadesFiltradas(atividadesFiltradas);
+    }, [atividades, filtroTipo, filtroData]);
+
     const fetchAllAtividades = () => {
-        return sendGET('/atividades').then(response => response.json());
+        return sendGET("/atividades");
     };
 
     const sendGET = (url) => {
-        return fetch(url, {
-            headers: { 'Accept': 'application/json' }
-        }).then(response => {
-            if (response.ok) {
-                return response.json();
-            }
-            return [];
-        });
+        return fetch(url, { headers: { 'Accept': 'application/json' } })
+            .then(response => response.ok ? response.json() : []);
     };
 
-    const displayAtividades = (atividades) => {
-        return atividades.filter(atividade => {
-            if (filtroTipo === 'Todos') {
-                return true;
-            } else {
-                return atividade.tipo === filtroTipo;
-            }
-        }).map((atividade, index) => (
-            <li key={index} className="atividade_item">
-                <span>
-                    <img src={atividade.tipo === 'Prova' ? '/imgs/giz.png' : '/imgs/pin.png'} alt={atividade.tipo} />
-                    {atividade.name}
-                </span>
-                <span className="data-entrega">{new Date(atividade.prazo).toLocaleDateString()}</span>
-            </li>
-        ));
+    const handleClickOutside = (event) => {
+        if (tipoMenuRef.current && !tipoMenuRef.current.contains(event.target)) {
+            setTipoMenuOpen(false);
+        }
+        if (dataMenuRef.current && !dataMenuRef.current.contains(event.target)) {
+            setDataMenuOpen(false);
+        }
     };
 
     const handleTipoChange = (tipo) => {
@@ -61,6 +58,43 @@ const Atividades = () => {
     const handleDataChange = (data) => {
         setFiltroData(data);
         setDataMenuOpen(false);
+    };
+
+    const filterAtividades = (atividades) => {
+        let filtroTipoCorrigido = filtroTipo;
+
+        if (filtroTipo === 'Provas') {
+            filtroTipoCorrigido = 'Prova';
+        } else if (filtroTipo === 'Tarefas') {
+            filtroTipoCorrigido = 'Tarefa';
+        }
+
+        return atividades.filter(atividade => {
+            let filtroTipoPass = true;
+            if (filtroTipoCorrigido !== 'Todos') {
+                filtroTipoPass = atividade.tipo === filtroTipoCorrigido;
+            }
+
+            let filtroDataPass = true;
+            if (filtroData === 'Hoje') {
+                const hoje = new Date().toLocaleDateString();
+                filtroDataPass = new Date(atividade.prazo).toLocaleDateString() === hoje;
+            } else if (filtroData === '1 semana') {
+                const umaSemana = new Date();
+                umaSemana.setDate(umaSemana.getDate() + 7);
+                filtroDataPass = new Date(atividade.prazo) <= umaSemana;
+            } else if (filtroData === '1 mês') {
+                const umMes = new Date();
+                umMes.setMonth(umMes.getMonth() + 1);
+                filtroDataPass = new Date(atividade.prazo) <= umMes;
+            }
+
+            return filtroTipoPass && filtroDataPass;
+        });
+    };
+
+    const handleAtividadeClick = (id) => {
+        navigate(`/atividade_ind/${id}`);
     };
 
     return (
@@ -85,7 +119,7 @@ const Atividades = () => {
                 <h2 className="title_atvs">Atividades</h2>
                 <div className="topo_atvs">
                     <div className="contagem-itens">
-                        {`Total de Atividades: ${atividades.length}`}
+                        {`Total de Atividades: ${atividadesFiltradas.length}`}
                     </div>
                     <div className="b_filtros_atvs">
                         <div className="dropdown" ref={tipoMenuRef}>
@@ -128,7 +162,21 @@ const Atividades = () => {
                 </div>
                 <div className="atividades_lista_div">
                     <ul className="atividades_lista">
-                        {displayAtividades(atividades)}
+                        {atividadesFiltradas.map((atividade, index) => (
+                            <li key={index} className="atividade_item">
+                                <button className="atividade_button" onClick={() => handleAtividadeClick(atividade.id)}>
+                                    <div className="atividade_content">
+                                        <div className="atividade_left">
+                                            <img src={atividade.tipo === 'Prova' ? '/imgs/giz.png' : '/imgs/pin.png'} alt={atividade.tipo} />
+                                            <span>{atividade.name}</span>
+                                        </div>
+                                        <div className="atividade_right">
+                                            <span className="data-entrega">{new Date(atividade.prazo).toLocaleDateString()}</span>
+                                        </div>
+                                    </div>
+                                </button>
+                            </li>
+                        ))}
                     </ul>
                 </div>
             </div>

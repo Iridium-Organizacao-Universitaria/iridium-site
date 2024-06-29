@@ -48,7 +48,7 @@
     padding: 10px 15px;
 }
 
-button:hover {
+.b_filtros_atvs button:hover {
     color: white;
     background-color: black;
     border: 2px solid black;
@@ -130,3 +130,56 @@ button:hover {
     font-size: 14px;
     color: black;
 }
+
+.atividades_lista {
+    list-style-type: none;
+    padding: 0;
+}
+
+.atividade_item {
+    margin-bottom: 10px;
+    border: none;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+}
+
+.atividade_button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+    width: 100%;
+    display: block;
+}
+
+.atividade_button:hover {
+    border: none;
+}
+
+.atividade_content {
+    display: flex;
+    align-items: center;
+}
+
+.atividade_left {
+    display: flex;
+    align-items: center;
+}
+
+.atividade_right {
+    margin-left: auto;
+}
+
+.atividade_right .data-entrega {
+    color: black;
+    font-size: 14px;
+}
+
+
+
