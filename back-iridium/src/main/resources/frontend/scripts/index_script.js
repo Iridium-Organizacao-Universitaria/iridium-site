@@ -50,7 +50,7 @@ function displayAllDisciplinas() {
 function displayDisciplina(name) {
     fetchDisciplinaWithName(name).then(t =>
         disciplinaDisplay().innerHTML
-            = `Nome: ${t.name} Docente: ${t.docente} Sigla: ${t.sigla} Apelido: ${t.apelido}`
+            = `Nome: ${t.name} Docente: ${t.docente} Sigla: ${t.sigla} Apelido: ${t.apelido} Em andamento: ${t.andamento}`
     )
 }
 
@@ -76,6 +76,7 @@ function buildDisciplinaFromForm() {
         docente: getDisciplinaFormValue("newDisciplinaDocente"),
         sigla: getDisciplinaFormValue("newDisciplinaSigla"),
         apelido: getDisciplinaFormValue("newDisciplinaApelido"),
+        andamento: true,
     }
 }
 
@@ -118,6 +119,7 @@ function displayDisciplinas(disciplinas) {
 function disciplinaRow(disciplina) {
     return tr([
         td(disciplina.name),
+        td(disciplina.andamento),
         td(viewLinkDisciplina(disciplina.name)),
         td(deleteLinkDisciplina(disciplina.name)),
     ]);
@@ -141,6 +143,20 @@ function deleteLinkDisciplina(disciplinaName) {
     return node;
 }
 
+function displayDisciplinasWithAndamento() {
+    clearDisciplinasTable();
+    const andamento = readDisciplinaAndamento();
+    fetchDisciplinasWithAndamento(andamento).then(displayDisciplinas)
+}
+
+function readDisciplinaAndamento() {
+    return document.andamentoForm.andamento.value
+}
+
+function fetchDisciplinasWithAndamento(andamento) {
+    return sendGET(`/disciplinas/byAndamento/${andamento}`);
+}
+
 /////////////// ATIVIDADES
 
 function displayAllAtividades() {
@@ -159,7 +175,6 @@ function displayAtividadesWithConcluido() {
     const concluido = readAtividadeConcluido();
     fetchAtividadesWithConcluido(concluido).then(displayAtividades)
 }
-
 
 function displayAtividade(name) {
     fetchAtividadeWithName(name).then(t =>
@@ -254,10 +269,8 @@ function displayAtividades(atividades) {
 function atividadeRow(atividade) {
     return tr([
         td(atividade.name),
-        td(atividade.tipo),
         td(atividade.concluido),
-        td(atividade.disciplina),
-        td(atividade.prazo),
+        td(atividade.tipo),
         td(viewLinkAtividade(atividade.name)),
         td(deleteLinkAtividade(atividade.name)),
     ]);

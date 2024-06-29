@@ -16,10 +16,11 @@ suspend fun <T> suspendTransaction(block: Transaction.() -> T): T =
 
 ////////////////// Disciplinas
 object DisciplinaTable : IntIdTable("disciplina") {
-    val name = varchar("name", 50)
-    val docente = varchar("docente", 50)
-    val sigla = varchar("sigla", 10)
-    val apelido = varchar("apelido", 50)
+    var name = varchar("name", 50)
+    var docente = varchar("docente", 50)
+    var sigla = varchar("sigla", 10)
+    var apelido = varchar("apelido", 50)
+    var andamento = bool("andamento").default(true)
 }
 
 class DisciplinaDAO(id: EntityID<Int>) : IntEntity(id) {
@@ -28,6 +29,7 @@ class DisciplinaDAO(id: EntityID<Int>) : IntEntity(id) {
     var docente by DisciplinaTable.docente
     var sigla by DisciplinaTable.sigla
     var apelido by DisciplinaTable.apelido
+    var andamento by DisciplinaTable.andamento
 }
 
 fun daoToModel(dao: DisciplinaDAO) = Disciplina(
@@ -35,6 +37,7 @@ fun daoToModel(dao: DisciplinaDAO) = Disciplina(
     dao.docente,
     dao.sigla,
     dao.apelido,
+    dao.andamento,
 )
 
 ////////////////// Atividades

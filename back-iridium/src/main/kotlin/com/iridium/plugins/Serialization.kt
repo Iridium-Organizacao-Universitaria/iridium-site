@@ -52,6 +52,27 @@ fun Application.configureDisciplinaSerialization(repository: DisciplinaRepositor
                 call.respond(disciplina)
             }
 
+            get("/byAndamento/{andamento}") {
+                val andamentoAsBoolean = call.parameters["andamento"]
+                if (andamentoAsBoolean == null) {
+                    call.respond(HttpStatusCode.BadRequest)
+                    return@get
+                }
+                try {
+                    val andamento = andamentoAsBoolean?.toBoolean()?: false
+                    val atividades = repository.disciplinasByAndamento(andamento)
+
+
+                    if (atividades.isEmpty()) {
+                        call.respond(HttpStatusCode.NotFound)
+                        return@get
+                    }
+                    call.respond(atividades)
+                } catch (ex: IllegalArgumentException) {
+                    call.respond(HttpStatusCode.BadRequest)
+                }
+            }
+
             post {
                 try {
                     val disciplina = call.receive<Disciplina>()

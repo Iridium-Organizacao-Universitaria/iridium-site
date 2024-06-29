@@ -13,6 +13,12 @@ class PostgresDisciplinaRepository : DisciplinaRepository {
         DisciplinaDAO.all().map(::daoToModel)
     }
 
+    override suspend fun disciplinasByAndamento(andamento: Boolean): List<Disciplina> = suspendTransaction {
+        DisciplinaDAO
+            .find { (DisciplinaTable.andamento eq andamento) }
+            .map(::daoToModel)
+    }
+
     override suspend fun disciplinaByName(name: String): Disciplina? = suspendTransaction {
         DisciplinaDAO
             .find { (DisciplinaTable.name eq name) }

@@ -9,10 +9,11 @@ import org.jetbrains.exposed.sql.*
 //    name VARCHAR(50),
 //    docente VARCHAR(50),
 //    sigla VARCHAR(50),
-//    apelido VARCHAR(50)
+//    apelido VARCHAR(50),
+//    andamento BOOLEAN DEFAULT TRUE
 //);
-//INSERT INTO disciplina (name, docente, sigla, apelido)
-//    VALUES ('calculo', 'zara', 'MAT0123', 'calcpi');
+//INSERT INTO disciplina (name, docente, sigla, apelido, andamento)
+//    VALUES ('calculo', 'zara', 'MAT0123', 'calcpi', FALSE);
 //INSERT INTO disciplina (name, docente, sigla, apelido)
 //    VALUES ('software', 'paulo', 'MAC0456', 'labjef');
 //
