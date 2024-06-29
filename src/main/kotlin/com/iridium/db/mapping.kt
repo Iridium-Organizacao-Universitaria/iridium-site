@@ -5,11 +5,11 @@ import Atividade
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.sql.Transaction
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
-
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IntIdTable
+import org.jetbrains.exposed.sql.javatime.date
 
 suspend fun <T> suspendTransaction(block: Transaction.() -> T): T =
     newSuspendedTransaction(Dispatchers.IO, statement = block)
@@ -43,6 +43,7 @@ object AtividadeTable : IntIdTable("atividade") {
     val descricao = varchar("descricao", 50)
     val tipo = varchar("tipo", 50)
     val concluido = bool("concluido").default(false)
+    val prazo = date("prazo")
 }
 
 class AtividadeDAO(id: EntityID<Int>) : IntEntity(id) {
@@ -51,6 +52,7 @@ class AtividadeDAO(id: EntityID<Int>) : IntEntity(id) {
     var descricao by AtividadeTable.descricao
     var tipo by AtividadeTable.tipo
     var concluido by AtividadeTable.concluido
+    var prazo by AtividadeTable.prazo
 }
 
 fun daoToModel(dao: AtividadeDAO) = Atividade(
@@ -58,4 +60,5 @@ fun daoToModel(dao: AtividadeDAO) = Atividade(
     dao.descricao,
     Tipo.valueOf(dao.tipo),
     dao.concluido,
+    dao.prazo,
 )

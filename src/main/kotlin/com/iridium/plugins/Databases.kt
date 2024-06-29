@@ -20,12 +20,13 @@ import org.jetbrains.exposed.sql.*
 //    name VARCHAR(50),
 //    descricao VARCHAR(50),
 //    tipo VARCHAR(10),
-//    concluido BOOLEAN DEFAULT FALSE
+//    concluido BOOLEAN DEFAULT FALSE,
+//    prazo DATE
 //);
-//INSERT INTO atividade (name, descricao, tipo)
-//    VALUES ('projeto iridium', 'entregar segunda', 'Prova');
-//INSERT INTO atividade (name, descricao, tipo, concluido)
-//    VALUES ('lista', 'exercicio 2', 'Tarefa', TRUE);
+//INSERT INTO atividade (name, descricao, tipo, prazo)
+//    VALUES ('projeto iridium', 'entregar segunda', 'Prova', '2024-07-14');
+//INSERT INTO atividade (name, descricao, tipo, concluido, prazo)
+//    VALUES ('lista', 'exercicio 2', 'Tarefa', TRUE, '2025-04-20');
 
 
 fun Application.configureDatabases() {
