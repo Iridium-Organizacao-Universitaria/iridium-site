@@ -43,6 +43,7 @@ object AtividadeTable : IntIdTable("atividade") {
     val descricao = varchar("descricao", 50)
     val tipo = varchar("tipo", 50)
     val concluido = bool("concluido").default(false)
+    val disciplina = varchar("disciplina", 50)
     val prazo = date("prazo")
 }
 
@@ -52,6 +53,7 @@ class AtividadeDAO(id: EntityID<Int>) : IntEntity(id) {
     var descricao by AtividadeTable.descricao
     var tipo by AtividadeTable.tipo
     var concluido by AtividadeTable.concluido
+    var disciplina by AtividadeTable.disciplina
     var prazo by AtividadeTable.prazo
 }
 
@@ -60,5 +62,6 @@ fun daoToModel(dao: AtividadeDAO) = Atividade(
     dao.descricao,
     Tipo.valueOf(dao.tipo),
     dao.concluido,
+    dao.disciplina,
     dao.prazo,
 )

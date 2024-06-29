@@ -1,6 +1,4 @@
-// nao funciona nada
 /*
-
 package com.iridium
 
 import com.iridium.plugins.*
@@ -66,5 +64,5 @@ class ApplicationTest {
         assertContains(disciplinaNames, "swimming")
     }
 }
-
  */
+

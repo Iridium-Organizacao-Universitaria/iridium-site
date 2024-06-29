@@ -160,10 +160,11 @@ function displayAtividadesWithConcluido() {
     fetchAtividadesWithConcluido(concluido).then(displayAtividades)
 }
 
+
 function displayAtividade(name) {
     fetchAtividadeWithName(name).then(t =>
         atividadeDisplay().innerHTML
-            = `Nome: ${t.name} Descricao: ${t.descricao} Tipo: ${t.tipo} Concluido: ${t.concluido} Prazo: ${t.prazo}`
+            = `Nome: ${t.name} Descricao: ${t.descricao} Tipo: ${t.tipo} Concluido: ${t.concluido} Prazo: ${t.prazo} Matéria: ${t.disciplina}`
     )
 }
 
@@ -189,6 +190,7 @@ function buildAtividadeFromForm() {
         descricao: getAtividadeFormValue("newAtividadeDescricao"),
         tipo: getAtividadeFormValue("newAtividadeTipo"),
         concluido: false,
+        disciplina: getAtividadeFormValue("newAtividadeDisciplina"),
         prazo: getAtividadeFormValue("newAtividadePrazo")
     }
 }
@@ -254,6 +256,7 @@ function atividadeRow(atividade) {
         td(atividade.name),
         td(atividade.tipo),
         td(atividade.concluido),
+        td(atividade.disciplina),
         td(atividade.prazo),
         td(viewLinkAtividade(atividade.name)),
         td(deleteLinkAtividade(atividade.name)),

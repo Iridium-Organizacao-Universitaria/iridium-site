@@ -13,6 +13,8 @@ import org.jetbrains.exposed.sql.*
 //);
 //INSERT INTO disciplina (name, docente, sigla, apelido)
 //    VALUES ('calculo', 'zara', 'MAT0123', 'calcpi');
+//INSERT INTO disciplina (name, docente, sigla, apelido)
+//    VALUES ('software', 'paulo', 'MAC0456', 'labjef');
 //
 //DROP TABLE IF EXISTS atividade;
 //CREATE TABLE atividade(
@@ -21,21 +23,21 @@ import org.jetbrains.exposed.sql.*
 //    descricao VARCHAR(50),
 //    tipo VARCHAR(10),
 //    concluido BOOLEAN DEFAULT FALSE,
+//    disciplina VARCHAR(50),
 //    prazo DATE
 //);
-//INSERT INTO atividade (name, descricao, tipo, prazo)
-//    VALUES ('projeto iridium', 'entregar segunda', 'Prova', '2024-07-14');
-//INSERT INTO atividade (name, descricao, tipo, concluido, prazo)
-//    VALUES ('lista', 'exercicio 2', 'Tarefa', TRUE, '2025-04-20');
+//INSERT INTO atividade (name, descricao, tipo, prazo, disciplina)
+//    VALUES ('projeto iridium', 'entregar segunda', 'Prova', '2024-07-14', 'software');
+//INSERT INTO atividade (name, descricao, tipo, concluido, prazo, disciplina)
+//    VALUES ('lista', 'exercicio 2', 'Tarefa', TRUE, '2025-04-20', 'calculo');
 
 
 fun Application.configureDatabases() {
     Database.connect(
         "jdbc:postgresql://localhost:5432/iridium_db",
 //        driver = "org.postgresql.Driver",
-        user = "postgres",
-        //password = "bancodados"
-        password = "Bibi2004!"
-
+        user = "postgres",  
+        password = "bancodados"
+//        password = "Bibi2004!"
     )
 }

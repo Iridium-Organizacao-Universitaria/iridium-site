@@ -39,6 +39,7 @@ class PostgresAtividadeRepository : AtividadeRepository {
             name = atividade.name
             descricao = atividade.descricao
             tipo = atividade.tipo.toString()
+            disciplina = atividade.disciplina
             prazo = atividade.prazo
         }
     }
