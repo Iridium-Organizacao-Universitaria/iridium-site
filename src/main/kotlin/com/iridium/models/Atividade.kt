@@ -12,7 +12,7 @@ data class Atividade(
     var descricao: String,
     var tipo: Tipo,
     var concluido: Boolean,
+    var disciplina: String,
     @Contextual
-    var prazo: LocalDate
-    //    var disciplina: Disciplina,
+    var prazo: LocalDate,
 )
