@@ -14,6 +14,5 @@ data class Atividade(
     var concluido: Boolean,
     @Contextual
     var prazo: LocalDate
-    var concluido: Boolean
-    //var disciplina: Disciplina,
+    //    var disciplina: Disciplina,
 )

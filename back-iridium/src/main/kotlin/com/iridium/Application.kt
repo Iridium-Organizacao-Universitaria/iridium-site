@@ -12,13 +12,13 @@ import java.time.LocalDate
 
 fun Application.module() {
     install(ContentNegotiation) {
-        json()	        json(Json {
+        json(Json {
             serializersModule = SerializersModule {
                 contextual(LocalDate::class, LocalDateSerializer)
             }
             ignoreUnknownKeys = true
         })
-    }	    }
+    }
     val disciplinaRepository = PostgresDisciplinaRepository()
     val atividadeRepository = PostgresAtividadeRepository()
 
@@ -26,6 +26,5 @@ fun Application.module() {
     configureAtividadeSerialization(atividadeRepository)
     configureRouting()
     configureDatabases()
-    configureHTTP()
 //    configureMonitoring() // n sei oq eh nao tava no tutorial
 }
