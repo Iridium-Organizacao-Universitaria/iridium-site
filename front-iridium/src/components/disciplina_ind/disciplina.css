@@ -1,3 +1,4 @@
+
 .h {
     display: flex;
     flex-direction: column;
@@ -71,13 +72,13 @@
     font-weight: bold;
 }
 
-.em_andamento {
+.em_andamento_atv {
     display: flex;
     align-items: center;
     margin-bottom: 40px;
 }
 
-.em_andamento button {
+.em_andamento_atv button {
     text-align: center;
 }
 
@@ -224,5 +225,3 @@
     margin: 5px 0;
     color:white;
 }
-
-

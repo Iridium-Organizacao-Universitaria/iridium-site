@@ -33,6 +33,7 @@ fun Application.configureDatabases() {
         "jdbc:postgresql://localhost:5432/iridium_db",
 //        driver = "org.postgresql.Driver",
         user = "postgres",  
-        password = "bancodados"
-    )
+        //password = "bancodados"
+        password = "Bibi2004!"
+        )
 }

@@ -18,5 +18,6 @@ fun Application.module() {
     configureAtividadeSerialization(atividadeRepository)
     configureRouting()
     configureDatabases()
+    configureHTTP()
 //    configureMonitoring() // n sei oq eh nao tava no tutorial
 }

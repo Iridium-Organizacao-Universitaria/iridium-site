@@ -1,6 +1,7 @@
-import React, {useEffect, useRef, useState} from 'react';
-import '../../App.css'; // Importa o estilo geral
-import './disciplina.css'; // Importa os estilos específicos da página
+import React, { useEffect, useRef, useState } from 'react';
+import { useLocation, useParams, useNavigate } from 'react-router-dom';
+import '../../App.css';
+import './disciplina.css';
 
 const Disciplina = () => {
     const [atividades, setAtividades] = useState([
@@ -25,28 +26,71 @@ const Disciplina = () => {
         { nome: 'Prova 10', dataEntrega: '17/08/2024' },
     ]);
 
-    const [selected, setSelected] = useState('sim'); // Valor inicial como 'sim'
-    const [editing, setEditing] = useState(false); // Estado para controlar o modo de edição
-    const [disciplina, setDisciplina] = useState({
+    const location = useLocation();
+    const { disciplinaName } = useParams();
+    const navigate = useNavigate();
+    const initialDisciplinaState = {
         nome: 'Nome da disciplina',
         sigla: 'Sigla',
         docente: 'Docente',
         apelido: 'Apelido',
         emAndamento: 'sim', // Exemplo de valor inicial
-    });
+    };
 
+    const [selected, setSelected] = useState('sim'); // Valor inicial como 'sim'
+    const [editing, setEditing] = useState(false); // Estado para controlar o modo de edição
+    const [disciplinaState, setDisciplinaState] = useState(initialDisciplinaState);
     const nameInputRef = useRef(null);
 
     useEffect(() => {
-        if (editing) {
-            // Foca no input do nome quando entrar no modo edição
-            nameInputRef.current.focus();
+        if (location.state && location.state.disciplina) {
+            setDisciplinaState(location.state.disciplina);
+
+        } else {
+            fetchDisciplina(); // Buscar disciplina com base no nome da URL
         }
-    }, [editing]);
+
+    }, [disciplinaName]);
+
+    const sendGET = (url) => {
+        return fetch(url, { headers: { 'Accept': 'application/json' } })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Erro ao buscar disciplina');
+            })
+            .catch(error => {
+                console.error('Erro ao buscar disciplina:', error);
+                return null;
+            });
+    };
+
+    const fetchDisciplina = () => {
+        sendGET(`/disciplinas/byName/${disciplinaName}`)
+            .then(response => {
+                if (response) {
+                    setDisciplinaState(prevState => ({
+                        ...prevState,
+                        nome: response.name,
+                        sigla: response.sigla,
+                        docente: response.docente,
+                        apelido: response.apelido,
+                        // quando isto estiver implementado, arrumar
+                        //emAndamento: response.emAndamento,
+                    }));
+                } else {
+                    console.log('Disciplina não encontrada');
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao buscar disciplina:', error);
+            });
+    };
 
     const handleSelect = (button) => {
         setSelected(button);
-        setDisciplina((prevState) => ({
+        setDisciplinaState((prevState) => ({
             ...prevState,
             emAndamento: button,
         }));
@@ -63,10 +107,26 @@ const Disciplina = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setDisciplina(prevState => ({
+        setDisciplinaState(prevState => ({
             ...prevState,
             [name]: value,
         }));
+    };
+
+    const handleDelete = () => {
+        deleteDisciplina(disciplinaState.nome)
+            .then(() => {
+                navigate(`/disciplinas/Disciplinas`);
+            })
+            .catch(error => {
+                console.error('Erro ao deletar disciplina:', error);
+            });
+    };
+
+    const deleteDisciplina = (name) => {
+        return fetch(`/disciplinas/${name}`, {
+            method: 'DELETE'
+        });
     };
 
     return (
@@ -89,7 +149,7 @@ const Disciplina = () => {
 
             <div className="disciplina-page">
                 <div className="disciplina-info">
-                    {/*Modo edição das informações da disciplina*/}
+                    {/* Modo edição das informações da disciplina */}
                     {editing ? (
                         <>
                             <h2>Editar disciplina</h2>
@@ -100,7 +160,7 @@ const Disciplina = () => {
                                         type="text"
                                         id="nome"
                                         name="nome"
-                                        value={disciplina.nome}
+                                        value={disciplinaState.nome}
                                         onChange={handleChange}
                                         ref={nameInputRef}
                                         autoFocus
@@ -112,7 +172,7 @@ const Disciplina = () => {
                                         type="text"
                                         id="sigla"
                                         name="sigla"
-                                        value={disciplina.sigla}
+                                        value={disciplinaState.sigla}
                                         onChange={handleChange}
                                     />
                                 </div>
@@ -122,7 +182,7 @@ const Disciplina = () => {
                                         type="text"
                                         id="docente"
                                         name="docente"
-                                        value={disciplina.docente}
+                                        value={disciplinaState.docente}
                                         onChange={handleChange}
                                     />
                                 </div>
@@ -132,11 +192,11 @@ const Disciplina = () => {
                                         type="text"
                                         id="apelido"
                                         name="apelido"
-                                        value={disciplina.apelido}
+                                        value={disciplinaState.apelido}
                                         onChange={handleChange}
                                     />
                                 </div>
-                                <div className="em_andamento">
+                                <div className="em_andamento_atv">
                                     <label>Em andamento:</label>
                                     <button
                                         className={`b_sim ${selected === 'sim' ? 'selected' : ''}`}
@@ -152,37 +212,37 @@ const Disciplina = () => {
                                     </button>
                                 </div>
                                 <div className="botoes">
-                                <button className="b_save_disc" onClick={handleSave}>Salvar alterações</button>
+                                    <button className="b_save_disc" onClick={handleSave}>Salvar alterações</button>
                                 </div>
                             </div>
                         </>
                     ) : (
                         <>
-                            <h2>{disciplina.nome}</h2>
+                            <h2>{disciplinaState.nome}</h2>
                             <div className="info-box">
                                 <div className="info_box_ind">
                                     <label htmlFor="sigla">Sigla:</label>
-                                    <p><span id="sigla">{disciplina.sigla}</span></p>
+                                    <p><span id="sigla">{disciplinaState.sigla}</span></p>
                                 </div>
                                 <div className="info_box_ind">
                                     <label htmlFor="docente">Docente:</label>
-                                    <p><span id="docente">{disciplina.docente}</span></p>
+                                    <p><span id="docente">{disciplinaState.docente}</span></p>
                                 </div>
                                 <div className="info_box_ind">
                                     <label htmlFor="apelido">Apelido:</label>
-                                    <p><span id="apelido">{disciplina.apelido}</span></p>
+                                    <p><span id="apelido">{disciplinaState.apelido}</span></p>
                                 </div>
-                                <div className="em_andamento">
+                                <div className="em_andamento_atv">
                                     <label>Em andamento:</label>
                                     <div className="b_sim_nao">
                                         <button
-                                            className={`b_sim ${disciplina.emAndamento === 'sim' ? 'selected' : ''}`}
+                                            className={`b_sim ${disciplinaState.emAndamento === 'sim' ? 'selected' : ''}`}
                                             disabled
                                         >
                                             Sim
                                         </button>
                                         <button
-                                            className={`b_nao ${disciplina.emAndamento === 'nao' ? 'selected' : ''}`}
+                                            className={`b_nao ${disciplinaState.emAndamento === 'nao' ? 'selected' : ''}`}
                                             disabled
                                         >
                                             Não
@@ -191,7 +251,7 @@ const Disciplina = () => {
                                 </div>
                                 <div className="botoes">
                                     <button className="b_edita-dis" onClick={handleEdit}>Editar disciplina</button>
-                                    <button className="b_delete-dis">Deletar disciplina</button>
+                                    <button className="b_delete-dis" onClick={handleDelete}>Deletar disciplina</button>
                                 </div>
                             </div>
                         </>

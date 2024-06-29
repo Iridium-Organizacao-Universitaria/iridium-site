@@ -1,16 +1,57 @@
-import React from 'react';
+// src/components/disciplinas/Disciplinas.js
+
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../App.css'; // Importa o estilo geral
-import './disciplinas.css'; // Importa os estilos específicos da página
+import '../../App.css';
+import './disciplinas.css';
 
 const Disciplinas = () => {
     const navigate = useNavigate();
+    const [disciplinas_em_andamento, setDisciplinas] = useState([]);
 
-    const handleClick = (disciplina) => {
-        console.log(`Você clicou na disciplina: ${disciplina}`);
-        // Implemente aqui as ações desejadas ao clicar na disciplina
-        navigate('/disciplina_ind/Disciplina');
+    // Toda fez que a página e carregada, isto é renderizado antes de completar o carregamento
+    useEffect(() => {
+        displayAllDisciplinas();
+    });
+
+    const handleClick = (disciplinaName) => {
+        navigate(`/disciplina_ind/${disciplinaName}`, {
+            state: { disciplinaName }
+        });
     };
+
+    function sendGET(url) {
+        return fetch(url, { headers: { 'Accept': 'application/json' } })
+            .then(response => response.ok ? response.json() : []);
+    }
+
+    function sendPOST(url, data) {
+        return fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+    }
+
+    function sendDELETE(url) {
+        return fetch(url, { method: 'DELETE' });
+    }
+
+    function displayAllDisciplinas() {
+        fetchAllDisciplinas().then(setDisciplinas);
+    }
+
+    function deleteDisciplina(name) {
+        deleteDisciplinaWithName(name).then(displayAllDisciplinas);
+    }
+
+    function deleteDisciplinaWithName(name) {
+        return sendDELETE(`/disciplinas/${name}`);
+    }
+
+    function fetchAllDisciplinas() {
+        return sendGET("/disciplinas");
+    }
 
     return (
         <div className="h">
@@ -35,31 +76,30 @@ const Disciplinas = () => {
                 <div className="container_dis">
                     <div className="criar_btn">
                         <a href="/atividade_ind/Atividade">oie</a>
-                        <button> Criar uma nova disciplina</button>
+                        <button onClick={() => navigate('/criar_disciplina')}>Criar uma nova disciplina</button>
                     </div>
                     <div className="disc_atu">
-                        <h3>Disciplinas em andamento</h3>
+                        <h3>Disciplinas em andamento ({disciplinas_em_andamento.length})</h3>
                         <div className="disciplinas_andamento">
-                            {Array.from({length: 15}, (_, index) => (
+                            {disciplinas_em_andamento.map((disciplina, index) => (
                                 <button
                                     key={index}
                                     className="botao_disciplina"
-                                    onClick={() => handleClick(`Disciplina ${index + 1}`)}
+                                    onClick={() => handleClick(disciplina.name)}
                                 >
-                                    Disciplina {index + 1}
+                                    {disciplina.name}
                                 </button>
                             ))}
                         </div>
                     </div>
                     <div className="disc_ant">
                         <h3>Disciplinas de semestres anteriores</h3>
-                        <div className="disciplinas_passadas"></div>
-                        <div className="disciplinas_andamento">
-                            {Array.from({length: 30}, (_, index) => (
+                        <div className="disciplinas_passadas">
+                            {Array.from({ length: 30 }, (_, index) => (
                                 <button
                                     key={index}
                                     className="botao_disciplina"
-                                    onClick={() => handleClick(`Disciplina ${index + 1}`)}
+                                    onClick={() => handleClick(`Disciplina ${index + 16}`)}
                                 >
                                     Disciplina {index + 16}
                                 </button>
