@@ -4,6 +4,7 @@ import '../../App.css';
 import './disciplina.css';
 
 const Disciplina = () => {
+    // dados de exemplo só para testar o front
     const [atividades, setAtividades] = useState([
         { nome: 'Atividade 1', dataEntrega: '22/06/2024' },
         { nome: 'Atividade 2', dataEntrega: '25/06/2024' },

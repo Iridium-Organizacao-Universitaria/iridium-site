@@ -1,13 +1,132 @@
+/* Estilos gerais da página Atividades */
 .h {
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Garante que a div ocupe pelo menos a altura total da viewport */
+    min-height: 100vh;
 }
 
 .atividades_tudo {
     flex: 1;
     overflow: auto;
-    padding-top: 50px; /*altura da header*/
+    padding-top: 50px;
     display: flex;
     flex-direction: column;
+}
+
+.title_atvs {
+    color: #cecece;
+    margin: 60px;
+}
+
+.topo_atvs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 400px;
+    margin-bottom: 20px;
+}
+
+.contagem-itens {
+    font-size: 18px;
+    color: #cecece;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+}
+
+.b_filtros_atvs {
+    display: flex;
+    gap: 20px;
+}
+
+.b_filtros_atvs button {
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    font-weight: bold;
+    border: 2px solid black;
+    cursor: pointer;
+    padding: 10px 15px;
+}
+
+button:hover {
+    color: white;
+    background-color: black;
+    border: 2px solid black;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+}
+
+.dropdown-item:hover {
+    background-color: white;
+    color: black;
+}
+
+.atividades_lista_div {
+    margin: 20px 400px;
+}
+
+.atividades_lista, .provas-list {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    padding: 0;
+    overflow-y: auto;
+    max-height: 300px;
+}
+
+.atividades_lista li, .provas-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.atividades_lista li img, .provas-list li img {
+    width: 20px; /* Defina a largura desejada */
+    height: 20px; /* Mantém a proporção da imagem */
+    margin-right: 5px; /* Adiciona um espaço à direita da imagem */
+}
+
+.atividades_lista li span, .provas-list li span {
+    font-size: 17px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.atividades_lista::-webkit-scrollbar {
+    height: 4px;
+    width: 8px;
+    border-radius: 10px;
+    background-color: #e6e6e6;
+}
+
+.atividades_lista::-webkit-scrollbar-thumb {
+    background: #cecece;
+    border-radius: 10px;
+}
+
+.data-entrega {
+    font-size: 14px;
+    color: black;
 }
