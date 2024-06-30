@@ -24,6 +24,20 @@ function sendDELETE(url) {
     });
 }
 
+function sendPUT(url) {
+    return fetch(url, {
+        method: "PUT"
+    });
+}
+
+//function sendPUT(url, data) {
+//    return fetch(url, {
+//        method: 'PUT',
+//        headers: {'Content-Type': 'application/json'},
+//        body: JSON.stringify(data)
+//    });
+//}
+
 function tr(children) {
     const node = document.createElement("tr");
     children.forEach(child => node.appendChild(child));
@@ -52,17 +66,6 @@ function displayDisciplina(name) {
         disciplinaDisplay().innerHTML
             = `Nome: ${t.name} Docente: ${t.docente} Sigla: ${t.sigla} Apelido: ${t.apelido} Em andamento: ${t.andamento}`
     )
-}
-
-function deleteDisciplina(name) {
-    deleteDisciplinaWithName(name).then(() => {
-        clearDisciplinaDisplay();
-        displayAllDisciplinas();
-    })
-}
-
-function deleteDisciplinaWithName(name) {
-    return sendDELETE(`/disciplinas/${name}`)
 }
 
 function addNewDisciplina() {
@@ -122,7 +125,28 @@ function disciplinaRow(disciplina) {
         td(disciplina.andamento),
         td(viewLinkDisciplina(disciplina.name)),
         td(deleteLinkDisciplina(disciplina.name)),
+        td(switchAndamentoLinkDisciplina(disciplina.name))
     ]);
+}
+
+function switchAndamentoLinkDisciplina(disciplinaName) {
+    const node = document.createElement("a");
+    node.setAttribute(
+        "href", `javascript:switchAndamentoDisciplina("${disciplinaName}")`
+    );
+    node.appendChild(document.createTextNode("switch andamento"));
+    return node;
+}
+
+function switchAndamentoDisciplina(name) {
+    switchAndamentoDisciplinaWithName(name).then(() => {
+        clearDisciplinaDisplay();
+        displayAllDisciplinas();
+    })
+}
+
+function switchAndamentoDisciplinaWithName(name) {
+    return sendPUT(`/disciplinas/${name}`)
 }
 
 function viewLinkDisciplina(disciplinaName) {
@@ -132,6 +156,17 @@ function viewLinkDisciplina(disciplinaName) {
     )
     node.appendChild(document.createTextNode("view"));
     return node;
+}
+
+function deleteDisciplina(name) {
+    deleteDisciplinaWithName(name).then(() => {
+        clearDisciplinaDisplay();
+        displayAllDisciplinas();
+    })
+}
+
+function deleteDisciplinaWithName(name) {
+    return sendDELETE(`/disciplinas/${name}`)
 }
 
 function deleteLinkDisciplina(disciplinaName) {
@@ -155,6 +190,11 @@ function readDisciplinaAndamento() {
 
 function fetchDisciplinasWithAndamento(andamento) {
     return sendGET(`/disciplinas/byAndamento/${andamento}`);
+}
+
+function switchDisciplinaAndamento(name) {
+    const data = { name };
+    return sendPUT("/disciplinas/switchAndamento", data);
 }
 
 /////////////// ATIVIDADES

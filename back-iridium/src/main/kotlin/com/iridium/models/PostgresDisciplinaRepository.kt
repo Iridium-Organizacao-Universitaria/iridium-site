@@ -6,7 +6,11 @@ import com.iridium.db.DisciplinaTable
 import com.iridium.db.daoToModel
 import com.iridium.db.suspendTransaction
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-import org.jetbrains.exposed.sql.deleteWhere
+import org.jetbrains.exposed.sql.*
+//import org.jetbrains.exposed.sql.deleteWhere
+//import org.jetbrains.exposed.sql.update
+//import org.jetbrains.exposed.sql.transactions.experimental.suspendTransaction
+
 
 class PostgresDisciplinaRepository : DisciplinaRepository {
     override suspend fun allDisciplinas(): List<Disciplina> = suspendTransaction {
@@ -42,4 +46,26 @@ class PostgresDisciplinaRepository : DisciplinaRepository {
         }
         rowsDeleted == 1
     }
+
+//    override suspend fun switchDisciplinaAndamento(name: String): Boolean = suspendTransaction {
+//        val rowsUpdated = DisciplinaTable.update({ DisciplinaTable.name eq name }) {
+//            it[DisciplinaTable.andamento] = !it[DisciplinaTable.andamento]
+//        }
+//        rowsUpdated == 1
+//    }
+
+    override suspend fun switchDisciplinaAndamento(name: String): Boolean = suspendTransaction {
+        val disciplina = DisciplinaTable.select { DisciplinaTable.name eq name }.singleOrNull()
+        if (disciplina != null) {
+            val currentAndamento = disciplina[DisciplinaTable.andamento]
+            val rowsUpdated = DisciplinaTable.update({ DisciplinaTable.name eq name }) {
+                it[DisciplinaTable.andamento] = !currentAndamento
+            }
+            rowsUpdated == 1
+        } else {
+            false
+        }
+    }
+
+
 }

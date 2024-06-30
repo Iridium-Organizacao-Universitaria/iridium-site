@@ -97,6 +97,29 @@ fun Application.configureDisciplinaSerialization(repository: DisciplinaRepositor
                     call.respond(HttpStatusCode.NotFound)
                 }
             }
+
+            put("/{disciplinaName}") {
+                val nome = call.parameters["disciplinaName"]
+                if (nome == null) {
+                    call.respond(HttpStatusCode.BadRequest)
+                    return@put
+                }
+                if (repository.switchDisciplinaAndamento(nome)) {
+                    call.respond(HttpStatusCode.NoContent)
+                } else {
+                    call.respond(HttpStatusCode.NotFound)
+                }
+//                try {
+//                    val params = call.receive<SwitchAndamentoRequest>()
+//                    if (repository.switchDisciplinaAndamento(params.name)) {
+//                        call.respond(HttpStatusCode.NoContent)
+//                    } else {
+//                        call.respond(HttpStatusCode.NotFound)
+//                    }
+//                } catch (ex: IllegalArgumentException) {
+//                    call.respond(HttpStatusCode.BadRequest)
+//                }
+            }
         }
     }
 }
