@@ -123,3 +123,17 @@
 .b_sim_atv.selected, .b_nao_atv.selected {
     border: 2px solid white; /* Borda branca para o botão selecionado */
 }
+
+.info_box_atv_ind_inner select {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    padding: 10px;
+    color: white;
+    font-size: 17px;
+}
+
+.info_box_atv_ind_inner select option {
+    color: black; /* Cor do texto das opções do select */
+}

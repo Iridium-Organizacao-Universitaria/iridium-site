@@ -6,6 +6,7 @@ import '../../App.css';
 import './atividades.css';
 
 const Atividades = () => {
+    const [DisciplinasAll, setDisciplinasAll] = useState([]);
     const [atividades, setAtividades] = useState([]);
     const [filtroTipo, setFiltroTipo] = useState('Todos');
     const [filtroData, setFiltroData] = useState('Hoje');
@@ -23,6 +24,7 @@ const Atividades = () => {
         descricao: '',
         tipo: '',
         data: '',
+        disciplina: '',
     });
 
     const tipos = ['Todos', 'Provas', 'Tarefas'];
@@ -31,6 +33,7 @@ const Atividades = () => {
 
     useEffect(() => {
         fetchAllAtividades().then(setAtividades);
+        fetchAllDisciplinas().then(setDisciplinasAll);
         // Adicionar event listener para fechar menus ao clicar fora
         document.addEventListener('click', handleClickOutside);
         return () => {
@@ -46,6 +49,10 @@ const Atividades = () => {
     const fetchAllAtividades = () => {
         return sendGET("/atividades");
     };
+
+    function fetchAllDisciplinas() {
+        return sendGET("/disciplinas");
+    }
 
     function sendPOST(url, data) {
         return fetch(url, {
@@ -143,7 +150,7 @@ const Atividades = () => {
 
     const handleCriarAtividade = async () => {
         // Validar se todos os campos estão preenchidos
-        if (!novaAtividade.nome || !novaAtividade.descricao || !novaAtividade.tipo || !novaAtividade.data) {
+        if (!novaAtividade.nome || !novaAtividade.descricao || !novaAtividade.tipo || !novaAtividade.data || !novaAtividade.disciplina) {
             alert('Por favor, preencha todos os campos.');
             return false;
         }
@@ -154,7 +161,8 @@ const Atividades = () => {
             descricao: novaAtividade.descricao,
             tipo: novaAtividade.tipo,
             concluido: false,
-            prazo: novaAtividade.data
+            prazo: novaAtividade.data,
+            disciplina: novaAtividade.disciplina
         };
 
         // Enviar os dados da nova atividade para o backend
@@ -166,6 +174,7 @@ const Atividades = () => {
                 descricao: '',
                 tipo: '',
                 data: '',
+                disciplina: '',
             });
 
             // Atualizar a lista de atividades exibidas após a criação
@@ -233,8 +242,6 @@ const Atividades = () => {
                                                 <option value="Prova">Prova</option>
                                             </select>
                                         </div>
-                                    </div>
-                                    <div className="criar_nova_atv_outer2">
                                         <div className="criar_nova_atv_inner2">
                                             <label htmlFor="novaAtividade_descricao">Descrição:</label>
                                             <input
@@ -243,6 +250,22 @@ const Atividades = () => {
                                                 value={novaAtividade.descricao}
                                                 onChange={handleInputChange}
                                             />
+                                        </div>
+                                    </div>
+                                    <div className="criar_nova_atv_outer2">
+                                        <div className="criar_nova_atv_inner2">
+                                            <label htmlFor="novaAtividade_disciplina">Disciplina:</label>
+                                            <select
+                                                id="novaAtividade_disciplina"
+                                                name="disciplina"
+                                                value={novaAtividade.disciplina}
+                                                onChange={handleInputChange}
+                                            >
+                                                <option value="">Selecione a disciplina</option>
+                                                {DisciplinasAll.map((disciplina, index) => (
+                                                    <option key={index} value={disciplina.name}>{disciplina.name}</option>
+                                                ))}
+                                            </select>
                                         </div>
                                         <div className="criar_nova_atv_inner2">
                                             <label htmlFor="novaAtividade_data">Data:</label>

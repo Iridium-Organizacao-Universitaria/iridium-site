@@ -180,7 +180,8 @@ const Disciplina = () => {
             descricao: novaAtividade.descricao,
             tipo: novaAtividade.tipo,
             concluido: false,
-            prazo: novaAtividade.data
+            prazo: novaAtividade.data,
+            disciplina: disciplinaState.name
         };
 
         // Enviar os dados da nova atividade para o backend

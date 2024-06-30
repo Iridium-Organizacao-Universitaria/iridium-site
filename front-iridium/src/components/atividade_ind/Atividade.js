@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import '../../App.css';
 import './atividade.css';
+import disciplina from "../disciplina_ind/Disciplina";
 
 const Atividade = () => {
     const location = useLocation();
@@ -13,7 +14,8 @@ const Atividade = () => {
         descricao: '',
         tipo: '',
         prazo: '',
-        concluido: ''
+        concluido: '',
+        disciplina: ''
     };
 
     const [atividadeState, setAtividadeState] = useState(initialAtividadeState);
@@ -56,6 +58,12 @@ const Atividade = () => {
         });
     }
 
+    function sendPUT(url) {
+        return fetch(url, {
+            method: "PUT"
+        });
+    }
+
     const fetchAtividade = () => {
         sendGET(`/atividades/byName/${atividadeName}`)
             .then(response => {
@@ -65,7 +73,8 @@ const Atividade = () => {
                         descricao: response.descricao,
                         tipo: response.tipo,
                         prazo: response.prazo,
-                        concluido: response.concluido
+                        concluido: response.concluido,
+                        disciplina: response.disciplina
                     });
                 } else {
                     console.log('Atividade não encontrada');
@@ -91,6 +100,16 @@ const Atividade = () => {
         return sendDELETE(`/atividades/${name}`)
     }
 
+    function switchConcluidoAtividade(name, disciplina) {
+        sendPUT(`/atividades/switchConcluido/${name}/${disciplina}`, { concluido: !atividadeState.concluido })
+            .then(() => {
+                fetchAtividade(); // Atualiza os dados da atividade após alteração
+            })
+            .catch(error => {
+                console.error('Erro ao alterar status da atividade:', error);
+            });
+    }
+
     const handleEdit = () => {
         setEditing(true); // Ativa o modo de edição
     };
@@ -105,7 +124,9 @@ const Atividade = () => {
         //     .catch(error => {
         //         console.error('Erro ao salvar atividade:', error);
         //     });
+        switchConcluidoAtividade(atividadeState.name, atividadeState.disciplina);
         setEditing(false); // Aqui, apenas desativa o modo de edição localmente
+        fetchAtividade();
     };
 
     const handleChange = (e) => {
@@ -170,11 +191,24 @@ const Atividade = () => {
                                 </div>
                                 <div className="info_box_atv_ind_inner edit-mode">
                                     <label htmlFor="tipo">Tipo:</label>
-                                    <input
-                                        type="text"
+                                    <select
                                         id="tipo"
                                         name="tipo"
                                         value={atividadeState.tipo}
+                                        onChange={handleChange}
+                                    >
+                                        <option value="">Selecione o tipo</option>
+                                        <option value="Tarefa">Tarefa</option>
+                                        <option value="Prova">Prova</option>
+                                    </select>
+                                </div>
+                                <div className="info_box_atv_ind_inner edit-mode">
+                                    <label htmlFor="disciplina">Disciplina:</label>
+                                    <input
+                                        type="text"
+                                        id="disciplina"
+                                        name="disciplina"
+                                        value={atividadeState.disciplina}
                                         onChange={handleChange}
                                     />
                                 </div>
@@ -221,6 +255,10 @@ const Atividade = () => {
                                 <div className="info_box_atv_ind_inner">
                                     <label htmlFor="tipo">Tipo:</label>
                                     <p><span id="tipo">{atividadeState.tipo}</span></p>
+                                </div>
+                                <div className="info_box_atv_ind_inner">
+                                    <label htmlFor="disciplina">Disciplina:</label>
+                                    <p><span id="disciplina">{atividadeState.disciplina}</span></p>
                                 </div>
                                 <div className="info_box_atv_ind_inner">
                                     <label htmlFor="data">Data:</label>
