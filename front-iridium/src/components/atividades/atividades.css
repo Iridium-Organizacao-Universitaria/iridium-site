@@ -1,0 +1,286 @@
+/* Estilos gerais da página Atividades */
+.h {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.atividades_tudo {
+    flex: 1;
+    overflow: auto;
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.title_atvs {
+    color: #cecece;
+    margin: 60px 0 30px 30px; /* Define margens superior e inferior de 60px e 30px, respectivamente, e centraliza horizontalmente com 'auto' */
+}
+
+.topo_atvs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 400px;
+    margin-bottom: 20px;
+}
+
+.contagem-itens {
+    font-size: 18px;
+    color: #cecece;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+}
+
+.b_filtros_atvs {
+    display: flex;
+    gap: 20px;
+}
+
+.b_filtros_atvs button {
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    font-weight: bold;
+    border: 2px solid black;
+    cursor: pointer;
+    padding: 10px 15px;
+}
+
+.b_filtros_atvs button:hover {
+    color: white;
+    background-color: black;
+    border: 2px solid black;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+}
+
+.dropdown-item:hover {
+    background-color: white;
+    color: black;
+}
+
+.atividades_lista_div {
+    margin: 20px 400px;
+}
+
+.atividades_lista, .provas-list {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    padding: 0;
+    overflow-y: auto;
+    max-height: 300px;
+}
+
+.atividades_lista li, .provas-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.atividades_lista li img, .provas-list li img {
+    width: 20px; /* Defina a largura desejada */
+    height: 20px; /* Mantém a proporção da imagem */
+    margin-right: 5px; /* Adiciona um espaço à direita da imagem */
+}
+
+.atividades_lista li span, .provas-list li span {
+    font-size: 17px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.atividades_lista::-webkit-scrollbar {
+    height: 4px;
+    width: 8px;
+    border-radius: 10px;
+    background-color: #e6e6e6;
+}
+
+.atividades_lista::-webkit-scrollbar-thumb {
+    background: #cecece;
+    border-radius: 10px;
+}
+
+.data-entrega {
+    font-size: 17px;
+    color: black;
+}
+
+.atividades_lista {
+    list-style-type: none;
+    padding: 0;
+}
+
+.atividade_item {
+    margin-bottom: 10px;
+    border: none;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+}
+
+.atividade_button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+    width: 100%;
+    display: block;
+}
+
+.atividade_button:hover {
+    border: none;
+}
+
+.atividade_content {
+    display: flex;
+    align-items: center;
+}
+
+.atividade_left {
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+
+.atividade_right {
+    margin-left: auto;
+    display: flex;
+    gap:30px;
+    align-items: center;
+}
+
+.atividade_right .data-entrega {
+    color: black;
+    font-size: 14px;
+}
+
+.nova_atv_2 {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 30px;
+    align-items: center;
+    margin-bottom: 10px;
+    justify-content: center;
+    position: fixed; /* Make the form container fixed */
+    top: 50%; /* Position it vertically at 50% */
+    left: 50%; /* Position it horizontally at 50% */
+    transform: translate(-50%, -50%); /* Center it within the viewport */
+    z-index: 100; /* Ensure it's above other elements */
+    width: 50%; /* Adjust width as needed */
+    max-width: 500px; /* Set a maximum width */
+    background-color: white; /* White background */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a shadow for depth */
+}
+
+.criar_nova_atv_inter2 {
+    display: flex;
+}
+
+.criar_nova_atv_outer2 {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    justify-content: center;
+}
+
+.criar_nova_atv_inner2 {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.criar_nova_atv_inner2 select,
+.criar_nova_atv_inner2 input {
+    color: black;
+    background-color: #e6e6e6;
+    border-radius: 30px;
+    border: none;
+    outline: none;
+    padding: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    margin: 0;
+}
+
+.btn-nova-tarefa2 {
+    display:block;
+    padding: 10px 15px;
+    margin: 0 auto 20px auto;
+    border-radius: 5px;
+    background-color: #ff85a2; /* Cor rosa */
+    color: white;
+    cursor: pointer;
+    font-size: 15px; /* Aumentando o tamanho da fonte */
+    border: 1px solid transparent;
+    width: fit-content;
+}
+
+.btn-nova-tarefa2:hover {
+    background-color: white; /* Mudança de cor no hover */
+    color: black; /* Mudança de cor do texto no hover */
+    border: 1px solid black; /* Adiciona borda no hover */
+}
+
+.lixo_bnt{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+}
+
+.lixo_bnt:hover{
+    background-color: red;
+    border: none;
+}
+
+.lixo_icone {
+    color: #333; /* Cor inicial do ícone */
+    transition: color 0.3s ease;
+}
+
+.lixo_bnt:hover .lixo_icone {
+    color: #fff; /* Branco ao passar o mouse */
+    border: none;
+}
+
+
+
+
