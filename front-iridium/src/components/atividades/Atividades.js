@@ -365,6 +365,7 @@ const Atividades = () => {
                                             <span>{atividade.name}</span>
                                         </div>
                                         <div className="atividade_right">
+                                            <span>{atividade.disciplina}</span>
                                             <span
                                                 className="data-entrega">{new Date(atividade.prazo).toLocaleDateString()}</span>
                                         </div>
