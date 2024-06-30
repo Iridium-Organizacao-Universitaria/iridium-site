@@ -14,6 +14,12 @@ const Atividades = () => {
     const dataMenuRef = useRef(null);
     const [atividadesFiltradas, setAtividadesFiltradas] = useState([]);
     const navigate = useNavigate(); // Usando useNavigate para navegação programática
+    const [novaAtividade, setNovaAtividade] = useState({
+        nome: '',
+        descricao: '',
+        tipo: '',
+        data: '',
+    });
 
     const tipos = ['Todos', 'Provas', 'Tarefas'];
     const datas = ['Hoje', '1 semana', '1 mês', 'Todas'];
@@ -35,6 +41,14 @@ const Atividades = () => {
     const fetchAllAtividades = () => {
         return sendGET("/atividades");
     };
+
+    function sendPOST(url, data) {
+        return fetch(url, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        });
+    }
 
     const sendGET = (url) => {
         return fetch(url, { headers: { 'Accept': 'application/json' } })
@@ -93,8 +107,52 @@ const Atividades = () => {
         });
     };
 
-    const handleAtividadeClick = (id) => {
-        navigate(`/atividade_ind/${id}`);
+    const handleAtividadeClick = (atividadeName) => {
+        navigate(`/atividade_ind/${atividadeName}`, {
+            state: { atividadeName }
+        });
+    };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setNovaAtividade(prevState => ({
+            ...prevState,
+            [name]: value,
+        }));
+    };
+
+    const handleCriarAtividade = () => {
+        // Validar se todos os campos estão preenchidos
+        if (!novaAtividade.nome || !novaAtividade.descricao || !novaAtividade.tipo || !novaAtividade.data) {
+            alert('Por favor, preencha todos os campos.');
+            return;
+        }
+
+        // Preparar os dados da nova atividade com a data formatada
+        const novaAtividadeParaEnviar = {
+            name: novaAtividade.nome,
+            descricao: novaAtividade.descricao,
+            tipo: novaAtividade.tipo,
+            concluido: false,
+            prazo: novaAtividade.data
+        };
+
+        // Enviar os dados da nova atividade para o backend
+        sendPOST("/atividades", novaAtividadeParaEnviar)
+            .then(() => {
+                // Limpar o estado da nova atividade após a criação bem-sucedida
+                setNovaAtividade({
+                    nome: '',
+                    descricao: '',
+                    tipo: '',
+                    data: '',
+                });
+
+                fetchAllAtividades().then(setAtividades)
+            })
+            .catch(error => {
+                console.error('Erro ao criar nova atividade:', error);
+            });
     };
 
     return (
@@ -117,9 +175,55 @@ const Atividades = () => {
 
             <div className="atividades_tudo">
                 <h2 className="title_atvs">Atividades</h2>
+                <div className="nova_atv_2">
+                    <div className="criar_nova_atv_inner2">
+                        <label htmlFor="novaAtividade_nome">Nome:</label>
+                        <input
+                            type="text"
+                            id="novaAtividade_nome"
+                            name="nome"
+                            value={novaAtividade.nome}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                    <div className="criar_nova_atv_inner2">
+                        <label htmlFor="novaAtividade_tipo">Tipo:</label>
+                        <select
+                            id="novaAtividade_tipo"
+                            name="tipo"
+                            value={novaAtividade.tipo}
+                            onChange={handleInputChange}
+                        >
+                            <option value="">Selecione o tipo</option>
+                            <option value="Tarefa">Tarefa</option>
+                            <option value="Prova">Prova</option>
+                        </select>
+                    </div>
+                    <div className="criar_nova_atv_inner2">
+                        <label htmlFor="novaAtividade_descricao">Descrição:</label>
+                        <input
+                            id="novaAtividade_descricao"
+                            name="descricao"
+                            value={novaAtividade.descricao}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                    <div className="criar_nova_atv_inner2">
+                        <label htmlFor="novaAtividade_data">Data:</label>
+                        <input
+                            type="date"
+                            id="novaAtividade_data"
+                            name="data"
+                            value={novaAtividade.data}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                    <button className="btn-nova-tarefa2" onClick={handleCriarAtividade}>Criar nova atividade</button>
+
+                </div>
                 <div className="topo_atvs">
                     <div className="contagem-itens">
-                        {`Total de Atividades: ${atividadesFiltradas.length}`}
+                    {`Total de Atividades: ${atividadesFiltradas.length}`}
                     </div>
                     <div className="b_filtros_atvs">
                         <div className="dropdown" ref={tipoMenuRef}>
@@ -164,7 +268,7 @@ const Atividades = () => {
                     <ul className="atividades_lista">
                         {atividadesFiltradas.map((atividade, index) => (
                             <li key={index} className="atividade_item">
-                                <button className="atividade_button" onClick={() => handleAtividadeClick(atividade.id)}>
+                                <button className="atividade_button" onClick={() => handleAtividadeClick(atividade.name)}>
                                     <div className="atividade_content">
                                         <div className="atividade_left">
                                             <img src={atividade.tipo === 'Prova' ? '/imgs/giz.png' : '/imgs/pin.png'} alt={atividade.tipo} />
