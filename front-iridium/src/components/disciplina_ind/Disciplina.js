@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useParams, useNavigate } from 'react-router-dom';
+import Popup from 'reactjs-popup';
 import '../../App.css';
 import './disciplina.css';
 
@@ -152,11 +153,11 @@ const Disciplina = () => {
         }));
     };
 
-    const handleCriarAtividade = () => {
+    const handleCriarAtividade = async () => {
         // Validar se todos os campos estão preenchidos
         if (!novaAtividade.nome || !novaAtividade.descricao || !novaAtividade.tipo || !novaAtividade.data) {
             alert('Por favor, preencha todos os campos.');
-            return;
+            return false;
         }
 
         // Preparar os dados da nova atividade com a data formatada
@@ -169,22 +170,26 @@ const Disciplina = () => {
         };
 
         // Enviar os dados da nova atividade para o backend
-        sendPOST("/atividades", novaAtividadeParaEnviar)
-            .then(() => {
-                // Limpar o estado da nova atividade após a criação bem-sucedida
-                setNovaAtividade({
-                    nome: '',
-                    descricao: '',
-                    tipo: '',
-                    data: '',
-                });
-
-                // Atualizar a lista de atividades exibidas após a criação
-                // displayAllAtividades(); // Implemente isso quando o link estiver pronto
-            })
-            .catch(error => {
-                console.error('Erro ao criar nova atividade:', error);
+        try {
+            await sendPOST("/atividades", novaAtividadeParaEnviar);
+            // Limpar o estado da nova atividade após a criação bem-sucedida
+            setNovaAtividade({
+                nome: '',
+                descricao: '',
+                tipo: '',
+                data: '',
             });
+
+            // Atualizar a lista de atividades exibidas após a criação
+            // displayAllAtividades(); // Implemente isso quando o link estiver pronto
+            // fazer quando estiver implementado o link de disciplina e atividade
+            //fetchAllAtividades().then(setAtividades);
+
+            return true;
+        } catch (error) {
+            console.error('Erro ao criar nova atividade:', error);
+            return false;
+        }
     };
 
     return (
@@ -338,59 +343,76 @@ const Disciplina = () => {
                             ))}
                         </ul>
                     </div>
-                    <div className="criar_nova_atv_div">
-                        <div className="criar_nova_atv">
-                            <div className="criar_nova_atv_inner">
-                                <label htmlFor="novaAtividade_nome">Nome:</label>
-                                <input
-                                    type="text"
-                                    id="novaAtividade_nome"
-                                    name="nome"
-                                    value={novaAtividade.nome}
-                                    onChange={handleInputChange}
-                                />
-                            </div>
-                            <div className="criar_nova_atv_inner">
-                                <label htmlFor="novaAtividade_tipo">Tipo:</label>
-                                <select
-                                    id="novaAtividade_tipo"
-                                    name="tipo"
-                                    value={novaAtividade.tipo}
-                                    onChange={handleInputChange}
-                                >
-                                    <option value="">Selecione o tipo</option>
-                                    <option value="Tarefa">Tarefa</option>
-                                    <option value="Prova">Prova</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div className="criar_nova_atv">
-                            <div className="criar_nova_atv_inner">
-                                <label htmlFor="novaAtividade_descricao">Descrição:</label>
-                                <input
-                                    id="novaAtividade_descricao"
-                                    name="descricao"
-                                    value={novaAtividade.descricao}
-                                    onChange={handleInputChange}
-                                />
-                            </div>
-                            <div className="criar_nova_atv_inner">
-                                <label htmlFor="novaAtividade_data">Data:</label>
-                                <input
-                                    type="date"
-                                    id="novaAtividade_data"
-                                    name="data"
-                                    value={novaAtividade.data}
-                                    onChange={handleInputChange}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <button className="btn-nova-tarefa" onClick={handleCriarAtividade}>Criar nova atividade</button>
+                    <Popup trigger=
+                        {<button className="btn-nova-tarefa">Criar nova atividade</button>}
+                        modal nested>
+                        {
+                             close => (
+                                <div className="geral_criar_nova_atv">
+                                    <div className="criar_nova_atv_div">
+                                        <div className="criar_nova_atv">
+                                            <div className="criar_nova_atv_inner">
+                                                <label htmlFor="novaAtividade_nome">Nome:</label>
+                                                <input
+                                                    type="text"
+                                                    id="novaAtividade_nome"
+                                                    name="nome"
+                                                    value={novaAtividade.nome}
+                                                    onChange={handleInputChange}
+                                                />
+                                            </div>
+                                            <div className="criar_nova_atv_inner">
+                                                <label htmlFor="novaAtividade_tipo">Tipo:</label>
+                                                <select
+                                                    id="novaAtividade_tipo"
+                                                    name="tipo"
+                                                    value={novaAtividade.tipo}
+                                                    onChange={handleInputChange}
+                                                >
+                                                    <option value="">Selecione o tipo</option>
+                                                    <option value="Tarefa">Tarefa</option>
+                                                    <option value="Prova">Prova</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div className="criar_nova_atv">
+                                            <div className="criar_nova_atv_inner">
+                                                <label htmlFor="novaAtividade_descricao">Descrição:</label>
+                                                <input
+                                                    id="novaAtividade_descricao"
+                                                    name="descricao"
+                                                    value={novaAtividade.descricao}
+                                                    onChange={handleInputChange}
+                                                />
+                                            </div>
+                                            <div className="criar_nova_atv_inner">
+                                                <label htmlFor="novaAtividade_data">Data:</label>
+                                                <input
+                                                    type="date"
+                                                    id="novaAtividade_data"
+                                                    name="data"
+                                                    value={novaAtividade.data}
+                                                    onChange={handleInputChange}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button className="btn-nova-tarefa_pop_up" onClick={async () => {
+                                        const success = await handleCriarAtividade();
+                                        if (success === true) {
+                                            close();
+                                        }
+                                    }}>
+                                        Criar
+                                    </button>
+                                </div>
+                             )
+                        }
+                    </Popup>
                 </div>
             </div>
         </div>
     );
-};
+}
 
 export default Disciplina;

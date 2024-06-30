@@ -183,17 +183,42 @@
 
 .nova_atv_2 {
     display: flex;
-    gap: 20px;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 30px;
+    align-items: center;
+    margin-bottom: 10px;
     justify-content: center;
-    margin-bottom: 30px;
+    position: fixed; /* Make the form container fixed */
+    top: 50%; /* Position it vertically at 50% */
+    left: 50%; /* Position it horizontally at 50% */
+    transform: translate(-50%, -50%); /* Center it within the viewport */
+    z-index: 100; /* Ensure it's above other elements */
+    width: 50%; /* Adjust width as needed */
+    max-width: 500px; /* Set a maximum width */
+    background-color: white; /* White background */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a shadow for depth */
+}
+
+.criar_nova_atv_inter2 {
+    display: flex;
+}
+
+.criar_nova_atv_outer2 {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    justify-content: center;
 }
 
 .criar_nova_atv_inner2 {
+    margin-bottom: 10px;
     display: flex;
     flex-direction: column;
-    font-family: 'Poppins', sans-serif;
-    color: #cecece;
-    font-weight: bold;
+    margin: 10px;
 }
 
 .criar_nova_atv_inner2 select,
@@ -212,12 +237,14 @@
 .btn-nova-tarefa2 {
     display:block;
     padding: 10px 15px;
+    margin: 0 auto 20px auto;
     border-radius: 5px;
     background-color: #ff85a2; /* Cor rosa */
     color: white;
     cursor: pointer;
     font-size: 15px; /* Aumentando o tamanho da fonte */
     border: 1px solid transparent;
+    width: fit-content;
 }
 
 .btn-nova-tarefa2:hover {

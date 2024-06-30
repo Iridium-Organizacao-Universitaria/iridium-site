@@ -1,6 +1,7 @@
 // Atividades.js
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Popup from 'reactjs-popup';
 import '../../App.css';
 import './atividades.css';
 
@@ -140,11 +141,11 @@ const Atividades = () => {
         }));
     };
 
-    const handleCriarAtividade = () => {
+    const handleCriarAtividade = async () => {
         // Validar se todos os campos estão preenchidos
         if (!novaAtividade.nome || !novaAtividade.descricao || !novaAtividade.tipo || !novaAtividade.data) {
             alert('Por favor, preencha todos os campos.');
-            return;
+            return false;
         }
 
         // Preparar os dados da nova atividade com a data formatada
@@ -157,28 +158,32 @@ const Atividades = () => {
         };
 
         // Enviar os dados da nova atividade para o backend
-        sendPOST("/atividades", novaAtividadeParaEnviar)
-            .then(() => {
-                // Limpar o estado da nova atividade após a criação bem-sucedida
-                setNovaAtividade({
-                    nome: '',
-                    descricao: '',
-                    tipo: '',
-                    data: '',
-                });
-
-                fetchAllAtividades().then(setAtividades)
-            })
-            .catch(error => {
-                console.error('Erro ao criar nova atividade:', error);
+        try {
+            await sendPOST("/atividades", novaAtividadeParaEnviar);
+            // Limpar o estado da nova atividade após a criação bem-sucedida
+            setNovaAtividade({
+                nome: '',
+                descricao: '',
+                tipo: '',
+                data: '',
             });
+
+            // Atualizar a lista de atividades exibidas após a criação
+            // displayAllAtividades(); // Implemente isso quando o link estiver pronto
+
+            fetchAllAtividades().then(setAtividades);
+            return true;
+        } catch (error) {
+            console.error('Erro ao criar nova atividade:', error);
+            return false;
+        }
     };
 
     return (
         <div className="h">
             <header>
                 <div id="marca">
-                    <img src="/imgs/Starfruit.png" id="logo" alt="starfruit :3" />
+                    <img src="/imgs/Starfruit.png" id="logo" alt="starfruit :3"/>
                     <p>Iridium</p>
                 </div>
                 <nav>
@@ -193,56 +198,79 @@ const Atividades = () => {
             </header>
 
             <div className="atividades_tudo">
-                <h2 className="title_atvs">Atividades</h2>
-                <div className="nova_atv_2">
-                    <div className="criar_nova_atv_inner2">
-                        <label htmlFor="novaAtividade_nome">Nome:</label>
-                        <input
-                            type="text"
-                            id="novaAtividade_nome"
-                            name="nome"
-                            value={novaAtividade.nome}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    <div className="criar_nova_atv_inner2">
-                        <label htmlFor="novaAtividade_tipo">Tipo:</label>
-                        <select
-                            id="novaAtividade_tipo"
-                            name="tipo"
-                            value={novaAtividade.tipo}
-                            onChange={handleInputChange}
-                        >
-                            <option value="">Selecione o tipo</option>
-                            <option value="Tarefa">Tarefa</option>
-                            <option value="Prova">Prova</option>
-                        </select>
-                    </div>
-                    <div className="criar_nova_atv_inner2">
-                        <label htmlFor="novaAtividade_descricao">Descrição:</label>
-                        <input
-                            id="novaAtividade_descricao"
-                            name="descricao"
-                            value={novaAtividade.descricao}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    <div className="criar_nova_atv_inner2">
-                        <label htmlFor="novaAtividade_data">Data:</label>
-                        <input
-                            type="date"
-                            id="novaAtividade_data"
-                            name="data"
-                            value={novaAtividade.data}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    <button className="btn-nova-tarefa2" onClick={handleCriarAtividade}>Criar nova atividade</button>
-
-                </div>
+            <h2 className="title_atvs">Atividades</h2>
+                <Popup trigger=
+                           {
+                    <button className="btn-nova-tarefa2" onClick={handleCriarAtividade}>Criar nova
+                               atividade</button>
+                }
+                       modal nested>
+                    {
+                        close => (
+                            <div className="nova_atv_2">
+                                <div className="criar_nova_atv_inter2">
+                                    <div className="criar_nova_atv_outer2">
+                                        <div className="criar_nova_atv_inner2">
+                                            <label htmlFor="novaAtividade_nome">Nome:</label>
+                                            <input
+                                                type="text"
+                                                id="novaAtividade_nome"
+                                                name="nome"
+                                                value={novaAtividade.nome}
+                                                onChange={handleInputChange}
+                                            />
+                                        </div>
+                                        <div className="criar_nova_atv_inner2">
+                                            <label htmlFor="novaAtividade_tipo">Tipo:</label>
+                                            <select
+                                                id="novaAtividade_tipo"
+                                                name="tipo"
+                                                value={novaAtividade.tipo}
+                                                onChange={handleInputChange}
+                                            >
+                                                <option value="">Selecione o tipo</option>
+                                                <option value="Tarefa">Tarefa</option>
+                                                <option value="Prova">Prova</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div className="criar_nova_atv_outer2">
+                                        <div className="criar_nova_atv_inner2">
+                                            <label htmlFor="novaAtividade_descricao">Descrição:</label>
+                                            <input
+                                                id="novaAtividade_descricao"
+                                                name="descricao"
+                                                value={novaAtividade.descricao}
+                                                onChange={handleInputChange}
+                                            />
+                                        </div>
+                                        <div className="criar_nova_atv_inner2">
+                                            <label htmlFor="novaAtividade_data">Data:</label>
+                                            <input
+                                                type="date"
+                                                id="novaAtividade_data"
+                                                name="data"
+                                                value={novaAtividade.data}
+                                                onChange={handleInputChange}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <button className="btn-nova-tarefa_pop_up" onClick={async () => {
+                                    const success = await handleCriarAtividade();
+                                    if (success === true) {
+                                        close();
+                                    }
+                                }}>
+                                    Criar
+                                </button>
+                            </div>
+                        )
+                    }
+                </Popup>
                 <div className="topo_atvs">
                     <div className="contagem-itens">
-                    {`Total de Atividades: ${atividadesFiltradas.length}`}
+                        {`Total de Atividades: ${atividadesFiltradas.length}`}
                     </div>
                     <div className="b_filtros_atvs">
                         <div className="dropdown" ref={tipoMenuRef}>
@@ -314,7 +342,8 @@ const Atividades = () => {
                                             <span>{atividade.name}</span>
                                         </div>
                                         <div className="atividade_right">
-                                            <span className="data-entrega">{new Date(atividade.prazo).toLocaleDateString()}</span>
+                                            <span
+                                                className="data-entrega">{new Date(atividade.prazo).toLocaleDateString()}</span>
                                         </div>
                                     </div>
                                 </button>

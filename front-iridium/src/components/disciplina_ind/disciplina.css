@@ -123,6 +123,7 @@
     flex-direction: column;
     width: 50%;
     margin: 0 20px; /* Ajusta as margens horizontalmente */
+    gap: 20px;
 }
 
 .atividades, .provas {
@@ -131,7 +132,7 @@
 }
 
 .atividades {
-    margin-top: 5px;
+    margin-top: 30px;
 }
 
 .atividades h3, .provas h3 {
@@ -225,13 +226,40 @@
     color:white;
 }
 
-.criar_nova_atv_div {
+.geral_criar_nova_atv {
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     gap: 30px;
+    align-items: center;
     margin-bottom: 10px;
     justify-content: center;
+    position: fixed; /* Make the form container fixed */
+    top: 50%; /* Position it vertically at 50% */
+    left: 50%; /* Position it horizontally at 50% */
+    transform: translate(-50%, -50%); /* Center it within the viewport */
+    z-index: 100; /* Ensure it's above other elements */
+    width: 50%; /* Adjust width as needed */
+    max-width: 500px; /* Set a maximum width */
+    background-color: white; /* White background */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a shadow for depth */
 }
+
+.criar_nova_atv_div {
+    display: flex;
+}
+
+.criar_nova_atv_div .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #cecece;
+}
+
 
 .criar_nova_atv {
     flex: 1;
@@ -266,5 +294,18 @@
     margin: 0;
     width: 80%; /* Set the same width for both inputs */
 }
+
+.btn-nova-tarefa_pop_up {
+    width: fit-content;
+}
+
+.btn-nova-tarefa_pop_up:hover {
+    background-color: white;
+    border: 2px solid black;
+    color: black;
+}
+
+
+
 
 
