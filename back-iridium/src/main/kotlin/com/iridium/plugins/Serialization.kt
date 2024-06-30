@@ -109,16 +109,6 @@ fun Application.configureDisciplinaSerialization(repository: DisciplinaRepositor
                 } else {
                     call.respond(HttpStatusCode.NotFound)
                 }
-//                try {
-//                    val params = call.receive<SwitchAndamentoRequest>()
-//                    if (repository.switchDisciplinaAndamento(params.name)) {
-//                        call.respond(HttpStatusCode.NoContent)
-//                    } else {
-//                        call.respond(HttpStatusCode.NotFound)
-//                    }
-//                } catch (ex: IllegalArgumentException) {
-//                    call.respond(HttpStatusCode.BadRequest)
-//                }
             }
         }
     }
@@ -207,6 +197,20 @@ fun Application.configureAtividadeSerialization(repository: AtividadeRepository)
                     return@delete
                 }
                 if (repository.removeAtividade(nome)) {
+                    call.respond(HttpStatusCode.NoContent)
+                } else {
+                    call.respond(HttpStatusCode.NotFound)
+                }
+            }
+
+            put("/switchConcluido/{atividadeName}/{disciplinaName}") {
+                val nome = call.parameters["atividadeName"]
+                val disciplina = call.parameters["disciplinaName"]
+                if (nome == null || disciplina == null) {
+                    call.respond(HttpStatusCode.BadRequest)
+                    return@put
+                }
+                if (repository.switchAtividadeConcluido(nome, disciplina)) {
                     call.respond(HttpStatusCode.NoContent)
                 } else {
                     call.respond(HttpStatusCode.NotFound)

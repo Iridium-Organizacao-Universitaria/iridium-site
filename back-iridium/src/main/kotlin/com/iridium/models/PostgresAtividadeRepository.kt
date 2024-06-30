@@ -6,8 +6,11 @@ import com.iridium.db.AtividadeDAO
 import com.iridium.db.AtividadeTable
 import com.iridium.db.daoToModel
 import com.iridium.db.suspendTransaction
+
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+//import org.jetbrains.exposed.sql.transactions.experimental.suspendTransaction
 import org.jetbrains.exposed.sql.deleteWhere
+import org.jetbrains.exposed.sql.*
 
 class PostgresAtividadeRepository : AtividadeRepository {
     override suspend fun allAtividades(): List<Atividade> = suspendTransaction {
@@ -49,5 +52,22 @@ class PostgresAtividadeRepository : AtividadeRepository {
             AtividadeTable.name eq name
         }
         rowsDeleted == 1
+    }
+
+    override suspend fun switchAtividadeConcluido(name: String, disciplina: String): Boolean = suspendTransaction {
+        val atividade = AtividadeTable.select {
+            (AtividadeTable.name eq name) and (AtividadeTable.disciplina eq disciplina)
+        }.singleOrNull()
+        if (atividade != null) {
+            val currentConcluido = atividade[AtividadeTable.concluido]
+            val rowsUpdated = AtividadeTable.update({
+                (AtividadeTable.name eq name) and (AtividadeTable.disciplina eq disciplina)
+            }) {
+                it[AtividadeTable.concluido] = !currentConcluido
+            }
+            rowsUpdated == 1
+        } else {
+            false
+        }
     }
 }

@@ -313,6 +313,7 @@ function atividadeRow(atividade) {
         td(atividade.tipo),
         td(viewLinkAtividade(atividade.name)),
         td(deleteLinkAtividade(atividade.name)),
+        td(switchConcluidoLinkAtividade(atividade.name, atividade.disciplina)),
     ]);
 }
 
@@ -331,6 +332,35 @@ function deleteLinkAtividade(atividadeName) {
         "href", `javascript:deleteAtividade("${atividadeName}")`
     )
     node.appendChild(document.createTextNode("delete"));
+    return node;
+}
+
+function switchConcluidoLinkAtividade(atividadeName, disciplinaName) {
+    const node = document.createElement("a");
+    node.setAttribute(
+        "href", `javascript:switchConcluidoAtividade("${atividadeName}", "${disciplinaName}")`
+    );
+    node.appendChild(document.createTextNode("switch concluido"));
+    return node;
+}
+
+function switchConcluidoAtividade(name, disciplina) {
+    switchConcluidoAtividadeWithName(name, disciplina).then(() => {
+        clearAtividadeDisplay();
+        displayAllAtividades();
+    })
+}
+
+function switchConcluidoAtividadeWithName(name, disciplina) {
+    return sendPUT(`/atividades/switchConcluido/${name}/${disciplina}`)
+}
+
+function viewLinkAtividade(atividadeName) {
+    const node = document.createElement("a");
+    node.setAttribute(
+        "href", `javascript:displayAtividade("${atividadeName}")`
+    )
+    node.appendChild(document.createTextNode("view"));
     return node;
 }
 

@@ -10,5 +10,6 @@ interface AtividadeRepository {
     suspend fun atividadeByName(name: String): Atividade?
     suspend fun addAtividade(atividade: Atividade)
     suspend fun removeAtividade(name: String): Boolean
+    suspend fun switchAtividadeConcluido(name: String, disciplina: String): Boolean
 }
 
