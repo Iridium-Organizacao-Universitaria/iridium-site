@@ -72,13 +72,13 @@
     font-weight: bold;
 }
 
-.em_andamento_atv {
+.em_andamento_atv_disc {
     display: flex;
     align-items: center;
     margin-bottom: 40px;
 }
 
-.em_andamento_atv button {
+.em_andamento_atv_disc button {
     text-align: center;
 }
 

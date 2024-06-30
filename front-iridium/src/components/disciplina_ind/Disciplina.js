@@ -290,7 +290,7 @@ const Disciplina = () => {
                                     <label htmlFor="apelido">Apelido:</label>
                                     <p><span id="apelido">{disciplinaState.apelido}</span></p>
                                 </div>
-                                <div className="em_andamento_atv">
+                                <div className="em_andamento_atv_disc">
                                     <label>Em andamento:</label>
                                     <div className="b_sim_nao">
                                         <button
