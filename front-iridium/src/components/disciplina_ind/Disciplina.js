@@ -36,7 +36,7 @@ const Disciplina = () => {
         sigla: 'Sigla',
         docente: 'Docente',
         apelido: 'Apelido',
-        emAndamento: 'sim', // Exemplo de valor inicial
+        andamento: true, // Exemplo de valor inicial
     };
 
     const [selected, setSelected] = useState('sim'); // Valor inicial como 'sim'
@@ -93,7 +93,7 @@ const Disciplina = () => {
                         docente: response.docente,
                         apelido: response.apelido,
                         // quando isto estiver implementado, arrumar
-                        //emAndamento: response.emAndamento,
+                        //andamento: response.andamento,
                     }));
                 } else {
                     console.log('Disciplina não encontrada');
@@ -108,7 +108,7 @@ const Disciplina = () => {
         setSelected(button);
         setDisciplinaState((prevState) => ({
             ...prevState,
-            emAndamento: button,
+            andamento: button,
         }));
     };
 
@@ -117,8 +117,15 @@ const Disciplina = () => {
     };
 
     const handleSave = () => {
-        // Aqui você pode implementar a lógica para salvar as alterações
-        setEditing(false); // Desativa o modo de edição
+        // Aqui você deve enviar a requisição PUT para salvar as alterações no backend
+        sendPUT(`/disciplinas/${disciplinaState.nome}`, { andamento: disciplinaState.andamento })
+            .then(() => {
+                setEditing(false); // Desativa o modo de edição após salvar
+            })
+            .catch(error => {
+                console.error('Erro ao salvar alterações:', error);
+                // Aqui você pode implementar um feedback para o usuário sobre o erro
+            });
     };
 
     const handleChange = (e) => {
@@ -259,17 +266,17 @@ const Disciplina = () => {
                                         onChange={handleChange}
                                     />
                                 </div>
-                                <div className="em_andamento_atv">
+                                <div className="em_andamento_atv_disc">
                                     <label>Em andamento:</label>
                                     <button
-                                        className={`b_sim ${selected === 'sim' ? 'selected' : ''}`}
-                                        onClick={() => handleSelect('sim')}
+                                        className={`b_sim ${selected === true ? 'selected' : ''}`}
+                                        onClick={() => handleSelect(true)}
                                     >
                                         Sim
                                     </button>
                                     <button
-                                        className={`b_nao ${selected === 'nao' ? 'selected' : ''}`}
-                                        onClick={() => handleSelect('nao')}
+                                        className={`b_nao ${selected === false ? 'selected' : ''}`}
+                                        onClick={() => handleSelect(false)}
                                     >
                                         Não
                                     </button>
@@ -299,13 +306,13 @@ const Disciplina = () => {
                                     <label>Em andamento:</label>
                                     <div className="b_sim_nao">
                                         <button
-                                            className={`b_sim ${disciplinaState.emAndamento === 'sim' ? 'selected' : ''}`}
+                                            className={`b_sim ${disciplinaState.andamento === 'sim' ? 'selected' : ''}`}
                                             disabled
                                         >
                                             Sim
                                         </button>
                                         <button
-                                            className={`b_nao ${disciplinaState.emAndamento === 'nao' ? 'selected' : ''}`}
+                                            className={`b_nao ${disciplinaState.andamento === 'nao' ? 'selected' : ''}`}
                                             disabled
                                         >
                                             Não

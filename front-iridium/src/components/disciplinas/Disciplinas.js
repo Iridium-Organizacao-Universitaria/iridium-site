@@ -7,7 +7,9 @@ import './disciplinas.css';
 
 const Disciplinas = () => {
     const navigate = useNavigate();
-    const [disciplinas_em_andamento, setDisciplinas] = useState([]);
+    const [disciplinas_all, setDisciplinasAll] = useState([]);
+    const [disciplinas_em_andamento, setDisciplinasAndamento] = useState([]);
+    const [disciplinas_passadas, setDisciplinasPassadas] = useState([]);
     const [disciplinaName, setDisciplinaName] = useState('');
     const [docente, setDocente] = useState('');
     const [sigla, setSigla] = useState('');
@@ -15,6 +17,7 @@ const Disciplinas = () => {
 
     useEffect(() => {
         displayAllDisciplinas();
+        displayDisciplinasWithAndamento();
     }, []);
 
     const handleClick = (disciplinaName) => {
@@ -55,8 +58,24 @@ const Disciplinas = () => {
         return fetch(url, { method: 'DELETE' });
     }
 
+    function displayDisciplinasWithAndamento() {
+        //const andamento = readDisciplinaAndamento();
+        const andamento_true = true;
+        const andamento_false = false;
+        fetchDisciplinasWithAndamento(andamento_true).then(setDisciplinasAndamento)
+        fetchDisciplinasWithAndamento(andamento_false).then(setDisciplinasPassadas)
+    }
+
+    function readDisciplinaAndamento() {
+        return document.andamentoForm.andamento.value
+    }
+
+    function fetchDisciplinasWithAndamento(andamento) {
+        return sendGET(`/disciplinas/byAndamento/${andamento}`);
+    }
+
     function displayAllDisciplinas() {
-        fetchAllDisciplinas().then(setDisciplinas);
+        fetchAllDisciplinas().then(setDisciplinasAll);
     }
 
     function deleteDisciplina(name) {
@@ -142,15 +161,15 @@ const Disciplinas = () => {
                         </div>
                     </div>
                     <div className="disc_ant">
-                        <h3>Disciplinas de semestres anteriores</h3>
+                        <h3>Disciplinas de semestres anteriores ({disciplinas_passadas.length})</h3>
                         <div className="disciplinas_passadas">
-                            {Array.from({ length: 30 }, (_, index) => (
+                            {disciplinas_passadas.map((disciplina, index) => (
                                 <button
                                     key={index}
                                     className="botao_disciplina"
-                                    onClick={() => handleClick(`Disciplina ${index + 16}`)}
+                                    onClick={() => handleClick(disciplina.name)}
                                 >
-                                    Disciplina {index + 16}
+                                    {disciplina.name}
                                 </button>
                             ))}
                         </div>
