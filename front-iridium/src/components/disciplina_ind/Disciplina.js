@@ -68,6 +68,12 @@ const Disciplina = () => {
         });
     }
 
+    function sendPUT(url) {
+        return fetch(url, {
+            method: "PUT"
+        });
+    }
+
     const sendGET = (url) => {
         return fetch(url, { headers: { 'Accept': 'application/json' } })
             .then(response => {
@@ -121,6 +127,7 @@ const Disciplina = () => {
         sendPUT(`/disciplinas/${disciplinaState.nome}`, { andamento: disciplinaState.andamento })
             .then(() => {
                 setEditing(false); // Desativa o modo de edição após salvar
+                fetchDisciplina();
             })
             .catch(error => {
                 console.error('Erro ao salvar alterações:', error);
@@ -306,13 +313,13 @@ const Disciplina = () => {
                                     <label>Em andamento:</label>
                                     <div className="b_sim_nao">
                                         <button
-                                            className={`b_sim ${disciplinaState.andamento === 'sim' ? 'selected' : ''}`}
+                                            className={`b_sim ${disciplinaState.andamento === true ? 'selected' : ''}`}
                                             disabled
                                         >
                                             Sim
                                         </button>
                                         <button
-                                            className={`b_nao ${disciplinaState.andamento === 'nao' ? 'selected' : ''}`}
+                                            className={`b_nao ${disciplinaState.andamento === false ? 'selected' : ''}`}
                                             disabled
                                         >
                                             Não
