@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useParams, useNavigate } from 'react-router-dom';
+import Popup from 'reactjs-popup';
 import '../../App.css';
 import './disciplina.css';
 
@@ -42,6 +43,12 @@ const Disciplina = () => {
     const [editing, setEditing] = useState(false); // Estado para controlar o modo de edição
     const [disciplinaState, setDisciplinaState] = useState(initialDisciplinaState);
     const nameInputRef = useRef(null);
+    const [novaAtividade, setNovaAtividade] = useState({
+        nome: '',
+        descricao: '',
+        tipo: '',
+        data: '',
+    });
 
     useEffect(() => {
         if (location.state && location.state.disciplina) {
@@ -52,6 +59,14 @@ const Disciplina = () => {
         }
 
     }, [disciplinaName]);
+
+    function sendPOST(url, data) {
+        return fetch(url, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        });
+    }
 
     const sendGET = (url) => {
         return fetch(url, { headers: { 'Accept': 'application/json' } })
@@ -128,6 +143,53 @@ const Disciplina = () => {
         return fetch(`/disciplinas/${name}`, {
             method: 'DELETE'
         });
+    };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setNovaAtividade(prevState => ({
+            ...prevState,
+            [name]: value,
+        }));
+    };
+
+    const handleCriarAtividade = async () => {
+        // Validar se todos os campos estão preenchidos
+        if (!novaAtividade.nome || !novaAtividade.descricao || !novaAtividade.tipo || !novaAtividade.data) {
+            alert('Por favor, preencha todos os campos.');
+            return false;
+        }
+
+        // Preparar os dados da nova atividade com a data formatada
+        const novaAtividadeParaEnviar = {
+            name: novaAtividade.nome,
+            descricao: novaAtividade.descricao,
+            tipo: novaAtividade.tipo,
+            concluido: false,
+            prazo: novaAtividade.data
+        };
+
+        // Enviar os dados da nova atividade para o backend
+        try {
+            await sendPOST("/atividades", novaAtividadeParaEnviar);
+            // Limpar o estado da nova atividade após a criação bem-sucedida
+            setNovaAtividade({
+                nome: '',
+                descricao: '',
+                tipo: '',
+                data: '',
+            });
+
+            // Atualizar a lista de atividades exibidas após a criação
+            // displayAllAtividades(); // Implemente isso quando o link estiver pronto
+            // fazer quando estiver implementado o link de disciplina e atividade
+            //fetchAllAtividades().then(setAtividades);
+
+            return true;
+        } catch (error) {
+            console.error('Erro ao criar nova atividade:', error);
+            return false;
+        }
     };
 
     return (
@@ -212,7 +274,7 @@ const Disciplina = () => {
                                         Não
                                     </button>
                                 </div>
-                                <div className="botoes">
+                                <div className="botoes_atv_ind">
                                     <button className="b_save_disc" onClick={handleSave}>Salvar alterações</button>
                                 </div>
                             </div>
@@ -233,7 +295,7 @@ const Disciplina = () => {
                                     <label htmlFor="apelido">Apelido:</label>
                                     <p><span id="apelido">{disciplinaState.apelido}</span></p>
                                 </div>
-                                <div className="em_andamento_atv">
+                                <div className="em_andamento_atv_disc">
                                     <label>Em andamento:</label>
                                     <div className="b_sim_nao">
                                         <button
@@ -260,7 +322,7 @@ const Disciplina = () => {
                 </div>
                 <div className="atv_pro">
                     <div className="atividades">
-                        <h3>Atividades</h3>
+                        <h3>Tarefas</h3>
                         <ul className="atividades-list">
                             {atividades.map((atividade, index) => (
                                 <li key={index}>
@@ -269,7 +331,6 @@ const Disciplina = () => {
                                 </li>
                             ))}
                         </ul>
-                        <button className="btn-nova-atividade">Criar nova atividade</button>
                     </div>
                     <div className="provas">
                         <h3>Provas</h3>
@@ -281,12 +342,77 @@ const Disciplina = () => {
                                 </li>
                             ))}
                         </ul>
-                        <button className="btn-nova-prova">Criar nova prova</button>
                     </div>
+                    <Popup trigger=
+                        {<button className="btn-nova-tarefa">Criar nova atividade</button>}
+                        modal nested>
+                        {
+                             close => (
+                                <div className="geral_criar_nova_atv">
+                                    <div className="criar_nova_atv_div">
+                                        <div className="criar_nova_atv">
+                                            <div className="criar_nova_atv_inner">
+                                                <label htmlFor="novaAtividade_nome">Nome:</label>
+                                                <input
+                                                    type="text"
+                                                    id="novaAtividade_nome"
+                                                    name="nome"
+                                                    value={novaAtividade.nome}
+                                                    onChange={handleInputChange}
+                                                />
+                                            </div>
+                                            <div className="criar_nova_atv_inner">
+                                                <label htmlFor="novaAtividade_tipo">Tipo:</label>
+                                                <select
+                                                    id="novaAtividade_tipo"
+                                                    name="tipo"
+                                                    value={novaAtividade.tipo}
+                                                    onChange={handleInputChange}
+                                                >
+                                                    <option value="">Selecione o tipo</option>
+                                                    <option value="Tarefa">Tarefa</option>
+                                                    <option value="Prova">Prova</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div className="criar_nova_atv">
+                                            <div className="criar_nova_atv_inner">
+                                                <label htmlFor="novaAtividade_descricao">Descrição:</label>
+                                                <input
+                                                    id="novaAtividade_descricao"
+                                                    name="descricao"
+                                                    value={novaAtividade.descricao}
+                                                    onChange={handleInputChange}
+                                                />
+                                            </div>
+                                            <div className="criar_nova_atv_inner">
+                                                <label htmlFor="novaAtividade_data">Data:</label>
+                                                <input
+                                                    type="date"
+                                                    id="novaAtividade_data"
+                                                    name="data"
+                                                    value={novaAtividade.data}
+                                                    onChange={handleInputChange}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button className="btn-nova-tarefa_pop_up" onClick={async () => {
+                                        const success = await handleCriarAtividade();
+                                        if (success === true) {
+                                            close();
+                                        }
+                                    }}>
+                                        Criar
+                                    </button>
+                                </div>
+                             )
+                        }
+                    </Popup>
                 </div>
             </div>
         </div>
     );
-};
+}
 
 export default Disciplina;

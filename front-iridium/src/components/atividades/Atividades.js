@@ -1,6 +1,7 @@
 // Atividades.js
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Popup from 'reactjs-popup';
 import '../../App.css';
 import './atividades.css';
 
@@ -8,15 +9,25 @@ const Atividades = () => {
     const [atividades, setAtividades] = useState([]);
     const [filtroTipo, setFiltroTipo] = useState('Todos');
     const [filtroData, setFiltroData] = useState('Hoje');
+    const [filtroConclusao, setFiltroConclusao] = useState('Todos');
     const [tipoMenuOpen, setTipoMenuOpen] = useState(false);
     const [dataMenuOpen, setDataMenuOpen] = useState(false);
+    const [conclusaoMenuOpen, setConclusaoMenuOpen] = useState(false);
     const tipoMenuRef = useRef(null);
     const dataMenuRef = useRef(null);
+    const conclusaoMenuRef = useRef(null);
     const [atividadesFiltradas, setAtividadesFiltradas] = useState([]);
     const navigate = useNavigate(); // Usando useNavigate para navegação programática
+    const [novaAtividade, setNovaAtividade] = useState({
+        nome: '',
+        descricao: '',
+        tipo: '',
+        data: '',
+    });
 
     const tipos = ['Todos', 'Provas', 'Tarefas'];
     const datas = ['Hoje', '1 semana', '1 mês', 'Todas'];
+    const conclusoes = ['Todos', 'Concluídas', 'Não Concluídas'];
 
     useEffect(() => {
         fetchAllAtividades().then(setAtividades);
@@ -30,11 +41,19 @@ const Atividades = () => {
     useEffect(() => {
         const atividadesFiltradas = filterAtividades(atividades);
         setAtividadesFiltradas(atividadesFiltradas);
-    }, [atividades, filtroTipo, filtroData]);
+    }, [atividades, filtroTipo, filtroData, filtroConclusao]);
 
     const fetchAllAtividades = () => {
         return sendGET("/atividades");
     };
+
+    function sendPOST(url, data) {
+        return fetch(url, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        });
+    }
 
     const sendGET = (url) => {
         return fetch(url, { headers: { 'Accept': 'application/json' } })
@@ -48,6 +67,9 @@ const Atividades = () => {
         if (dataMenuRef.current && !dataMenuRef.current.contains(event.target)) {
             setDataMenuOpen(false);
         }
+        if (conclusaoMenuRef.current && !conclusaoMenuRef.current.contains(event.target)) {
+            setConclusaoMenuOpen(false);
+        }
     };
 
     const handleTipoChange = (tipo) => {
@@ -58,6 +80,11 @@ const Atividades = () => {
     const handleDataChange = (data) => {
         setFiltroData(data);
         setDataMenuOpen(false);
+    };
+
+    const handleConclusaoChange = (conclusao) => {
+        setFiltroConclusao(conclusao);
+        setConclusaoMenuOpen(false);
     };
 
     const filterAtividades = (atividades) => {
@@ -89,19 +116,74 @@ const Atividades = () => {
                 filtroDataPass = new Date(atividade.prazo) <= umMes;
             }
 
-            return filtroTipoPass && filtroDataPass;
+            let filtroConclusaoPass = true;
+            if (filtroConclusao === 'Concluídas') {
+                filtroConclusaoPass = atividade.concluido;
+            } else if (filtroConclusao === 'Não Concluídas') {
+                filtroConclusaoPass = !atividade.concluido;
+            }
+
+            return filtroTipoPass && filtroDataPass && filtroConclusaoPass;
         });
     };
 
-    const handleAtividadeClick = (id) => {
-        navigate(`/atividade_ind/${id}`);
+    const handleAtividadeClick = (atividadeName) => {
+        navigate(`/atividade_ind/${atividadeName}`, {
+            state: { atividadeName }
+        });
+    };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setNovaAtividade(prevState => ({
+            ...prevState,
+            [name]: value,
+        }));
+    };
+
+    const handleCriarAtividade = async () => {
+        // Validar se todos os campos estão preenchidos
+        if (!novaAtividade.nome || !novaAtividade.descricao || !novaAtividade.tipo || !novaAtividade.data) {
+            alert('Por favor, preencha todos os campos.');
+            return false;
+        }
+
+        // Preparar os dados da nova atividade com a data formatada
+        const novaAtividadeParaEnviar = {
+            name: novaAtividade.nome,
+            descricao: novaAtividade.descricao,
+            tipo: novaAtividade.tipo,
+            concluido: false,
+            prazo: novaAtividade.data
+        };
+
+        // Enviar os dados da nova atividade para o backend
+        try {
+            await sendPOST("/atividades", novaAtividadeParaEnviar);
+            // Limpar o estado da nova atividade após a criação bem-sucedida
+            setNovaAtividade({
+                nome: '',
+                descricao: '',
+                tipo: '',
+                data: '',
+            });
+
+            // Atualizar a lista de atividades exibidas após a criação
+            // displayAllAtividades(); // Implemente isso quando o link estiver pronto
+
+            fetchAllAtividades().then(setAtividades);
+            return true;
+        } catch (error) {
+            console.error('Erro ao criar nova atividade:', error);
+            return false;
+        }
     };
 
     return (
         <div className="h">
             <header>
                 <div id="marca">
-                    <img src="/imgs/Starfruit.png" id="logo" alt="starfruit :3" />
+                    <img src="/imgs/Starfruit.png" id="logo" alt="starfruit :3"/>
                     <p>Iridium</p>
                 </div>
                 <nav>
@@ -116,7 +198,76 @@ const Atividades = () => {
             </header>
 
             <div className="atividades_tudo">
-                <h2 className="title_atvs">Atividades</h2>
+            <h2 className="title_atvs">Atividades</h2>
+                <Popup trigger=
+                           {
+                    <button className="btn-nova-tarefa2" onClick={handleCriarAtividade}>Criar nova
+                               atividade</button>
+                }
+                       modal nested>
+                    {
+                        close => (
+                            <div className="nova_atv_2">
+                                <div className="criar_nova_atv_inter2">
+                                    <div className="criar_nova_atv_outer2">
+                                        <div className="criar_nova_atv_inner2">
+                                            <label htmlFor="novaAtividade_nome">Nome:</label>
+                                            <input
+                                                type="text"
+                                                id="novaAtividade_nome"
+                                                name="nome"
+                                                value={novaAtividade.nome}
+                                                onChange={handleInputChange}
+                                            />
+                                        </div>
+                                        <div className="criar_nova_atv_inner2">
+                                            <label htmlFor="novaAtividade_tipo">Tipo:</label>
+                                            <select
+                                                id="novaAtividade_tipo"
+                                                name="tipo"
+                                                value={novaAtividade.tipo}
+                                                onChange={handleInputChange}
+                                            >
+                                                <option value="">Selecione o tipo</option>
+                                                <option value="Tarefa">Tarefa</option>
+                                                <option value="Prova">Prova</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div className="criar_nova_atv_outer2">
+                                        <div className="criar_nova_atv_inner2">
+                                            <label htmlFor="novaAtividade_descricao">Descrição:</label>
+                                            <input
+                                                id="novaAtividade_descricao"
+                                                name="descricao"
+                                                value={novaAtividade.descricao}
+                                                onChange={handleInputChange}
+                                            />
+                                        </div>
+                                        <div className="criar_nova_atv_inner2">
+                                            <label htmlFor="novaAtividade_data">Data:</label>
+                                            <input
+                                                type="date"
+                                                id="novaAtividade_data"
+                                                name="data"
+                                                value={novaAtividade.data}
+                                                onChange={handleInputChange}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <button className="btn-nova-tarefa_pop_up" onClick={async () => {
+                                    const success = await handleCriarAtividade();
+                                    if (success === true) {
+                                        close();
+                                    }
+                                }}>
+                                    Criar
+                                </button>
+                            </div>
+                        )
+                    }
+                </Popup>
                 <div className="topo_atvs">
                     <div className="contagem-itens">
                         {`Total de Atividades: ${atividadesFiltradas.length}`}
@@ -158,20 +309,41 @@ const Atividades = () => {
                                 </div>
                             )}
                         </div>
+                        <div className="dropdown" ref={conclusaoMenuRef}>
+                            <button onClick={() => setConclusaoMenuOpen(!conclusaoMenuOpen)}>
+                                {filtroConclusao}
+                            </button>
+                            {conclusaoMenuOpen && (
+                                <div className="dropdown-menu">
+                                    {conclusoes.map((conclusao) => (
+                                        <div
+                                            key={conclusao}
+                                            className="dropdown-item"
+                                            onClick={() => handleConclusaoChange(conclusao)}
+                                        >
+                                            {conclusao}
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
                 <div className="atividades_lista_div">
                     <ul className="atividades_lista">
                         {atividadesFiltradas.map((atividade, index) => (
                             <li key={index} className="atividade_item">
-                                <button className="atividade_button" onClick={() => handleAtividadeClick(atividade.id)}>
+                                <button className="atividade_button"
+                                        onClick={() => handleAtividadeClick(atividade.name)}>
                                     <div className="atividade_content">
                                         <div className="atividade_left">
-                                            <img src={atividade.tipo === 'Prova' ? '/imgs/giz.png' : '/imgs/pin.png'} alt={atividade.tipo} />
+                                            <img src={atividade.tipo === 'Prova' ? '/imgs/giz.png' : '/imgs/pin.png'}
+                                                 alt={atividade.tipo}/>
                                             <span>{atividade.name}</span>
                                         </div>
                                         <div className="atividade_right">
-                                            <span className="data-entrega">{new Date(atividade.prazo).toLocaleDateString()}</span>
+                                            <span
+                                                className="data-entrega">{new Date(atividade.prazo).toLocaleDateString()}</span>
                                         </div>
                                     </div>
                                 </button>

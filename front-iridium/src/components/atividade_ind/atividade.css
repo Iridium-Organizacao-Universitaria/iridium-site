@@ -4,64 +4,108 @@
     min-height: 100vh; /* Garante que a div ocupe pelo menos a altura total da viewport */
 }
 
-.atividade_tudo {
+.atividade-page {
     flex: 1;
+    overflow: auto;
+    padding-top: 50px; /* Altura da header */
     display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #535353;
+    justify-content: center; /* Centraliza o conteúdo horizontalmente */
+    align-items: center; /* Centraliza o conteúdo verticalmente */
 }
 
-.info-atv {
+.atividade-info {
+    background-color: #cecece; /* Cinza claro */
     padding: 30px;
     border-radius: 10px;
-    border: 2px solid #ccc;
-    width: 50%;
+    border: 2px solid white;
+    max-width: 500px; /* Define uma largura máxima */
+    width: 100%; /* Faz com que a div ocupe 100% da largura disponível */
+}
+
+.atividade-info h2 {
+    font-size: 30px;
+    margin-bottom: 10px;
+    color: white;
+    text-align: center; /* Centraliza o texto */
+}
+
+.info_box_atv_ind {
     display: flex;
     flex-direction: column;
+    margin-top: 20px;
+    padding: 20px;
+    background: #cecece;
+    border-radius: 10px;
+}
+
+.info_box_atv_ind p {
+    font-size: 18px;
+}
+
+.info_box_atv_ind button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    border: 1px solid transparent;
+}
+
+.info_box_atv_ind_inner {
+    display: flex;
+    margin-bottom: 15px;
     align-items: center;
 }
 
-.info-box-atv {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.info-box-atv label {
+.atividade-page label {
+    margin-bottom: 5px;
+    color: white;
+    font-size: 18px;
     font-weight: bold;
-    margin-right: 10px;
 }
 
-.info-box-atv p {
-    margin: 0;
-}
-
-.info-box-atv input {
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    background-color: transparent; /* Torna o fundo transparente */
-}
-
-.info-box-atv input:focus {
+.edit-mode input {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 30px;
     outline: none;
+    border: none;
+    padding: 10px;
+    font-size: 17px;
+    margin: 5px 0;
+    color: white;
 }
 
-.edit-mode .info-box-atv input {
-    border: none; /* Remove a borda no modo de edição */
+.botoes_atv_ind {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
 }
 
-.em_andamento {
+.b_save_atv_ind, .b_edita_atv_ind, .b_delete_atv_ind {
+    display: block;
+    width: fit-content;
+    align-self: center;
+    background-color: #ff85a2;
+}
+
+.b_save_atv_ind:hover, .b_edita_atv_ind:hover, .b_delete_atv_ind:hover {
+    background-color: #ff5e82; /* Cor rosa mais escura ao passar o mouse */
+}
+
+.em_andamento_atv {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    gap: 10px;
 }
 
-.em_andamento button {
-    margin-left: 10px;
-    padding: 5px 10px;
+.em_andamento_atv button {
+    padding: 10px 20px;
     border-radius: 5px;
     border: 1px solid transparent;
     color: white;
@@ -78,28 +122,4 @@
 
 .b_sim_atv.selected, .b_nao_atv.selected {
     border: 2px solid white; /* Borda branca para o botão selecionado */
-}
-
-.b_editar_atv {
-    background-color: #ff85a2;
-    padding: 10px 20px;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-    border: 1px solid transparent;
-}
-
-.b_editar_atv:hover {
-    background-color: #ff5e82; /* Cor rosa mais escura ao passar o mouse */
-}
-
-.info-box-atv-atv input {
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 30px;
-    outline: none;
-    border:none;
-    padding: 10px;
-    font-size: 17px;
-    margin: 5px 10px;
-    color:white;
 }

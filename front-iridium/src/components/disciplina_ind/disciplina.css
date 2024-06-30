@@ -72,13 +72,13 @@
     font-weight: bold;
 }
 
-.em_andamento_atv {
+.em_andamento_atv_disc {
     display: flex;
     align-items: center;
     margin-bottom: 40px;
 }
 
-.em_andamento_atv button {
+.em_andamento_atv_disc button {
     text-align: center;
 }
 
@@ -119,20 +119,20 @@
 }
 
 .atv_pro {
-    flex: 1;
-    overflow: auto;
     display: flex;
     flex-direction: column;
     width: 50%;
-    margin-right: 20px;
-    margin-left: 20px;
+    margin: 0 20px; /* Ajusta as margens horizontalmente */
+    gap: 20px;
 }
 
 .atividades, .provas {
-    flex: 1;
     background-color: #ffffff; /* Branco */
-    padding: 20px;
-    margin-top: 10px;
+    padding: 10px;
+}
+
+.atividades {
+    margin-top: 30px;
 }
 
 .atividades h3, .provas h3 {
@@ -175,7 +175,7 @@
     color: black;
 }
 
-.btn-nova-atividade, .btn-nova-prova {
+.btn-nova-tarefa {
     display:block;
     margin:0 auto;
     padding: 10px 20px;
@@ -187,7 +187,7 @@
     border: 1px solid transparent;
 }
 
-.btn-nova-atividade:hover, .btn-nova-prova:hover {
+.btn-nova-tarefa:hover {
     background-color: white; /* Mudança de cor no hover */
     color: black; /* Mudança de cor do texto no hover */
     border: 1px solid black; /* Adiciona borda no hover */
@@ -225,3 +225,87 @@
     margin: 5px 0;
     color:white;
 }
+
+.geral_criar_nova_atv {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 30px;
+    align-items: center;
+    margin-bottom: 10px;
+    justify-content: center;
+    position: fixed; /* Make the form container fixed */
+    top: 50%; /* Position it vertically at 50% */
+    left: 50%; /* Position it horizontally at 50% */
+    transform: translate(-50%, -50%); /* Center it within the viewport */
+    z-index: 100; /* Ensure it's above other elements */
+    width: 50%; /* Adjust width as needed */
+    max-width: 500px; /* Set a maximum width */
+    background-color: white; /* White background */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a shadow for depth */
+}
+
+.criar_nova_atv_div {
+    display: flex;
+}
+
+.criar_nova_atv_div .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #cecece;
+}
+
+
+.criar_nova_atv {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    justify-content: center;
+}
+
+.criar_nova_atv_inner {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.criar_nova_atv_inner label {
+    font-family: 'Poppins', sans-serif;
+    color: #cecece;
+    font-weight: bold;
+}
+
+.criar_nova_atv_inner select,
+.criar_nova_atv_inner input {
+    color: black;
+    background-color: #e6e6e6;
+    border-radius: 30px;
+    border: none;
+    outline: none;
+    padding: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    margin: 0;
+    width: 80%; /* Set the same width for both inputs */
+}
+
+.btn-nova-tarefa_pop_up {
+    width: fit-content;
+}
+
+.btn-nova-tarefa_pop_up:hover {
+    background-color: white;
+    border: 2px solid black;
+    color: black;
+}
+
+
+
+
+
