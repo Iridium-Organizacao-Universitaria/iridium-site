@@ -8,10 +8,13 @@ const Atividades = () => {
     const [atividades, setAtividades] = useState([]);
     const [filtroTipo, setFiltroTipo] = useState('Todos');
     const [filtroData, setFiltroData] = useState('Hoje');
+    const [filtroConclusao, setFiltroConclusao] = useState('Todos');
     const [tipoMenuOpen, setTipoMenuOpen] = useState(false);
     const [dataMenuOpen, setDataMenuOpen] = useState(false);
+    const [conclusaoMenuOpen, setConclusaoMenuOpen] = useState(false);
     const tipoMenuRef = useRef(null);
     const dataMenuRef = useRef(null);
+    const conclusaoMenuRef = useRef(null);
     const [atividadesFiltradas, setAtividadesFiltradas] = useState([]);
     const navigate = useNavigate(); // Usando useNavigate para navegação programática
     const [novaAtividade, setNovaAtividade] = useState({
@@ -23,6 +26,7 @@ const Atividades = () => {
 
     const tipos = ['Todos', 'Provas', 'Tarefas'];
     const datas = ['Hoje', '1 semana', '1 mês', 'Todas'];
+    const conclusoes = ['Todos', 'Concluídas', 'Não Concluídas'];
 
     useEffect(() => {
         fetchAllAtividades().then(setAtividades);
@@ -36,7 +40,7 @@ const Atividades = () => {
     useEffect(() => {
         const atividadesFiltradas = filterAtividades(atividades);
         setAtividadesFiltradas(atividadesFiltradas);
-    }, [atividades, filtroTipo, filtroData]);
+    }, [atividades, filtroTipo, filtroData, filtroConclusao]);
 
     const fetchAllAtividades = () => {
         return sendGET("/atividades");
@@ -62,6 +66,9 @@ const Atividades = () => {
         if (dataMenuRef.current && !dataMenuRef.current.contains(event.target)) {
             setDataMenuOpen(false);
         }
+        if (conclusaoMenuRef.current && !conclusaoMenuRef.current.contains(event.target)) {
+            setConclusaoMenuOpen(false);
+        }
     };
 
     const handleTipoChange = (tipo) => {
@@ -72,6 +79,11 @@ const Atividades = () => {
     const handleDataChange = (data) => {
         setFiltroData(data);
         setDataMenuOpen(false);
+    };
+
+    const handleConclusaoChange = (conclusao) => {
+        setFiltroConclusao(conclusao);
+        setConclusaoMenuOpen(false);
     };
 
     const filterAtividades = (atividades) => {
@@ -103,7 +115,14 @@ const Atividades = () => {
                 filtroDataPass = new Date(atividade.prazo) <= umMes;
             }
 
-            return filtroTipoPass && filtroDataPass;
+            let filtroConclusaoPass = true;
+            if (filtroConclusao === 'Concluídas') {
+                filtroConclusaoPass = atividade.concluido;
+            } else if (filtroConclusao === 'Não Concluídas') {
+                filtroConclusaoPass = !atividade.concluido;
+            }
+
+            return filtroTipoPass && filtroDataPass && filtroConclusaoPass;
         });
     };
 
@@ -262,16 +281,36 @@ const Atividades = () => {
                                 </div>
                             )}
                         </div>
+                        <div className="dropdown" ref={conclusaoMenuRef}>
+                            <button onClick={() => setConclusaoMenuOpen(!conclusaoMenuOpen)}>
+                                {filtroConclusao}
+                            </button>
+                            {conclusaoMenuOpen && (
+                                <div className="dropdown-menu">
+                                    {conclusoes.map((conclusao) => (
+                                        <div
+                                            key={conclusao}
+                                            className="dropdown-item"
+                                            onClick={() => handleConclusaoChange(conclusao)}
+                                        >
+                                            {conclusao}
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
                 <div className="atividades_lista_div">
                     <ul className="atividades_lista">
                         {atividadesFiltradas.map((atividade, index) => (
                             <li key={index} className="atividade_item">
-                                <button className="atividade_button" onClick={() => handleAtividadeClick(atividade.name)}>
+                                <button className="atividade_button"
+                                        onClick={() => handleAtividadeClick(atividade.name)}>
                                     <div className="atividade_content">
                                         <div className="atividade_left">
-                                            <img src={atividade.tipo === 'Prova' ? '/imgs/giz.png' : '/imgs/pin.png'} alt={atividade.tipo} />
+                                            <img src={atividade.tipo === 'Prova' ? '/imgs/giz.png' : '/imgs/pin.png'}
+                                                 alt={atividade.tipo}/>
                                             <span>{atividade.name}</span>
                                         </div>
                                         <div className="atividade_right">
