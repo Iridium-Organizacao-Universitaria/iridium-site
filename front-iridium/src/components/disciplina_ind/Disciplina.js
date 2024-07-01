@@ -6,7 +6,7 @@ import './disciplina.css';
 
 const Disciplina = () => {
     // dados de exemplo só para testar o front
-    const [atividades, setAtividades] = useState([]);
+    const [tarefas, setTarefas] = useState([]);
     const [provas, setProvas] = useState([]);
     const location = useLocation();
     const { disciplinaName } = useParams();
@@ -39,6 +39,47 @@ const Disciplina = () => {
         }
 
     }, [disciplinaName]);
+
+
+    useEffect(() => {
+        fetchAtividades(); // Carregar atividades ao montar o componente
+    }, []);
+
+    function fetchAtividadesWithTipo(tipo) {
+        return sendGET(`/atividades/byTipo/${tipo}`);
+    }
+
+    const fetchAtividades = () => {
+        const tipo_prova = 'Prova';
+        const tipo_tarefa = 'Tarefa';
+
+        fetchAtividadesWithTipo(tipo_prova)
+            .then(response => {
+                if (response) {
+                    const filtrados = response.filter(
+                        atividade => atividade.disciplina === disciplinaName
+                    );
+                    setProvas(filtrados);
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao buscar provas:', error);
+            });
+
+        fetchAtividadesWithTipo(tipo_tarefa)
+            .then(response => {
+                if (response) {
+                    const filtrados = response.filter(
+                        atividade => atividade.disciplina === disciplinaName
+                    );
+                    setTarefas(filtrados);
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao buscar tarefas:', error);
+            });
+    };
+
 
     const sendPUT = (url, data) => {
         return fetch(url, {
@@ -105,7 +146,6 @@ const Disciplina = () => {
     const fetchDisciplina = () => {
         sendGET(`/disciplinas/byName/${disciplinaName}`)
             .then(response => {
-                //console.log("RES ", response.andamento)
                 if (response) {
                     setDisciplinaState(prevState => ({
                         ...prevState,
@@ -173,6 +213,12 @@ const Disciplina = () => {
             ...prevState,
             [name]: value,
         }));
+    };
+
+    const handleAtividadeClick = (atividadeName) => {
+        navigate(`/atividade_ind/${atividadeName}`, {
+            state: { atividadeName }
+        });
     };
 
     const handleCriarAtividade = async () => {
@@ -344,23 +390,43 @@ const Disciplina = () => {
                 </div>
                 <div className="atv_pro">
                     <div className="atividades">
-                        <h3>Tarefas</h3>
+                        <h3>Tarefas ({tarefas.length})</h3>
                         <ul className="atividades-list">
-                            {atividades.map((atividade, index) => (
+                            {tarefas.map((tarefa, index) => (
                                 <li key={index}>
-                                    <span><img src="/imgs/pin.png" alt="pin"/> {atividade.name}</span>
-                                    <span className="data-entrega">{atividade.prazo}</span>
+                                    <button className="atividade_button"
+                                            onClick={() => handleAtividadeClick(tarefa.name)}>
+                                        <div className="atividade_content">
+                                            <div className="atividade_left">
+                                                <span><img src="/imgs/pin.png" alt="pin"/> {tarefa.name}</span>
+                                            </div>
+                                            <div className="atividade_right">
+                                                <span
+                                                    className="data-entrega">{new Date(tarefa.prazo).toLocaleDateString()}</span>
+                                            </div>
+                                        </div>
+                                    </button>
                                 </li>
                             ))}
                         </ul>
                     </div>
                     <div className="provas">
-                        <h3>Provas</h3>
+                        <h3>Provas ({provas.length})</h3>
                         <ul className="provas-list">
                             {provas.map((prova, index) => (
                                 <li key={index}>
-                                    <span><img src="/imgs/giz.png" alt="giz"/> {prova.name}</span>
-                                    <span className="data-entrega">{prova.prazo}</span>
+                                    <button className="atividade_button"
+                                            onClick={() => handleAtividadeClick(prova.name)}>
+                                        <div className="atividade_content">
+                                            <div className="atividade_left">
+                                                <span><img src="/imgs/giz.png" alt="giz"/> {prova.name}</span>
+                                            </div>
+                                            <div className="atividade_right">
+                                                <span
+                                                    className="data-entrega">{new Date(prova.prazo).toLocaleDateString()}</span>
+                                            </div>
+                                        </div>
+                                    </button>
                                 </li>
                             ))}
                         </ul>
@@ -371,7 +437,7 @@ const Disciplina = () => {
                         {
                             close => (
                                 <div className="geral_criar_nova_atv">
-                                    <div className="criar_nova_atv_div">
+                                <div className="criar_nova_atv_div">
                                         <div className="criar_nova_atv">
                                             <div className="criar_nova_atv_inner">
                                                 <label htmlFor="novaAtividade_nome">Nome:</label>
