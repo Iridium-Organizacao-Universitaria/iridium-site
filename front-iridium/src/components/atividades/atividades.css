@@ -170,12 +170,14 @@
 .atividade_left {
     display: flex;
     align-items: center;
+    align-content: center;
 }
 
 .atividade_right {
     margin-left: auto;
     display: flex;
     gap:30px;
+    align-items: center;
 }
 
 .atividade_right .data-entrega {
@@ -253,6 +255,30 @@
     background-color: white; /* Mudança de cor no hover */
     color: black; /* Mudança de cor do texto no hover */
     border: 1px solid black; /* Adiciona borda no hover */
+}
+
+.lixo_bnt{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+}
+
+.lixo_bnt:hover{
+    background-color: red;
+    border: none;
+}
+
+.lixo_icone {
+    color: #333; /* Cor inicial do ícone */
+    transition: color 0.3s ease;
+}
+
+.lixo_bnt:hover .lixo_icone {
+    color: #fff; /* Branco ao passar o mouse */
+    border: none;
 }
 
 

@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import Popup from 'reactjs-popup';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import '../../App.css';
 import './disciplina.css';
 
@@ -9,7 +11,7 @@ const Disciplina = () => {
     const [tarefas, setTarefas] = useState([]);
     const [provas, setProvas] = useState([]);
     const location = useLocation();
-    const { disciplinaName } = useParams();
+    let { disciplinaName } = useParams();
     const navigate = useNavigate();
     const initialDisciplinaState = {
         name: 'Nome da disciplina',
@@ -21,6 +23,8 @@ const Disciplina = () => {
 
     const [selected, setSelected] = useState();
     const [editing, setEditing] = useState(false); // Estado para controlar o modo de edição
+    const [newAtv, setNewAtv] = useState(false);
+    const [deleteAtv, setDeleteAtv] = useState(false);
     const [disciplinaState, setDisciplinaState] = useState(initialDisciplinaState);
     const nameInputRef = useRef(null);
     const [novaAtividade, setNovaAtividade] = useState({
@@ -28,6 +32,8 @@ const Disciplina = () => {
         descricao: '',
         tipo: '',
         data: '',
+        disciplina: disciplinaName,
+        concluido: false,
     });
 
     useEffect(() => {
@@ -43,7 +49,9 @@ const Disciplina = () => {
 
     useEffect(() => {
         fetchAtividades(); // Carregar atividades ao montar o componente
-    }, []);
+        setNewAtv(false);
+        setDeleteAtv(false);
+    }, [newAtv, deleteAtv]);
 
     function fetchAtividadesWithTipo(tipo) {
         return sendGET(`/atividades/byTipo/${tipo}`);
@@ -178,6 +186,7 @@ const Disciplina = () => {
 
     const handleSave = () => {
         // Aqui você pode implementar a lógica para salvar as alterações
+        let disciplinaName = disciplinaState.name;
         switchAndamentoDisciplina(disciplinaName, disciplinaState.andamento);
         fetchDisciplina();
         setEditing(false); // Desativa o modo de edição
@@ -221,6 +230,22 @@ const Disciplina = () => {
         });
     };
 
+    function deleteAtividade(name) {
+        deleteAtividadeWithName(name)
+            .then(() => {
+                // Redireciona para a página anterior após deletar a atividade
+                navigate('/atividades/Atividades');
+                setDeleteAtv(true);
+            })
+            .catch(error => {
+                console.error('Erro ao deletar atividade:', error);
+            });
+    }
+
+    function deleteAtividadeWithName(name) {
+        return sendDELETE(`/atividades/${name}`)
+    }
+
     const handleCriarAtividade = async () => {
         // Validar se todos os campos estão preenchidos
         if (!novaAtividade.nome || !novaAtividade.descricao || !novaAtividade.tipo || !novaAtividade.data) {
@@ -234,7 +259,8 @@ const Disciplina = () => {
             descricao: novaAtividade.descricao,
             tipo: novaAtividade.tipo,
             concluido: false,
-            prazo: novaAtividade.data
+            prazo: novaAtividade.data,
+            disciplina: disciplinaName,
         };
 
         // Enviar os dados da nova atividade para o backend
@@ -248,11 +274,7 @@ const Disciplina = () => {
                 data: '',
             });
 
-            // Atualizar a lista de atividades exibidas após a criação
-            // displayAllAtividades(); // Implemente isso quando o link estiver pronto
-            // fazer quando estiver implementado o link de disciplina e atividade
-            //fetchAllAtividades().then(setAtividades);
-
+            setNewAtv(true);
             return true;
         } catch (error) {
             console.error('Erro ao criar nova atividade:', error);
@@ -394,18 +416,23 @@ const Disciplina = () => {
                         <ul className="atividades-list">
                             {tarefas.map((tarefa, index) => (
                                 <li key={index}>
-                                    <button className="atividade_button"
-                                            onClick={() => handleAtividadeClick(tarefa.name)}>
+                                    <div className="atividade_button">
                                         <div className="atividade_content">
-                                            <div className="atividade_left">
+                                            <div className="atividade_left" onClick={() => handleAtividadeClick(tarefa.name)}>
                                                 <span><img src="/imgs/pin.png" alt="pin"/> {tarefa.name}</span>
                                             </div>
                                             <div className="atividade_right">
                                                 <span
                                                     className="data-entrega">{new Date(tarefa.prazo).toLocaleDateString()}</span>
+                                                <div>
+                                                    <button className="lixo_bnt"
+                                                            onClick={() => deleteAtividade(atividade.name)}>
+                                                        <FontAwesomeIcon className="lixo_icone" icon={faTrash}/>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </button>
+                                    </div>
                                 </li>
                             ))}
                         </ul>
@@ -413,22 +440,27 @@ const Disciplina = () => {
                     <div className="provas">
                         <h3>Provas ({provas.length})</h3>
                         <ul className="provas-list">
-                            {provas.map((prova, index) => (
+                        {provas.map((prova, index) => (
                                 <li key={index}>
-                                    <button className="atividade_button"
-                                            onClick={() => handleAtividadeClick(prova.name)}>
+                                    <button className="atividade_button">
                                         <div className="atividade_content">
-                                            <div className="atividade_left">
+                                            <div className="atividade_left" onClick={() => handleAtividadeClick(prova.name)}>
                                                 <span><img src="/imgs/giz.png" alt="giz"/> {prova.name}</span>
                                             </div>
                                             <div className="atividade_right">
                                                 <span
                                                     className="data-entrega">{new Date(prova.prazo).toLocaleDateString()}</span>
+                                                <div>
+                                                    <button className="lixo_bnt"
+                                                            onClick={() => deleteAtividade(atividade.name)}>
+                                                        <FontAwesomeIcon className="lixo_icone" icon={faTrash}/>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </button>
                                 </li>
-                            ))}
+                        ))}
                         </ul>
                     </div>
                     <Popup trigger=

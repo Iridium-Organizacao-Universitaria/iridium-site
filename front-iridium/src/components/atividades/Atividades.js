@@ -2,6 +2,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Popup from 'reactjs-popup';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import '../../App.css';
 import './atividades.css';
 
@@ -62,6 +64,12 @@ const Atividades = () => {
         });
     }
 
+    function sendDELETE(url) {
+        return fetch(url, {
+            method: "DELETE"
+        });
+    }
+
     const sendGET = (url) => {
         return fetch(url, { headers: { 'Accept': 'application/json' } })
             .then(response => response.ok ? response.json() : []);
@@ -93,6 +101,21 @@ const Atividades = () => {
         setFiltroConclusao(conclusao);
         setConclusaoMenuOpen(false);
     };
+
+    function deleteAtividade(name) {
+        deleteAtividadeWithName(name)
+            .then(() => {
+                // Redireciona para a página anterior após deletar a atividade
+                fetchAllAtividades().then(setAtividades);
+            })
+            .catch(error => {
+                console.error('Erro ao deletar atividade:', error);
+            });
+    }
+
+    function deleteAtividadeWithName(name) {
+        return sendDELETE(`/atividades/${name}`)
+    }
 
     const filterAtividades = (atividades) => {
         let filtroTipoCorrigido = filtroTipo;
@@ -356,10 +379,9 @@ const Atividades = () => {
                     <ul className="atividades_lista">
                         {atividadesFiltradas.map((atividade, index) => (
                             <li key={index} className="atividade_item">
-                                <button className="atividade_button"
-                                        onClick={() => handleAtividadeClick(atividade.name)}>
+                                <div className="atividade_button">
                                     <div className="atividade_content">
-                                        <div className="atividade_left">
+                                        <div className="atividade_left" onClick={() => handleAtividadeClick(atividade.name)}>
                                             <img src={atividade.tipo === 'Prova' ? '/imgs/giz.png' : '/imgs/pin.png'}
                                                  alt={atividade.tipo}/>
                                             <span>{atividade.name}</span>
@@ -368,9 +390,14 @@ const Atividades = () => {
                                             <span>{atividade.disciplina}</span>
                                             <span
                                                 className="data-entrega">{new Date(atividade.prazo).toLocaleDateString()}</span>
+                                            <div>
+                                                <button className="lixo_bnt" onClick={() => deleteAtividade(atividade.name)}>
+                                                    <FontAwesomeIcon className="lixo_icone" icon={faTrash}/>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
-                                </button>
+                                </div>
                             </li>
                         ))}
                     </ul>
