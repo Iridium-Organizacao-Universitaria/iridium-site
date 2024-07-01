@@ -18,7 +18,7 @@ const Disciplina = () => {
         sigla: 'Sigla',
         docente: 'Docente',
         apelido: 'Apelido',
-        andamento: '',
+        andamento: null,
     };
 
     const [selected, setSelected] = useState();
@@ -41,6 +41,7 @@ const Disciplina = () => {
             setDisciplinaState(location.state.disciplina);
 
         } else {
+            disciplinaState.name = disciplinaName;
             fetchDisciplina(); // Buscar disciplina com base no nome da URL
         }
 
@@ -121,43 +122,22 @@ const Disciplina = () => {
             });
     };
 
-    const switchAndamentoDisciplina = async (name, andamento) => {
-        try {
-            const response = await fetch(`/disciplinas/${name}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    andamento
-                })
+    function switchAndamentoDisciplina(name, andamento) {
+        sendPUT(`/disciplinas/${name}`, { andamento: !disciplinaState.andamento })
+            .then(() => {
+                fetchDisciplina();
+            })
+            .catch(error => {
+                console.error('Erro ao alterar status da disciplina:', error);
             });
-
-            if (response.ok) {
-                // Update the local discipline state if the update was successful
-                setDisciplinaState((prevState) => ({
-                    ...prevState,
-                    andamento
-                }));
-                return true; // Indicate successful update
-            } else {
-                console.error('Erro ao atualizar o andamento da disciplina:', response);
-                return false; // Indicate failed update
-            }
-        } catch (error) {
-            console.error('Erro ao atualizar o andamento da disciplina:', error);
-            return false; // Indicate failed update
-        }
-    };
-
+    }
 
     const fetchDisciplina = () => {
-        sendGET(`/disciplinas/byName/${disciplinaName}`)
+        sendGET(`/disciplinas/byName/${disciplinaState.name}`)
             .then(response => {
                 if (response) {
                     setDisciplinaState(prevState => ({
-                        ...prevState,
-                        nome: response.name,
+                        name: response.name,
                         sigla: response.sigla,
                         docente: response.docente,
                         apelido: response.apelido,
@@ -174,7 +154,7 @@ const Disciplina = () => {
 
     const handleSelect = (button) => {
         setSelected(button);
-        setDisciplinaState((prevState) => ({
+        setDisciplinaState(prevState => ({
             ...prevState,
             andamento: button,
         }));
@@ -186,8 +166,7 @@ const Disciplina = () => {
 
     const handleSave = () => {
         // Aqui você pode implementar a lógica para salvar as alterações
-        let disciplinaName = disciplinaState.name;
-        switchAndamentoDisciplina(disciplinaName, disciplinaState.andamento);
+        switchAndamentoDisciplina(disciplinaState.name, disciplinaState.andamento);
         fetchDisciplina();
         setEditing(false); // Desativa o modo de edição
     };
@@ -260,7 +239,7 @@ const Disciplina = () => {
             tipo: novaAtividade.tipo,
             concluido: false,
             prazo: novaAtividade.data,
-            disciplina: disciplinaName,
+            disciplina: disciplinaState.name,
         };
 
         // Enviar os dados da nova atividade para o backend
@@ -371,7 +350,7 @@ const Disciplina = () => {
                         </>
                     ) : (
                         <>
-                            <h2>{disciplinaState.nome}</h2>
+                            <h2>{disciplinaState.name}</h2>
                             <div className="info-box">
                                 <div className="info_box_ind">
                                     <label htmlFor="sigla">Sigla:</label>
@@ -442,7 +421,7 @@ const Disciplina = () => {
                         <ul className="provas-list">
                         {provas.map((prova, index) => (
                                 <li key={index}>
-                                    <button className="atividade_button">
+                                    <div className="atividade_button">
                                         <div className="atividade_content">
                                             <div className="atividade_left" onClick={() => handleAtividadeClick(prova.name)}>
                                                 <span><img src="/imgs/giz.png" alt="giz"/> {prova.name}</span>
@@ -458,7 +437,7 @@ const Disciplina = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    </button>
+                                    </div>
                                 </li>
                         ))}
                         </ul>
