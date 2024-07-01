@@ -4,27 +4,26 @@ import './registro.css'; // Importa os estilos específicos da página
 
 const Registro = () => {
     const [novoUsuario, setNovoUsuario] = React.useState({
-        id: null,
         nome: '',
         email: '',
         senha: ''
     });
 
     function sendPOST(url, data) {
+        console.log("aa ", data)
         return fetch(url, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(data)
+            body: JSON.stringify(data),
         });
     }
 
     const redirectToProfile = (event) => {
         event.preventDefault(); // Previne o comportamento padrão do formulário
-        // if (validateForm()) {
-        //     // Simula o redirecionamento após validação
-        //     //window.location.href = "/perfil/Perfil";
-        // }
-        validateForm()
+        if (validateForm()) {
+            // Simula o redirecionamento após validação
+            window.location.href = "/perfil/Perfil";
+        }
     };
 
     const validateForm = async () => {
@@ -33,9 +32,15 @@ const Registro = () => {
             return false;
         }
 
+        const novaAtvParaEnviar ={
+            nome: novoUsuario.nome,
+            email: novoUsuario.email,
+            senha: novoUsuario.senha,
+        };
+
         try {
-            console.log(novoUsuario);
-            await sendPOST("/usuarios", {usuario: novoUsuario});
+            console.log(novaAtvParaEnviar);
+            await sendPOST("/usuarios", novaAtvParaEnviar);
             setNovoUsuario({
                 nome: '',
                 email: '',
