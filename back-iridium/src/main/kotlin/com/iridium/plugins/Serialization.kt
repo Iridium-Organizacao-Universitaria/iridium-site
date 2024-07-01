@@ -59,7 +59,9 @@ fun Application.configureDisciplinaSerialization(repository: DisciplinaRepositor
                     return@get
                 }
                 try {
-                    val andamento = andamentoAsBoolean?.toBoolean()?: false
+                    // tava dando warning
+                    //val andamento = andamentoAsBoolean?.toBoolean()?: false
+                    val andamento = andamentoAsBoolean.toBoolean()
                     val atividades = repository.disciplinasByAndamento(andamento)
 
 
@@ -98,18 +100,119 @@ fun Application.configureDisciplinaSerialization(repository: DisciplinaRepositor
                 }
             }
 
-            put("/{disciplinaName}") {
+            // Andamento
+            put("/andamento/{disciplinaName}") {
                 val nome = call.parameters["disciplinaName"]
                 if (nome == null) {
                     call.respond(HttpStatusCode.BadRequest)
                     return@put
                 }
-                if (repository.switchDisciplinaAndamento(nome)) {
+
+                val request = try {
+                    call.receive<Map<String, Boolean>>() // Recebe o corpo como um mapa de parâmetros
+                } catch (e: Exception) {
+                    call.respond(HttpStatusCode.BadRequest, "Parâmetro 'andamento' ausente ou inválido")
+                    return@put
+                }
+
+                val andamento = request["andamento"]
+                if (andamento == null) {
+                    call.respond(HttpStatusCode.BadRequest, "Parâmetro 'andamento' ausente ou inválido")
+                    return@put
+                }
+
+                if (repository.switchDisciplinaAndamento(nome, andamento)) {
                     call.respond(HttpStatusCode.NoContent)
                 } else {
                     call.respond(HttpStatusCode.NotFound)
                 }
             }
+
+            // Sigla
+            put("/sigla/{disciplinaName}") {
+                val nome = call.parameters["disciplinaName"]
+                if (nome == null) {
+                    call.respond(HttpStatusCode.BadRequest)
+                    return@put
+                }
+
+                val request = try {
+                    call.receive<Map<String, String>>() // Recebe o corpo como um mapa de parâmetros
+                } catch (e: Exception) {
+                    call.respond(HttpStatusCode.BadRequest, "Parâmetro 'sigla' ausente ou inválido")
+                    return@put
+                }
+
+                val sigla = request["sigla"]
+                if (sigla == null) {
+                    call.respond(HttpStatusCode.BadRequest, "Parâmetro 'sigla' ausente ou inválido")
+                    return@put
+                }
+
+                if (repository.switchDisciplinaSigla(nome, sigla)) {
+                    call.respond(HttpStatusCode.NoContent)
+                } else {
+                    call.respond(HttpStatusCode.NotFound)
+                }
+            }
+
+
+            // Docente
+            put("/docente/{disciplinaName}") {
+                val nome = call.parameters["disciplinaName"]
+                if (nome == null) {
+                    call.respond(HttpStatusCode.BadRequest)
+                    return@put
+                }
+
+                val request = try {
+                    call.receive<Map<String, String>>() // Recebe o corpo como um mapa de parâmetros
+                } catch (e: Exception) {
+                    call.respond(HttpStatusCode.BadRequest, "Parâmetro 'docente' ausente ou inválido")
+                    return@put
+                }
+
+                val docente = request["docente"]
+                if (docente == null) {
+                    call.respond(HttpStatusCode.BadRequest, "Parâmetro 'docente' ausente ou inválido")
+                    return@put
+                }
+
+                if (repository.switchDisciplinaDocente(nome, docente)) {
+                    call.respond(HttpStatusCode.NoContent)
+                } else {
+                    call.respond(HttpStatusCode.NotFound)
+                }
+            }
+
+            // Apelido
+            put("/apelido/{disciplinaName}") {
+                val nome = call.parameters["disciplinaName"]
+                if (nome == null) {
+                    call.respond(HttpStatusCode.BadRequest)
+                    return@put
+                }
+
+                val request = try {
+                    call.receive<Map<String, String>>() // Recebe o corpo como um mapa de parâmetros
+                } catch (e: Exception) {
+                    call.respond(HttpStatusCode.BadRequest, "Parâmetro 'apelido' ausente ou inválido")
+                    return@put
+                }
+
+                val apelido = request["apelido"]
+                if (apelido == null) {
+                    call.respond(HttpStatusCode.BadRequest, "Parâmetro 'apelido' ausente ou inválido")
+                    return@put
+                }
+
+                if (repository.switchDisciplinaApelido(nome, apelido)) {
+                    call.respond(HttpStatusCode.NoContent)
+                } else {
+                    call.respond(HttpStatusCode.NotFound)
+                }
+            }
+
         }
     }
 }

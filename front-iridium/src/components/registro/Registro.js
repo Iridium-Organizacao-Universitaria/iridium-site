@@ -62,13 +62,13 @@ const Registro = () => {
                     <div class="input-group">
                         <button type="submit">Continue</button>
                     </div>
-                    <div class="google-login">
-                        <p>Ou continue com o Google:</p>
-                        <a href="#">
-                            <img src="https://logopng.com.br/logos/google-37.png" alt="logo da Google" />
-                            Registrar com Google
-                        </a>
-                    </div>
+                    {/*<div class="google-login">*/}
+                    {/*    <p>Ou continue com o Google:</p>*/}
+                    {/*    <a href="#">*/}
+                    {/*        <img src="https://logopng.com.br/logos/google-37.png" alt="logo da Google" />*/}
+                    {/*        Registrar com Google*/}
+                    {/*    </a>*/}
+                    {/*</div>*/}
                     <hr />
                     <div class="login-link">
                         <p>Já tem conta? Faça o login <a href="/login/Login">aqui</a>.</p>

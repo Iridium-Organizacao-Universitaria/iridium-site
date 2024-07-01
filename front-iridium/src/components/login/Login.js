@@ -68,13 +68,13 @@ const Login = () => {
                     <div className="input-group">
                         <button type="submit"> Continue </button>
                     </div>
-                    <div className="google-login">
-                        <p>Ou continue com o Google:</p>
-                        <a href="#">
-                            <img src="https://logopng.com.br/logos/google-37.png" alt="logo da Google" />
-                            Entrar com Google
-                        </a>
-                    </div>
+                    {/*<div className="google-login">*/}
+                    {/*    <p>Ou continue com o Google:</p>*/}
+                    {/*    <a href="#">*/}
+                    {/*        <img src="https://logopng.com.br/logos/google-37.png" alt="logo da Google" />*/}
+                    {/*        Entrar com Google*/}
+                    {/*    </a>*/}
+                    {/*</div>*/}
                 </form>
             </div>
 
