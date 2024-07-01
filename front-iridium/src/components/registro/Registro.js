@@ -10,7 +10,6 @@ const Registro = () => {
     });
 
     function sendPOST(url, data) {
-        console.log("aa ", data)
         return fetch(url, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -22,7 +21,8 @@ const Registro = () => {
         event.preventDefault(); // Previne o comportamento padrão do formulário
         if (validateForm()) {
             // Simula o redirecionamento após validação
-            window.location.href = "/perfil/Perfil";
+            // o usuário precisa ser redirecionado para a sua página de perfil
+            //window.location.href = "/perfil/Perfil";
         }
     };
 
@@ -39,7 +39,6 @@ const Registro = () => {
         };
 
         try {
-            console.log(novaAtvParaEnviar);
             await sendPOST("/usuarios", novaAtvParaEnviar);
             setNovoUsuario({
                 nome: '',
@@ -47,10 +46,21 @@ const Registro = () => {
                 senha: ''
             })
 
-            return true;
+            const response2 = await fetch(`/usuarios/id?email=${novaAtvParaEnviar.email}`);
+
+            if (response2.status === 200) {
+                const idData = await response2.json();
+                const id = idData.id; // supondo que o ID seja retornado como id
+                console.log(id);
+                return id;
+            } else {
+                alert('Erro ao obter o ID do usuário.');
+                return -1;
+            }
+
         } catch (error) {
             console.error('Erro ao criar novo usuário:', error);
-            return false;
+            return -1;
         }
     };
 
@@ -75,8 +85,6 @@ const Registro = () => {
                     <a href="/login/Login">Login</a>
                     <p> | </p>
                     <a href="/registro/Registro">Registro</a>
-                    <p> | </p>
-                    <a href="/qmsomos/QuemSomos">Quem somos</a>
                 </nav>
             </header>
 

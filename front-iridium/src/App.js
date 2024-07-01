@@ -21,13 +21,11 @@ function App() {
                     <Route path="/atividade_ind/:atividadeName" element={<Atividade />} />
                     <Route path="/disciplina_ind/:disciplinaName" element={<Disciplina />} />
                     <Route path="/atividades/Atividades" element={<Atividades />} />
-                    <Route path="/calendario/Calendario" element={<Calendario />} />
                     <Route path="/disciplinas/Disciplinas" element={<Disciplinas />} />
-                    <Route path="/qmsomos/QuemSomos" element={<QuemSomos />} />
                     <Route path="/login/Login" element={<Login />} />
                     <Route path="/registro/Registro" element={<Registro />} />
                     <Route path="/perfil/Perfil" element={<Perfil />} />
-                    <Route path="/" element={<Home />} />
+                    <Route path="/" element={<QuemSomos />} />
                 </Routes>
             </div>
         </Router>

@@ -49,18 +49,34 @@ fun Application.configureUsuarioSerialization(repository: UsuarioRepository){
             }
 
             get("/id") {
-                val nome = call.parameters["nome"]
-                if (nome != null) {
-                    val id = repository.getIdByUsuarioNome(nome)
+                val email = call.parameters["email"]
+                if (email != null) {
+                    val id = repository.getIdByUsuarioEmail(email)
                     if (id != null) {
-                        call.respond(mapOf("id" to id))
+                        call.respond(HttpStatusCode.OK, mapOf("id" to id))
                     } else {
                         call.respond(HttpStatusCode.NotFound, "Usuário não encontrado")
                     }
                 } else {
-                    call.respond(HttpStatusCode.BadRequest, "Nome não fornecido")
+                    call.respond(HttpStatusCode.BadRequest, "E-mail não fornecido")
                 }
             }
+
+            get("/email/{email}"){
+                val email = call.parameters["email"]
+                if (email != null) {
+                    val senha = repository.getSenhaByUsuarioEmail(email)
+                    if (senha != null) {
+                        call.respond(mapOf("senha" to senha))
+                    } else {
+                        call.respond(HttpStatusCode.NotFound, "E-mail não cadastrado")
+                    }
+                } else {
+                    call.respond(HttpStatusCode.BadRequest, "E-mail não fornecido")
+                }
+            }
+
+
         }
     }
 }

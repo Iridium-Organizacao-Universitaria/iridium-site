@@ -5,12 +5,9 @@ import Usuario
 interface UsuarioRepository {
     suspend fun addUsuario(usuario : Usuario)
     suspend fun getUsuarioById(id: Int): Usuario?
-    suspend fun getIdByUsuarioNome(nome: String): Int?
+    suspend fun getIdByUsuarioEmail(email: String): Int?
+    suspend fun getSenhaByUsuarioEmail(email : String ): String?
 
-//    suspend fun saveSenha(password: Password): Boolean
-//    suspend fun saveName(name: String): Boolean
-//    suspend fun saveEmail(email : String): Boolean
-//
 //    suspend fun switchSenha(password: Password, userID : Int): Boolean
 //    suspend fun switchName(name: String, userID : Int): Boolean
 //    suspend fun switchEmail(email : String, userID : Int): Boolean

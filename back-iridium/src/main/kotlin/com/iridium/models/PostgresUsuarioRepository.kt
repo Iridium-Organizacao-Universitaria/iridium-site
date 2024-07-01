@@ -28,16 +28,18 @@ class PostgresUsuarioRepository : UsuarioRepository {
         UsuarioDAO.findById(id)?.let { daoToModel(it) }
     }
 
-    override suspend fun getIdByUsuarioNome(nome: String): Int? = suspendTransaction {
+    override suspend fun getIdByUsuarioEmail(email: String): Int? = suspendTransaction {
         UsuarioTable
-            .select { UsuarioTable.nome eq nome }
+            .select { UsuarioTable.email eq email }
             .mapNotNull { it[UsuarioTable.id].value }
             .singleOrNull()
     }
 
-//    suspend fun saveSenha(password: Password): Boolean = suspendTransaction { }
-//    suspend fun saveName(name: String): Boolean = suspendTransaction { }
-//    suspend fun saveEmail(email : String): Boolean = suspendTransaction { }
+    override suspend fun getSenhaByUsuarioEmail(email : String ): String? = suspendTransaction {
+        UsuarioTable.select{ (UsuarioTable.email eq email) }
+            .mapNotNull { it[UsuarioTable.senha]}
+            .singleOrNull()
+    }
 
 //    suspend fun switchSenha(password: Password, userID : Int): Boolean = suspendTransaction { }
 //    suspend fun switchName(name: String, userID : Int): Boolean = suspendTransaction { }

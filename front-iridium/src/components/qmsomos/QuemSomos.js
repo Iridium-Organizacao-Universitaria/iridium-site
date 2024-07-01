@@ -16,13 +16,11 @@ const QuemSomos = () => {
                     <a href="/login/Login">Login</a>
                     <p> | </p>
                     <a href="/registro/Registro">Registro</a>
-                    <p> | </p>
-                    <a href="/qmsomos/QuemSomos">Quem somos</a>
                 </nav>
             </header>
 
             <div className="qm_tudo">
-                <h2 className="title_qm">Quem somos</h2>
+                <h2 className="title_qm">Início</h2>
                 <div className="infos_qm">
                     <div className="half_left_qm">
                         <p>
