@@ -123,12 +123,42 @@ const Disciplina = () => {
     };
 
     function switchAndamentoDisciplina(name, andamento) {
-        sendPUT(`/disciplinas/${name}`, { andamento: !disciplinaState.andamento })
+        sendPUT(`/disciplinas/andamento/${name}`, {andamento : andamento })
             .then(() => {
                 fetchDisciplina();
             })
             .catch(error => {
                 console.error('Erro ao alterar status da disciplina:', error);
+            });
+    }
+
+    function switchDisciplinaSigla(name, sigla) {
+        sendPUT(`/disciplinas/sigla/${name}`, {sigla : sigla})
+            .then(() => {
+                fetchDisciplina();
+            })
+            .catch(error => {
+                console.error('Erro ao alterar a sigla da disciplina:', error);
+            });
+    }
+
+    function switchDisciplinaDocente(name, docente) {
+        sendPUT(`/disciplinas/docente/${name}`, { docente :docente })
+            .then(() => {
+                fetchDisciplina();
+            })
+            .catch(error => {
+                console.error('Erro ao alterar o docente da disciplina:', error);
+            });
+    }
+
+    function switchDisciplinaApelido(name, apelido) {
+        sendPUT(`/disciplinas/apelido/${name}`, { apelido : apelido })
+            .then(() => {
+                fetchDisciplina();
+            })
+            .catch(error => {
+                console.error('Erro ao alterar o apelido da disciplina:', error);
             });
     }
 
@@ -166,7 +196,13 @@ const Disciplina = () => {
 
     const handleSave = () => {
         // Aqui você pode implementar a lógica para salvar as alterações
+        let disciplinaName = disciplinaState.name;
+
         switchAndamentoDisciplina(disciplinaState.name, disciplinaState.andamento);
+        switchDisciplinaSigla(disciplinaState.name, disciplinaState.sigla);
+        switchDisciplinaDocente(disciplinaState.name, disciplinaState.docente);
+        switchDisciplinaApelido(disciplinaState.name, disciplinaState.apelido);
+
         fetchDisciplina();
         setEditing(false); // Desativa o modo de edição
     };
@@ -294,7 +330,7 @@ const Disciplina = () => {
                                         type="text"
                                         id="nome"
                                         name="nome"
-                                        value={disciplinaState.nome}
+                                        value={disciplinaState.name}
                                         onChange={handleChange}
                                         ref={nameInputRef}
                                         autoFocus

@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import '../../App.css';
 import './atividade.css';
-import disciplina from "../disciplina_ind/Disciplina";
 
 const Atividade = () => {
     const location = useLocation();
-    const { atividadeName } = useParams();
+    const { atividadeName: paramAtividadeName } = useParams(); // Renomeia para paramAtividadeName
+    const [atividadeName, setAtividadeName] = useState(''); // Renomeia para atividadeName
     const navigate = useNavigate();
     const [DisciplinasAll, setDisciplinasAll] = useState([]);
     const initialAtividadeState = {
@@ -22,10 +22,16 @@ const Atividade = () => {
     const [editing, setEditing] = useState(false);
 
     useEffect(() => {
+        if (paramAtividadeName) {
+            setAtividadeName(paramAtividadeName); // Define atividadeName com base nos parâmetros da URL
+        }
+    }, [paramAtividadeName]);
+
+    useEffect(() => {
         if (location.state && location.state.atividade) {
             setAtividadeState(location.state.atividade);
         } else {
-            fetchAtividade(); // Buscar atividade com base no nome da URL
+            fetchAtividade(atividadeName); // Passa atividadeName para buscar a atividade correta
             fetchAllDisciplinas().then(setDisciplinasAll);
         }
 
@@ -59,17 +65,24 @@ const Atividade = () => {
         });
     }
 
-    function sendPUT(url) {
+    const sendPUT = (url, data) => {
         return fetch(url, {
-            method: "PUT"
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
         });
-    }
+    };
 
     function fetchAllDisciplinas() {
         return sendGET("/disciplinas");
     }
 
-    const fetchAtividade = () => {
+    const fetchAtividade = (atividadeName) => { // Recebe atividadeName como parâmetro
+        while(atividadeName === undefined){
+
+        }
         sendGET(`/atividades/byName/${atividadeName}`)
             .then(response => {
                 if (response) {
@@ -105,33 +118,117 @@ const Atividade = () => {
         return sendDELETE(`/atividades/${name}`)
     }
 
-    function switchConcluidoAtividade(name, disciplina) {
-        sendPUT(`/atividades/switchConcluido/${name}/${disciplina}`, { concluido: !atividadeState.concluido })
-            .then(() => {
-                fetchAtividade(); // Atualiza os dados da atividade após alteração
-            })
-            .catch(error => {
-                console.error('Erro ao alterar status da atividade:', error);
-            });
+    function switchAtividadePrazo(name, prazo) {
+        return new Promise((resolve, reject) => {
+            sendPUT(`/atividades/prazo/${name}`, {prazo: prazo})
+                .then(() => {
+                    fetchAtividade(name); // Atualiza a atividade específica
+                    resolve();
+                })
+                .catch(error => {
+                    console.error('Erro ao alterar o prazo da atividade:', error);
+                    reject(error);
+                });
+        });
+    }
+
+    function switchAtividadeTipo(name, tipo) {
+        return new Promise((resolve, reject) => {
+            sendPUT(`/atividades/tipo/${name}`, {tipo: tipo})
+                .then(() => {
+                    fetchAtividade(name); // Atualiza a atividade específica
+                    resolve();
+                })
+                .catch(error => {
+                    console.error('Erro ao alterar o tipo da atividade:', error);
+                    reject(error);
+                });
+        });
+    }
+
+    function switchAtividadeDisciplina(name, disciplina) {
+        return new Promise((resolve, reject) => {
+            sendPUT(`/atividades/disciplina/${name}`, {disciplina: disciplina})
+                .then(() => {
+                    fetchAtividade(name); // Atualiza a atividade específica
+                    resolve();
+                })
+                .catch(error => {
+                    console.error('Erro ao alterar a disciplina da atividade:', error);
+                    reject(error);
+                });
+        });
+    }
+
+    function switchAtividadeDescricao(name, descricao) {
+        return new Promise((resolve, reject) => {
+            sendPUT(`/atividades/descricao/${name}`, {descricao: descricao})
+                .then(() => {
+                    fetchAtividade(name); // Atualiza a atividade específica
+                    resolve();
+                })
+                .catch(error => {
+                    console.error('Erro ao alterar a descrição da atividade:', error);
+                    reject(error);
+                });
+        });
+    }
+
+    function switchAtividadeName(name, newName) {
+        return new Promise((resolve, reject) => {
+            sendPUT(`/atividades/name/${name}`, {newName: newName})
+                .then(() => {
+                    fetchAtividade(newName); // Atualiza a atividade com o novo nome
+                    resolve();
+                })
+                .catch(error => {
+                    console.error('Erro ao alterar o nome da atividade:', error);
+                    reject(error);
+                });
+        });
+    }
+
+    function switchAtividadeConcluido(name, concluido) {
+        return new Promise((resolve, reject) => {
+            sendPUT(`/atividades/concluido/${name}`, {concluido: concluido})
+                .then(() => {
+                    fetchAtividade(name); // Atualiza a atividade específica
+                    resolve();
+                })
+                .catch(error => {
+                    console.error('Erro ao alterar a conclusão da atividade:', error);
+                    reject(error);
+                });
+        });
     }
 
     const handleEdit = () => {
         setEditing(true); // Ativa o modo de edição
     };
 
-    const handleSave = () => {
-        // Aqui você poderia implementar a lógica para salvar as alterações no backend
-        // Exemplo:
-        // sendPOST(`/atividades/${atividadeState.nome}`, atividadeState)
-        //     .then(() => {
-        //         setEditing(false); // Desativa o modo de edição após salvar
-        //     })
-        //     .catch(error => {
-        //         console.error('Erro ao salvar atividade:', error);
-        //     });
-        switchConcluidoAtividade(atividadeState.name, atividadeState.disciplina);
-        setEditing(false); // Aqui, apenas desativa o modo de edição localmente
-        fetchAtividade();
+    const handleSave = async () => {
+        try {
+            // Primeiro, execute todas as operações de atualização
+            await Promise.all([
+                switchAtividadePrazo(atividadeName, atividadeState.prazo),
+                switchAtividadeTipo(atividadeName, atividadeState.tipo),
+                switchAtividadeDescricao(atividadeName, atividadeState.descricao),
+                switchAtividadeDisciplina(atividadeName, atividadeState.disciplina),
+                switchAtividadeConcluido(atividadeName, atividadeState.concluido)
+            ]);
+
+            // ta mudando o nome de forma correta mas faz aparecer uns erro no console.log
+            // Depois de todas as atualizações, mude o nome da atividade
+            await switchAtividadeName(atividadeName, atividadeState.name);
+
+            setEditing(false); // Aqui, apenas desativa o modo de edição localmente
+            fetchAtividade(atividadeState.name); // Atualiza a atividade com o novo nome
+
+            return atividadeState.name; // Retorna o novo nome da atividade
+        } catch (error) {
+            console.error('Erro ao salvar atividade:', error);
+            throw error; // Lança o erro novamente para quem chamou a função handleSave
+        }
     };
 
     const handleChange = (e) => {
@@ -178,7 +275,7 @@ const Atividade = () => {
                                     <input
                                         type="text"
                                         id="nome"
-                                        name="nome"
+                                        name="name"
                                         value={atividadeState.name}
                                         onChange={handleChange}
                                         autoFocus
@@ -226,7 +323,7 @@ const Atividade = () => {
                                     <input
                                         type="date"
                                         id="data"
-                                        name="data"
+                                        name="prazo"
                                         value={atividadeState.prazo}
                                         onChange={handleChange}
                                     />
@@ -249,7 +346,15 @@ const Atividade = () => {
                                     </button>
                                 </div>
                                 <div className="botoes_atv_ind">
-                                    <button className="b_save_atv_ind" onClick={handleSave}>Salvar</button>
+                                    <button
+                                        className="b_save_atv_ind"
+                                        onClick={async () => {
+                                            const newName = await handleSave();
+                                            setAtividadeName(newName);
+                                        }}
+                                    >
+                                        Salvar
+                                    </button>
                                 </div>
                             </div>
                         </>
@@ -273,7 +378,7 @@ const Atividade = () => {
                                     <label htmlFor="data">Data:</label>
                                     <p><span id="data">{atividadeState.prazo}</span></p>
                                 </div>
-                                <div className="info_box_atv_inner em_andamento_atv">
+                                <div className="info-box-atv em_andamento_atv">
                                     <label>Atividade concluída:</label>
                                     <button
                                         className={`b_sim_atv ${atividadeState.concluido === true ? 'selected' : ''}`}

@@ -6,6 +6,10 @@ import com.iridium.db.AtividadeDAO
 import com.iridium.db.AtividadeTable
 import com.iridium.db.daoToModel
 import com.iridium.db.suspendTransaction
+import java.time.LocalDate
+import java.sql.Date
+//import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+//import org.jetbrains.exposed.sql.transactions.transaction
 
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 //import org.jetbrains.exposed.sql.transactions.experimental.suspendTransaction
@@ -54,16 +58,72 @@ class PostgresAtividadeRepository : AtividadeRepository {
         rowsDeleted == 1
     }
 
-    override suspend fun switchAtividadeConcluido(name: String, disciplina: String): Boolean = suspendTransaction {
-        val atividade = AtividadeTable.select {
-            (AtividadeTable.name eq name) and (AtividadeTable.disciplina eq disciplina)
-        }.singleOrNull()
+//    override suspend fun switchAtividadePrazo(name: String, prazo: Date) : Boolean = suspendTransaction {
+//        val atividade = AtividadeTable.select { AtividadeTable.name eq name }.singleOrNull()
+//        if(atividade != null) {
+//            val rowsUpdated = AtividadeTable.update({ AtividadeTable.name eq name }) {
+//                it.update(AtividadeTable.prazo, prazo)
+//            }
+//            rowsUpdated == 1
+//        } else {
+//            false
+//        }
+//    }
+
+    override suspend fun switchAtividadeTipo(name: String, tipo: String) : Boolean = suspendTransaction {
+        val atividade = AtividadeTable.select { AtividadeTable.name eq name }.singleOrNull()
+        if(atividade != null) {
+            val rowsUpdated = AtividadeTable.update({ AtividadeTable.name eq name }) {
+                it[AtividadeTable.tipo] = tipo
+            }
+            rowsUpdated == 1
+        } else {
+            false
+        }
+    }
+
+    override suspend fun switchAtividadeDescricao(name: String, descricao: String) : Boolean = suspendTransaction {
+        val atividade = AtividadeTable.select { AtividadeTable.name eq name }.singleOrNull()
+        if(atividade != null) {
+            val rowsUpdated = AtividadeTable.update({ AtividadeTable.name eq name }) {
+                it[AtividadeTable.descricao] = descricao
+            }
+            rowsUpdated == 1
+        } else {
+            false
+        }
+    }
+
+    override suspend fun switchAtividadeName(name: String, newName: String) : Boolean = suspendTransaction {
+        val atividade = AtividadeTable.select { AtividadeTable.name eq name }.singleOrNull()
+        if(atividade != null) {
+            val rowsUpdated = AtividadeTable.update({ AtividadeTable.name eq name }) {
+                it[AtividadeTable.name] = newName
+            }
+            rowsUpdated == 1
+        } else {
+            false
+        }
+    }
+
+
+    override suspend fun switchAtividadeDisciplina(name: String, disciplina: String) : Boolean = suspendTransaction {
+        val atividade = AtividadeTable.select { AtividadeTable.name eq name }.singleOrNull()
+        if(atividade != null) {
+            val rowsUpdated = AtividadeTable.update({ AtividadeTable.name eq name }) {
+                it[AtividadeTable.disciplina] = disciplina
+            }
+            rowsUpdated == 1
+        } else {
+            false
+        }
+    }
+
+    override suspend fun switchAtividadeConcluido(name: String, concluido: Boolean): Boolean = suspendTransaction {
+        val atividade = AtividadeTable.select { AtividadeTable.name eq name }.singleOrNull()
         if (atividade != null) {
-            val currentConcluido = atividade[AtividadeTable.concluido]
-            val rowsUpdated = AtividadeTable.update({
-                (AtividadeTable.name eq name) and (AtividadeTable.disciplina eq disciplina)
-            }) {
-                it[AtividadeTable.concluido] = !currentConcluido
+            val rowsUpdated = AtividadeTable.update({ AtividadeTable.name eq name }) {
+                it[AtividadeTable.concluido] = concluido
             }
             rowsUpdated == 1
         } else {
