@@ -31,7 +31,7 @@ const Disciplina = () => {
         nome: '',
         descricao: '',
         tipo: '',
-        data: '',
+        prazo: '',
         disciplina: disciplinaName,
         concluido: false,
     });
@@ -247,10 +247,12 @@ const Disciplina = () => {
             await sendPOST("/atividades", novaAtividadeParaEnviar);
             // Limpar o estado da nova atividade após a criação bem-sucedida
             setNovaAtividade({
-                nome: '',
+                name: '',
                 descricao: '',
                 tipo: '',
-                data: '',
+                prazo: '',
+                concluido: '',
+                disciplina: '',
             });
 
             setNewAtv(true);
