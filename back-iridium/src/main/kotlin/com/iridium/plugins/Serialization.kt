@@ -47,6 +47,20 @@ fun Application.configureUsuarioSerialization(repository: UsuarioRepository){
                     call.respond(HttpStatusCode.BadRequest)
                 }
             }
+
+            get("/id") {
+                val nome = call.parameters["nome"]
+                if (nome != null) {
+                    val id = repository.getIdByUsuarioNome(nome)
+                    if (id != null) {
+                        call.respond(mapOf("id" to id))
+                    } else {
+                        call.respond(HttpStatusCode.NotFound, "Usuário não encontrado")
+                    }
+                } else {
+                    call.respond(HttpStatusCode.BadRequest, "Nome não fornecido")
+                }
+            }
         }
     }
 }

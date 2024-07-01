@@ -15,7 +15,7 @@ import org.jetbrains.exposed.sql.javatime.date
 suspend fun <T> suspendTransaction(block: Transaction.() -> T): T =
     newSuspendedTransaction(Dispatchers.IO, statement = block)
 
-//////////////////Usuário
+////////////////// Usuário
 object UsuarioTable : IntIdTable("usuario") {
     var nome = varchar("nome", 50)
     var email = varchar("email", 50)
@@ -24,13 +24,13 @@ object UsuarioTable : IntIdTable("usuario") {
 
 class UsuarioDAO(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<UsuarioDAO>(UsuarioTable)
-
     var nome by UsuarioTable.nome
     var email by UsuarioTable.email
     var senha by UsuarioTable.senha
 }
 
 fun daoToModel(dao: UsuarioDAO) = Usuario(
+    id = dao.id.value,
     dao.nome,
     dao.email,
     dao.senha,

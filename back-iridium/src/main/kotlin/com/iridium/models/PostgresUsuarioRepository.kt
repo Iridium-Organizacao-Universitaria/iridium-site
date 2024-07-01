@@ -1,7 +1,6 @@
 package com.iridium.models
 
 import Usuario
-
 import com.iridium.db.UsuarioDAO
 import com.iridium.db.UsuarioTable
 import com.iridium.db.daoToModel
@@ -17,11 +16,23 @@ class PostgresUsuarioRepository : UsuarioRepository {
     //suspend fun
 
     override suspend fun addUsuario(usuario : Usuario): Unit = suspendTransaction {
-        UsuarioDAO.new {
+        val newUser = UsuarioDAO.new {
             nome = usuario.nome
             email = usuario.email
             senha = usuario.senha
         }
+        daoToModel(newUser)
+    }
+
+    override suspend fun getUsuarioById(id: Int): Usuario? = suspendTransaction {
+        UsuarioDAO.findById(id)?.let { daoToModel(it) }
+    }
+
+    override suspend fun getIdByUsuarioNome(nome: String): Int? = suspendTransaction {
+        UsuarioTable
+            .select { UsuarioTable.nome eq nome }
+            .mapNotNull { it[UsuarioTable.id].value }
+            .singleOrNull()
     }
 
 //    suspend fun saveSenha(password: Password): Boolean = suspendTransaction { }
