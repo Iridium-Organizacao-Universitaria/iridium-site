@@ -31,6 +31,20 @@ import org.jetbrains.exposed.sql.*
 //    VALUES ('projeto iridium', 'entregar segunda', 'Prova', '2024-07-14', 'software');
 //INSERT INTO atividade (name, descricao, tipo, concluido, prazo, disciplina)
 //    VALUES ('lista', 'exercicio 2', 'Tarefa', TRUE, '2025-04-20', 'calculo');
+//
+//DROP TABLE IF EXISTS usuario;
+//CREATE TABLE usuario(
+//    id SERIAL PRIMARY KEY,
+//    nome VARCHAR(50),
+//    email VARCHAR(50),
+//    senha VARCHAR(50)
+//);
+//
+//INSERT INTO usuario (nome, email, senha)
+//    VALUES('bea', 'bea@usp', '1234');
+//
+//INSERT INTO usuario (nome, email, senha)
+//  VALUES('may', 'may@usp', '567');
 
 
 fun Application.configureDatabases() {

@@ -217,9 +217,6 @@ const Atividades = () => {
                 disciplina: '',
             });
 
-            // Atualizar a lista de atividades exibidas após a criação
-            // displayAllAtividades(); // Implemente isso quando o link estiver pronto
-
             fetchAllAtividades().then(setAtividades);
             return true;
         } catch (error) {

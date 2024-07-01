@@ -2,6 +2,7 @@ package com.iridium.db
 
 import Disciplina
 import Atividade
+import Usuario
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.sql.Transaction
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
@@ -13,6 +14,29 @@ import org.jetbrains.exposed.sql.javatime.date
 
 suspend fun <T> suspendTransaction(block: Transaction.() -> T): T =
     newSuspendedTransaction(Dispatchers.IO, statement = block)
+
+//////////////////Usuário
+object UsuarioTable : IntIdTable("usuario") {
+    //var id = int("id")
+    var nome = varchar("nome", 50)
+    var email = varchar("email", 50)
+    var senha = varchar("senha", 50)
+}
+
+class UsuarioDAO(id: EntityID<Int>) : IntEntity(id) {
+    companion object : IntEntityClass<UsuarioDAO>(UsuarioTable)
+
+    var nome by UsuarioTable.nome
+    var email by UsuarioTable.email
+    var senha by UsuarioTable.senha
+}
+
+fun daoToModel(dao: UsuarioDAO) = Usuario(
+    dao.id.value,  // Assuming the Usuario model requires an Int ID
+    dao.nome,
+    dao.email,
+    dao.senha,
+)
 
 ////////////////// Disciplinas
 object DisciplinaTable : IntIdTable("disciplina") {
