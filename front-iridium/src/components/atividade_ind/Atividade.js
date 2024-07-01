@@ -8,7 +8,7 @@ const Atividade = () => {
     const location = useLocation();
     const { atividadeName } = useParams();
     const navigate = useNavigate();
-
+    const [DisciplinasAll, setDisciplinasAll] = useState([]);
     const initialAtividadeState = {
         name: '',
         descricao: '',
@@ -26,6 +26,7 @@ const Atividade = () => {
             setAtividadeState(location.state.atividade);
         } else {
             fetchAtividade(); // Buscar atividade com base no nome da URL
+            fetchAllDisciplinas().then(setDisciplinasAll);
         }
 
     }, [atividadeName]);
@@ -62,6 +63,10 @@ const Atividade = () => {
         return fetch(url, {
             method: "PUT"
         });
+    }
+
+    function fetchAllDisciplinas() {
+        return sendGET("/disciplinas");
     }
 
     const fetchAtividade = () => {
@@ -204,13 +209,17 @@ const Atividade = () => {
                                 </div>
                                 <div className="info_box_atv_ind_inner edit-mode">
                                     <label htmlFor="disciplina">Disciplina:</label>
-                                    <input
-                                        type="text"
+                                    <select
                                         id="disciplina"
                                         name="disciplina"
                                         value={atividadeState.disciplina}
                                         onChange={handleChange}
-                                    />
+                                    >
+                                        <option value="">Selecione a disciplina</option>
+                                        {DisciplinasAll.map((disciplina, index) => (
+                                            <option key={index} value={disciplina.name}>{disciplina.name}</option>
+                                        ))}
+                                    </select>
                                 </div>
                                 <div className="info_box_atv_ind_inner edit-mode">
                                     <label htmlFor="data">Data:</label>
