@@ -6,40 +6,20 @@ import './disciplina.css';
 
 const Disciplina = () => {
     // dados de exemplo só para testar o front
-    const [atividades, setAtividades] = useState([
-        { nome: 'Atividade 1', dataEntrega: '22/06/2024' },
-        { nome: 'Atividade 2', dataEntrega: '25/06/2024' },
-        { nome: 'Atividade 3', dataEntrega: '22/06/2024' },
-        { nome: 'Atividade 4', dataEntrega: '25/06/2024' },
-        { nome: 'Atividade 5', dataEntrega: '22/06/2024' },
-        { nome: 'Atividade 6', dataEntrega: '25/06/2024' },
-    ]);
-
-    const [provas, setProvas] = useState([
-        { nome: 'Prova 1', dataEntrega: '15/07/2024' },
-        { nome: 'Prova 2', dataEntrega: '17/08/2024' },
-        { nome: 'Prova 3', dataEntrega: '15/07/2024' },
-        { nome: 'Prova 4', dataEntrega: '17/08/2024' },
-        { nome: 'Prova 5', dataEntrega: '15/07/2024' },
-        { nome: 'Prova 6', dataEntrega: '17/08/2024' },
-        { nome: 'Prova 7', dataEntrega: '15/07/2024' },
-        { nome: 'Prova 8', dataEntrega: '17/08/2024' },
-        { nome: 'Prova 9', dataEntrega: '15/07/2024' },
-        { nome: 'Prova 10', dataEntrega: '17/08/2024' },
-    ]);
-
+    const [atividades, setAtividades] = useState([]);
+    const [provas, setProvas] = useState([]);
     const location = useLocation();
     const { disciplinaName } = useParams();
     const navigate = useNavigate();
     const initialDisciplinaState = {
-        nome: 'Nome da disciplina',
+        name: 'Nome da disciplina',
         sigla: 'Sigla',
         docente: 'Docente',
         apelido: 'Apelido',
-        andamento: true, // Exemplo de valor inicial
+        andamento: '',
     };
 
-    const [selected, setSelected] = useState('sim'); // Valor inicial como 'sim'
+    const [selected, setSelected] = useState();
     const [editing, setEditing] = useState(false); // Estado para controlar o modo de edição
     const [disciplinaState, setDisciplinaState] = useState(initialDisciplinaState);
     const nameInputRef = useRef(null);
@@ -60,17 +40,21 @@ const Disciplina = () => {
 
     }, [disciplinaName]);
 
+    const sendPUT = (url, data) => {
+        return fetch(url, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+    };
+
     function sendPOST(url, data) {
         return fetch(url, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(data)
-        });
-    }
-
-    function sendPUT(url) {
-        return fetch(url, {
-            method: "PUT"
         });
     }
 
@@ -88,9 +72,40 @@ const Disciplina = () => {
             });
     };
 
+    const switchAndamentoDisciplina = async (name, andamento) => {
+        try {
+            const response = await fetch(`/disciplinas/${name}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    andamento
+                })
+            });
+
+            if (response.ok) {
+                // Update the local discipline state if the update was successful
+                setDisciplinaState((prevState) => ({
+                    ...prevState,
+                    andamento
+                }));
+                return true; // Indicate successful update
+            } else {
+                console.error('Erro ao atualizar o andamento da disciplina:', response);
+                return false; // Indicate failed update
+            }
+        } catch (error) {
+            console.error('Erro ao atualizar o andamento da disciplina:', error);
+            return false; // Indicate failed update
+        }
+    };
+
+
     const fetchDisciplina = () => {
         sendGET(`/disciplinas/byName/${disciplinaName}`)
             .then(response => {
+                //console.log("RES ", response.andamento)
                 if (response) {
                     setDisciplinaState(prevState => ({
                         ...prevState,
@@ -98,8 +113,7 @@ const Disciplina = () => {
                         sigla: response.sigla,
                         docente: response.docente,
                         apelido: response.apelido,
-                        // quando isto estiver implementado, arrumar
-                        //andamento: response.andamento,
+                        andamento: response.andamento,
                     }));
                 } else {
                     console.log('Disciplina não encontrada');
@@ -123,16 +137,10 @@ const Disciplina = () => {
     };
 
     const handleSave = () => {
-        // Aqui você deve enviar a requisição PUT para salvar as alterações no backend
-        sendPUT(`/disciplinas/${disciplinaState.nome}`, { andamento: disciplinaState.andamento })
-            .then(() => {
-                setEditing(false); // Desativa o modo de edição após salvar
-                fetchDisciplina();
-            })
-            .catch(error => {
-                console.error('Erro ao salvar alterações:', error);
-                // Aqui você pode implementar um feedback para o usuário sobre o erro
-            });
+        // Aqui você pode implementar a lógica para salvar as alterações
+        switchAndamentoDisciplina(disciplinaName, disciplinaState.andamento);
+        fetchDisciplina();
+        setEditing(false); // Desativa o modo de edição
     };
 
     const handleChange = (e) => {
@@ -180,8 +188,7 @@ const Disciplina = () => {
             descricao: novaAtividade.descricao,
             tipo: novaAtividade.tipo,
             concluido: false,
-            prazo: novaAtividade.data,
-            disciplina: disciplinaState.name
+            prazo: novaAtividade.data
         };
 
         // Enviar os dados da nova atividade para o backend
@@ -341,8 +348,8 @@ const Disciplina = () => {
                         <ul className="atividades-list">
                             {atividades.map((atividade, index) => (
                                 <li key={index}>
-                                    <span><img src="/imgs/pin.png" alt="pin"/> {atividade.nome}</span>
-                                    <span className="data-entrega">{atividade.dataEntrega}</span>
+                                    <span><img src="/imgs/pin.png" alt="pin"/> {atividade.name}</span>
+                                    <span className="data-entrega">{atividade.prazo}</span>
                                 </li>
                             ))}
                         </ul>
@@ -352,17 +359,17 @@ const Disciplina = () => {
                         <ul className="provas-list">
                             {provas.map((prova, index) => (
                                 <li key={index}>
-                                    <span><img src="/imgs/giz.png" alt="giz"/> {prova.nome}</span>
-                                    <span className="data-entrega">{prova.dataEntrega}</span>
+                                    <span><img src="/imgs/giz.png" alt="giz"/> {prova.name}</span>
+                                    <span className="data-entrega">{prova.prazo}</span>
                                 </li>
                             ))}
                         </ul>
                     </div>
                     <Popup trigger=
-                        {<button className="btn-nova-tarefa">Criar nova atividade</button>}
-                        modal nested>
+                               {<button className="btn-nova-tarefa">Criar nova atividade</button>}
+                           modal nested>
                         {
-                             close => (
+                            close => (
                                 <div className="geral_criar_nova_atv">
                                     <div className="criar_nova_atv_div">
                                         <div className="criar_nova_atv">
@@ -421,7 +428,7 @@ const Disciplina = () => {
                                         Criar
                                     </button>
                                 </div>
-                             )
+                            )
                         }
                     </Popup>
                 </div>
