@@ -217,9 +217,6 @@ const Atividades = () => {
                 disciplina: '',
             });
 
-            // Atualizar a lista de atividades exibidas após a criação
-            // displayAllAtividades(); // Implemente isso quando o link estiver pronto
-
             fetchAllAtividades().then(setAtividades);
             return true;
         } catch (error) {
@@ -239,8 +236,6 @@ const Atividades = () => {
                     <a href="/disciplinas/Disciplinas">Disciplinas</a>
                     <p> | </p>
                     <a href="/atividades">Atividades</a>
-                    <p> | </p>
-                    <a href="/calendario/Calendario">Calendário</a>
                     <p> | </p>
                     <a href="/perfil/Perfil">Perfil</a>
                 </nav>

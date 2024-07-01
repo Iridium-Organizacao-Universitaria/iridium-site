@@ -1,9 +1,11 @@
 package com.iridium.plugins
 
+import Usuario
 import Disciplina
 import Atividade
 import com.iridium.models.DisciplinaRepository
 import com.iridium.models.AtividadeRepository
+import com.iridium.models.UsuarioRepository
 import io.ktor.http.*
 import io.ktor.serialization.*
 import io.ktor.server.application.*
@@ -28,6 +30,54 @@ object LocalDateSerializer : KSerializer<LocalDate> {
 
     override fun deserialize(decoder: Decoder): LocalDate {
         return LocalDate.parse(decoder.decodeString(), formatter)
+    }
+}
+
+fun Application.configureUsuarioSerialization(repository: UsuarioRepository){
+    routing{
+        route("/usuarios"){
+            post {
+                try {
+                    val usuario = call.receive<Usuario>()
+                    repository.addUsuario(usuario)
+                    call.respond(HttpStatusCode.NoContent)
+                } catch (ex: IllegalStateException) {
+                    call.respond(HttpStatusCode.BadRequest)
+                } catch (ex: JsonConvertException) {
+                    call.respond(HttpStatusCode.BadRequest)
+                }
+            }
+
+            get("/id") {
+                val email = call.parameters["email"]
+                if (email != null) {
+                    val id = repository.getIdByUsuarioEmail(email)
+                    if (id != null) {
+                        call.respond(HttpStatusCode.OK, mapOf("id" to id))
+                    } else {
+                        call.respond(HttpStatusCode.NotFound, "Usuário não encontrado")
+                    }
+                } else {
+                    call.respond(HttpStatusCode.BadRequest, "E-mail não fornecido")
+                }
+            }
+
+            get("/email/{email}"){
+                val email = call.parameters["email"]
+                if (email != null) {
+                    val senha = repository.getSenhaByUsuarioEmail(email)
+                    if (senha != null) {
+                        call.respond(mapOf("senha" to senha))
+                    } else {
+                        call.respond(HttpStatusCode.NotFound, "E-mail não cadastrado")
+                    }
+                } else {
+                    call.respond(HttpStatusCode.BadRequest, "E-mail não fornecido")
+                }
+            }
+
+
+        }
     }
 }
 
@@ -268,7 +318,7 @@ fun Application.configureAtividadeSerialization(repository: AtividadeRepository)
                     return@get
                 }
                 try {
-                    val concluido = concluidoAsBoolean?.toBoolean()?: false
+                    val concluido = concluidoAsBoolean.toBoolean()
                     val atividades = repository.atividadesByConcluido(concluido)
 
 

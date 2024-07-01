@@ -216,7 +216,7 @@ const Disciplina = () => {
     };
 
     const handleDelete = () => {
-        deleteDisciplina(disciplinaState.nome)
+        deleteDisciplina(disciplinaState.name)
             .then(() => {
                 navigate(`/disciplinas/Disciplinas`);
             })
@@ -310,8 +310,6 @@ const Disciplina = () => {
                     <a href="/disciplinas/Disciplinas">Disciplinas</a>
                     <p> | </p>
                     <a href="/atividades/Atividades">Atividades</a>
-                    <p> | </p>
-                    <a href="/calendario/Calendario">Calendário</a>
                     <p> | </p>
                     <a href="/perfil/Perfil">Perfil</a>
                 </nav>

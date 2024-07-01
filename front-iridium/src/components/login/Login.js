@@ -1,28 +1,81 @@
 import React, { useState } from 'react';
 import '../../App.css'; // Importa o estilo geral
-import './login.css'; // Importa os estilos específicos da página
+import './login.css';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    function sendGET(url) {
+        return fetch(url, { headers: { 'Accept': 'application/json' } })
+            .then(response => response.ok ? response.json() : []);
+    }
+
+    function sendPOST(url, data) {
+        return fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
         if (validateForm()) {
             // Simula o redirecionamento após validação
-            window.location.href = "/perfil/Perfil";
+            //window.location.href = "/perfil/Perfil";
         }
     };
 
-    const validateForm = () => {
+    const validateForm = async () => {
         if (email.trim() === '' || password.trim() === '') {
             alert('Por favor, preencha todos os campos.');
             return false;
-        } else {
-            return true;
+        }
+
+        try {
+            // Primeiro fetch para verificar o e-mail e senha
+            const response = await fetch(`/usuarios/email/${email}`);
+
+            if (response.status === 200) {
+                const senhaData = await response.json();
+                const senha = senhaData.senha; // extrai a senha do objeto recebido
+
+                if (senha !== undefined && senha !== password) {
+                    alert('Senha incorreta!');
+                    return -1;
+                } else {
+                    // Segundo fetch para obter o ID do usuário
+                    const response2 = await fetch(`/usuarios/id?email=${email}`);
+
+                    if (response2.status === 200) {
+                        const idData = await response2.json();
+                        const id = idData.id; // supondo que o ID seja retornado como id
+                        console.log(id);
+                        return id;
+                    } else {
+                        alert('Erro ao obter o ID do usuário.');
+                        return -1;
+                    }
+                }
+            } else if (response.status === 404) {
+                alert('E-mail não cadastrado.');
+                return -1;
+            } else {
+                alert('Erro ao verificar o e-mail.');
+                return -1;
+            }
+        } catch (error) {
+            console.error('Erro ao verificar o e-mail:', error);
+            alert('Erro ao verificar o e-mail. Por favor, tente novamente.');
+            return -1;
         }
     };
+
+
+
+
 
     return (
         <div className="h">
@@ -37,8 +90,6 @@ const Login = () => {
                     <a href="/login/Login">Login</a>
                     <p> | </p>
                     <a href="/registro/Registro">Registro</a>
-                    <p> | </p>
-                    <a href="/qmsomos/QuemSomos">Quem somos</a>
                 </nav>
             </header>
 

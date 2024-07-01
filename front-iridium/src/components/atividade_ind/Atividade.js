@@ -258,8 +258,6 @@ const Atividade = () => {
                     <p> | </p>
                     <a href="/atividades/Atividades">Atividades</a>
                     <p> | </p>
-                    <a href="/calendario/Calendario">Calendário</a>
-                    <p> | </p>
                     <a href="/perfil/Perfil">Perfil</a>
                 </nav>
             </header>
