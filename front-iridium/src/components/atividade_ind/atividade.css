@@ -15,11 +15,13 @@
 
 .atividade-info {
     background-color: #cecece; /* Cinza claro */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a shadow for depth */
     padding: 30px;
     border-radius: 10px;
     border: 2px solid white;
     max-width: 500px; /* Define uma largura máxima */
     width: 100%; /* Faz com que a div ocupe 100% da largura disponível */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a shadow for depth */
 }
 
 .atividade-info h2 {
