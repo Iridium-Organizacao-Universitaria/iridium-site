@@ -13,12 +13,15 @@ const Atividades = () => {
     const [filtroTipo, setFiltroTipo] = useState('Todos');
     const [filtroData, setFiltroData] = useState('Hoje');
     const [filtroConclusao, setFiltroConclusao] = useState('Todos');
+    const [filtroDisciplina, setFiltroDisciplina] = useState('Todas');
     const [tipoMenuOpen, setTipoMenuOpen] = useState(false);
     const [dataMenuOpen, setDataMenuOpen] = useState(false);
     const [conclusaoMenuOpen, setConclusaoMenuOpen] = useState(false);
+    const [disciplinaMenuOpen, setDisciplinaMenuOpen] = useState(false);
     const tipoMenuRef = useRef(null);
     const dataMenuRef = useRef(null);
     const conclusaoMenuRef = useRef(null);
+    const disciplinaMenuRef = useRef(null);
     const [atividadesFiltradas, setAtividadesFiltradas] = useState([]);
     const navigate = useNavigate(); // Usando useNavigate para navegação programática
     const [novaAtividade, setNovaAtividade] = useState({
@@ -46,7 +49,7 @@ const Atividades = () => {
     useEffect(() => {
         const atividadesFiltradas = filterAtividades(atividades);
         setAtividadesFiltradas(atividadesFiltradas);
-    }, [atividades, filtroTipo, filtroData, filtroConclusao]);
+    }, [atividades, filtroTipo, filtroData, filtroConclusao, filtroDisciplina]);
 
     const fetchAllAtividades = () => {
         return sendGET("/atividades");
@@ -85,6 +88,9 @@ const Atividades = () => {
         if (conclusaoMenuRef.current && !conclusaoMenuRef.current.contains(event.target)) {
             setConclusaoMenuOpen(false);
         }
+        if (disciplinaMenuRef.current && !disciplinaMenuRef.current.contains(event.target)) {
+            setDisciplinaMenuOpen(false);
+        }
     };
 
     const handleTipoChange = (tipo) => {
@@ -101,6 +107,12 @@ const Atividades = () => {
         setFiltroConclusao(conclusao);
         setConclusaoMenuOpen(false);
     };
+
+    const handleDisciplinaChange = (disciplina) => {
+        setFiltroDisciplina(disciplina);
+        setDisciplinaMenuOpen(false);
+    };
+
 
     function deleteAtividade(name) {
         deleteAtividadeWithName(name)
@@ -153,7 +165,12 @@ const Atividades = () => {
                 filtroConclusaoPass = !atividade.concluido;
             }
 
-            return filtroTipoPass && filtroDataPass && filtroConclusaoPass;
+            let filtroDisciplinaPass = true;
+            if (filtroDisciplina !== 'Todas') {
+                filtroDisciplinaPass = atividade.disciplina === filtroDisciplina;
+            }
+
+            return filtroTipoPass && filtroDataPass && filtroConclusaoPass && filtroDisciplinaPass;
         });
     };
 
@@ -373,6 +390,31 @@ const Atividades = () => {
                                 </div>
                             )}
                         </div>
+                        <div className="dropdown" ref={disciplinaMenuRef}>
+                            <button onClick={() => setDisciplinaMenuOpen(!disciplinaMenuOpen)}>
+                                {filtroDisciplina}
+                            </button>
+                            {disciplinaMenuOpen && (
+                                <div className="dropdown-menu">
+                                    <div
+                                        key={'Todas'}
+                                        className="dropdown-item"
+                                        onClick={() => handleDisciplinaChange('Todas')}
+                                        >
+                                            {'Todas'}
+                                    </div>
+                                    {DisciplinasAll.map((disciplina, index) => (
+                                        <div
+                                            key={disciplina.name}
+                                            onClick={() => handleDisciplinaChange(disciplina.name)}
+                                            className="dropdown-item"
+                                            >
+                                            {disciplina.name}
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
                 <div className="atividades_lista_div">
@@ -381,7 +423,8 @@ const Atividades = () => {
                             <li key={index} className="atividade_item">
                                 <div className="atividade_button">
                                     <div className="atividade_content">
-                                        <div className="atividade_left" onClick={() => handleAtividadeClick(atividade.name)}>
+                                        <div className="atividade_left"
+                                             onClick={() => handleAtividadeClick(atividade.name)}>
                                             <img src={atividade.tipo === 'Prova' ? '/imgs/giz.png' : '/imgs/pin.png'}
                                                  alt={atividade.tipo}/>
                                             <span>{atividade.name}</span>

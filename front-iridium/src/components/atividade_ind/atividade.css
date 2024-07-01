@@ -101,7 +101,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 0;
 }
 
 .em_andamento_atv button {
