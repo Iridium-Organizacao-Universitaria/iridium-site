@@ -8,10 +8,9 @@ Desenvolvido como projeto da disciplina MAC0350 - Introdução a Desenvolvimento
 1. [Sobre](#sobre)
 3. [Instalação](#instalação)
 4. [Como usar](#como-usar)
-5. [Pré Requisitos](#pre-requisitos)
-6. [Tecnologias](#tecnologias)
-7. [Licença](#licença)
-8. [Autores](#autores)
+5. [Tecnologias](#tecnologias)
+6. [Licença](#licença)
+7. [Autores](#autores)
 
 
 
@@ -33,26 +32,54 @@ Portanto, se você deseja simplificar sua vida universitária, nosso aplicativo 
 
 <a name="instalação"></a>
 ## Instalação
-
-Exemplo passo-a-passo que informa como o que você deve executar para ter um ambiente de desenvolvimento em execução.
+É necessário instalar o Noje.js e PostgreSQL na máquina que irá rodar o projeto. A IDE recomendada e utilizada para desenvolver o projeto foi o IntelliJ IDEA. Ao abrir o repositório do projeto, haverá dois diretórios principais nomeados como back-iridium e front-iridium.
+Será necessario ir nas configurações do gradle do projeto e indicar que o `build` e o `run` deverão rodar no diretório `${caminho_até_o_projeto}/back-iridium`, além disso, para rodar o React App é necessário estar no diretório front-iridium, que pode ser acessado pelo terminal da IDE.
+Dessa forma, com essas configurações prontas, no terminal do front-iridium é preciso rodar o seguinte comando, que irá instalar as dependências do React App:
 
 ```
-Dar exemplos
+npm install
 ```
+E é preciso dar `build` no Gradle para que ele instale as dependências do backend e compile os modelos criados.
 
 
 <a name="como-usar"></a>
 ## Como usar
+Para rodar o servido, é necesário rodar `run` no path definido anteriormente. Foi definido no projeto que o servidor rodaria no `http://localhost:8081`, isto pode ser alterado no arquivo `back-iridium/build/resources/main/application.yaml` que tem o seguinte formato:
+
+```
+ktor:
+    application:
+        modules:
+            - com.iridium.ApplicationKt.module
+    deployment:
+        port: 8081
+
+storages:
+    #if you are using Postgres db
+    - driverClassName: "org.postgresql.Driver"
+      jdbcURL: "jdbc:postgresql://localhost:5432/db_name_here?user=db_username_here&password=db_password_here"
+
+```
+
+Para rodar o React App é preciso estar no diretório indicado anteriormente e utilizar o comando:
+
+```
+npm start
+```
+
+Caso a porta utilizada pelo servidor seja alterada no backend, também será necessário alterar a porta em que o React App realiza as requisições HTTP, isso pode ser alterado no arquivo `front-iridium/package.json` no campo proxy, quem tem o seguinte formato:
+
+```
+...
+"proxy": "http://localhost:8081",
+...
+```
+
+
 
 <!--- Completar aqui depois 
 Imagens ebaa -->
 
-`oiee`
-
-
-
-<a name="pre-requisitos"></a>
-## Pré requisitos
 
 <!--- Completar aqui depois 
 Imagens ebaa -->
@@ -64,10 +91,12 @@ Imagens ebaa -->
 
 As seguintes ferramentas foram utilizadas na construção do projeto:
 
-<!---* [![Kotlin](https://img.shields.io/badge/Kotlin-0095D5?&style=for-the-badge&logo=kotlin&logoColor=white)](https://kotlinlang.org)
-* [![Android Studio](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://developer.android.com/studio)
-* [![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com)--->
-
+[![React App](https://shields.io/badge/react-black?logo=react&style=for-the-badge)](https://pt-br.legacy.reactjs.org)
+[![PostgreSQL](https://shields.io/badge/postgresql-black?logo=postgresql&style=for-the-badge)](https://www.postgresql.org)
+[![IntelliJ IDEA](https://img.shields.io/badge/Intellij%20Idea-000?logo=intellij-idea&style=for-the-badge)](https://www.jetbrains.com/pt-br/idea/)
+[![Ktor](https://shields.io/badge/ktor-black?logo=ktor&style=for-the-badge)](https://ktor.io)
+[![Kotlin](https://shields.io/badge/kotlin-black?logo=kotlin&style=for-the-badge)](https://kotlinlang.org)
+[![Nodejs](https://shields.io/badge/nodejs-black?logo=nodejs&style=for-the-badge)](https://nodejs.org/pt)
 
 
 <a name="licença"></a>
