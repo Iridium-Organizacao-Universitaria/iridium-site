@@ -19,9 +19,7 @@ Desenvolvido como projeto da disciplina MAC0350 - Introdução a Desenvolvimento
 
 > Imagine um site que se torna o seu melhor aliado na jornada universitária. Apresentamos o nosso site de organização, cuidadosamente projetado para atender às necessidades específicas dos estudantes universitários. Aqui, você encontrará uma plataforma completa que não apenas ajuda a gerenciar suas datas de provas, projetos e atividades, mas também simplifica sua vida acadêmica de todas as formas possíveis.\
 \
-Com nossa interface intuitiva, você pode facilmente criar e visualizar seu calendário, garantindo que nunca perca um prazo importante. Seja uma prova daquela matéria desafiadora ou a entrega de um projeto crucial, tudo estará organizado de forma clara e acessível.\
-\
-Mas nosso site vai além da simples organização de datas. Sabemos o quão valiosas são as informações compartilhadas durante as aulas. É por isso que oferecemos uma maneira fácil e rápida de capturar notas e até mesmo salvar fotos de quadros ou slides importantes. Dessa forma, você pode revisar e estudar de forma mais eficaz, aproveitando ao máximo cada momento de aprendizado.\
+Com nossa interface intuitiva, você pode facilmente criar e visualizar suas tarefas, garantindo que nunca perca um prazo importante. Seja uma prova daquela matéria desafiadora ou a entrega de um projeto crucial, tudo estará organizado de forma clara e acessível.\
 \
 \
 Portanto, se você deseja simplificar sua vida universitária, nosso aplicativo é a escolha certa. Experimente hoje mesmo e descubra como podemos tornar sua jornada acadêmica mais tranquila e produtiva.
