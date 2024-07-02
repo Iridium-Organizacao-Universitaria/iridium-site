@@ -3,7 +3,7 @@ import '../../App.css'; // Importa o estilo geral
 import './perfil.css'; // Importa os estilos específicos da página
 
 const Perfil = () => {
-    const [profileImage, setProfileImage] = useState('/imgs/default_profile_picture.jpeg'); // Estado inicial com a imagem padrão
+    const [profileImage, setProfileImage] = useState('/imgs/default_profile_picture.jpg'); // Estado inicial com a imagem padrão
     const [editing, setEditing] = useState(false); // Estado para controlar o modo de edição
     const [userInfo, setUserInfo] = useState({
         name: 'Nome do usuário',
