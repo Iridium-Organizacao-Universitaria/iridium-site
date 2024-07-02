@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import '../../App.css';
 import './atividade.css';
+import { getToken } from '../App/useToken';
 
 const Atividade = () => {
+    const userToken = getToken();
     const location = useLocation();
     const { atividadeName: paramAtividadeName } = useParams(); // Renomeia para paramAtividadeName
     const [atividadeName, setAtividadeName] = useState(''); // Renomeia para atividadeName
@@ -76,14 +78,14 @@ const Atividade = () => {
     };
 
     function fetchAllDisciplinas() {
-        return sendGET("/disciplinas");
+        return sendGET(`/disciplinas/${userToken}`);
     }
 
     const fetchAtividade = (atividadeName) => { // Recebe atividadeName como parâmetro
         while(atividadeName === undefined){
 
         }
-        sendGET(`/atividades/byName/${atividadeName}`)
+        sendGET(`/atividades/byName/${atividadeName}/${userToken}`)
             .then(response => {
                 if (response) {
                     setAtividadeState({
@@ -107,7 +109,7 @@ const Atividade = () => {
         deleteAtividadeWithName(name)
             .then(() => {
                 // Redireciona para a página anterior após deletar a atividade
-                navigate('/atividades/Atividades');
+                navigate(`/atividades/Atividades/${userToken}`);
             })
             .catch(error => {
                 console.error('Erro ao deletar atividade:', error);
@@ -115,12 +117,12 @@ const Atividade = () => {
     }
 
     function deleteAtividadeWithName(name) {
-        return sendDELETE(`/atividades/${name}`)
+        return sendDELETE(`/atividades/${name}/${userToken}`)
     }
 
     function switchAtividadePrazo(name, prazo) {
         return new Promise((resolve, reject) => {
-            sendPUT(`/atividades/prazo/${name}`, {prazo: prazo})
+            sendPUT(`/atividades/prazo/${name}/${userToken}`, {prazo: prazo})
                 .then(() => {
                     fetchAtividade(name); // Atualiza a atividade específica
                     resolve();
@@ -134,7 +136,7 @@ const Atividade = () => {
 
     function switchAtividadeTipo(name, tipo) {
         return new Promise((resolve, reject) => {
-            sendPUT(`/atividades/tipo/${name}`, {tipo: tipo})
+            sendPUT(`/atividades/tipo/${name}/${userToken}`, {tipo: tipo})
                 .then(() => {
                     fetchAtividade(name); // Atualiza a atividade específica
                     resolve();
@@ -148,7 +150,7 @@ const Atividade = () => {
 
     function switchAtividadeDisciplina(name, disciplina) {
         return new Promise((resolve, reject) => {
-            sendPUT(`/atividades/disciplina/${name}`, {disciplina: disciplina})
+            sendPUT(`/atividades/disciplina/${name}/${userToken}`, {disciplina: disciplina})
                 .then(() => {
                     fetchAtividade(name); // Atualiza a atividade específica
                     resolve();
@@ -162,7 +164,7 @@ const Atividade = () => {
 
     function switchAtividadeDescricao(name, descricao) {
         return new Promise((resolve, reject) => {
-            sendPUT(`/atividades/descricao/${name}`, {descricao: descricao})
+            sendPUT(`/atividades/descricao/${name}/${userToken}`, {descricao: descricao})
                 .then(() => {
                     fetchAtividade(name); // Atualiza a atividade específica
                     resolve();
@@ -176,7 +178,7 @@ const Atividade = () => {
 
     function switchAtividadeName(name, newName) {
         return new Promise((resolve, reject) => {
-            sendPUT(`/atividades/name/${name}`, {newName: newName})
+            sendPUT(`/atividades/name/${name}/${userToken}`, {newName: newName})
                 .then(() => {
                     fetchAtividade(newName); // Atualiza a atividade com o novo nome
                     resolve();
@@ -190,7 +192,7 @@ const Atividade = () => {
 
     function switchAtividadeConcluido(name, concluido) {
         return new Promise((resolve, reject) => {
-            sendPUT(`/atividades/concluido/${name}`, {concluido: concluido})
+            sendPUT(`/atividades/concluido/${name}/${userToken}`, {concluido: concluido})
                 .then(() => {
                     fetchAtividade(name); // Atualiza a atividade específica
                     resolve();
@@ -254,11 +256,11 @@ const Atividade = () => {
                     <p>Iridium</p>
                 </div>
                 <nav>
-                    <a href="/disciplinas/Disciplinas">Disciplinas</a>
+                    <a href={`/disciplinas/Disciplinas/${userToken}`}>Disciplinas</a>
                     <p> | </p>
-                    <a href="/atividades/Atividades">Atividades</a>
+                    <a href={`/atividades/Atividades/${userToken}`}>Atividades</a>
                     <p> | </p>
-                    <a href="/perfil/Perfil">Perfil</a>
+                    <a href={`/perfil/Perfil/${userToken}`}>Perfil</a>
                 </nav>
             </header>
 
