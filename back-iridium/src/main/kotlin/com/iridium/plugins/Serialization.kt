@@ -84,18 +84,24 @@ fun Application.configureUsuarioSerialization(repository: UsuarioRepository){
 fun Application.configureDisciplinaSerialization(repository: DisciplinaRepository) {
     routing {
         route("/disciplinas") {
-            get {
-                val disciplinas = repository.allDisciplinas()
-                call.respond(disciplinas)
-            }
-
-            get("/byName/{disciplinaName}") {
-                val nome = call.parameters["disciplinaName"]
-                if (nome == null) {
+            get ("/{token}") {
+                val token = call.parameters["token"]
+                if(token == null){
                     call.respond(HttpStatusCode.BadRequest)
                     return@get
                 }
-                val disciplina = repository.disciplinaByName(nome)
+                val disciplinas = repository.allDisciplinas(token)
+                call.respond(disciplinas)
+            }
+
+            get("/byName/{disciplinaName}/{token}") {
+                val nome = call.parameters["disciplinaName"]
+                val token = call.parameters["token"]
+                if (nome == null || token == null) {
+                    call.respond(HttpStatusCode.BadRequest)
+                    return@get
+                }
+                val disciplina = repository.disciplinaByName(nome, token)
                 if (disciplina == null) {
                     call.respond(HttpStatusCode.NotFound)
                     return@get
@@ -103,19 +109,16 @@ fun Application.configureDisciplinaSerialization(repository: DisciplinaRepositor
                 call.respond(disciplina)
             }
 
-            get("/byAndamento/{andamento}") {
+            get("/byAndamento/{andamento}/{token}") {
                 val andamentoAsBoolean = call.parameters["andamento"]
-                if (andamentoAsBoolean == null) {
+                val token = call.parameters["token"]
+                if (andamentoAsBoolean == null || token == null) {
                     call.respond(HttpStatusCode.BadRequest)
                     return@get
                 }
                 try {
-                    // tava dando warning
-                    //val andamento = andamentoAsBoolean?.toBoolean()?: false
                     val andamento = andamentoAsBoolean.toBoolean()
-                    val atividades = repository.disciplinasByAndamento(andamento)
-
-
+                    val atividades = repository.disciplinasByAndamento(andamento, token)
                     if (atividades.isEmpty()) {
                         call.respond(HttpStatusCode.NotFound)
                         return@get
@@ -129,7 +132,12 @@ fun Application.configureDisciplinaSerialization(repository: DisciplinaRepositor
             post {
                 try {
                     val disciplina = call.receive<Disciplina>()
-                    repository.addDisciplina(disciplina)
+                    val token = call.parameters["token"]
+                    if (token == null) {
+                        call.respond(HttpStatusCode.BadRequest)
+                        return@post
+                    }
+                    repository.addDisciplina(disciplina, token)
                     call.respond(HttpStatusCode.NoContent)
                 } catch (ex: IllegalStateException) {
                     call.respond(HttpStatusCode.BadRequest)
@@ -138,23 +146,24 @@ fun Application.configureDisciplinaSerialization(repository: DisciplinaRepositor
                 }
             }
 
-            delete("/{disciplinaName}") {
+            delete("/{disciplinaName}/{token}") {
                 val nome = call.parameters["disciplinaName"]
-                if (nome == null) {
+                val token = call.parameters["token"]
+                if (nome == null || token == null) {
                     call.respond(HttpStatusCode.BadRequest)
                     return@delete
                 }
-                if (repository.removeDisciplina(nome)) {
+                if (repository.removeDisciplina(nome, token)) {
                     call.respond(HttpStatusCode.NoContent)
                 } else {
                     call.respond(HttpStatusCode.NotFound)
                 }
             }
 
-            // Andamento
-            put("/andamento/{disciplinaName}") {
+            put("/andamento/{disciplinaName}/{token}") {
                 val nome = call.parameters["disciplinaName"]
-                if (nome == null) {
+                val token = call.parameters["token"]
+                if (nome == null || token == null) {
                     call.respond(HttpStatusCode.BadRequest)
                     return@put
                 }
@@ -172,17 +181,17 @@ fun Application.configureDisciplinaSerialization(repository: DisciplinaRepositor
                     return@put
                 }
 
-                if (repository.switchDisciplinaAndamento(nome, andamento)) {
+                if (repository.switchDisciplinaAndamento(nome, andamento, token)) {
                     call.respond(HttpStatusCode.NoContent)
                 } else {
                     call.respond(HttpStatusCode.NotFound)
                 }
             }
 
-            // Sigla
-            put("/sigla/{disciplinaName}") {
+            put("/sigla/{disciplinaName}/{token}") {
                 val nome = call.parameters["disciplinaName"]
-                if (nome == null) {
+                val token = call.parameters["token"]
+                if (nome == null || token == null) {
                     call.respond(HttpStatusCode.BadRequest)
                     return@put
                 }
@@ -200,18 +209,17 @@ fun Application.configureDisciplinaSerialization(repository: DisciplinaRepositor
                     return@put
                 }
 
-                if (repository.switchDisciplinaSigla(nome, sigla)) {
+                if (repository.switchDisciplinaSigla(nome, sigla, token)) {
                     call.respond(HttpStatusCode.NoContent)
                 } else {
                     call.respond(HttpStatusCode.NotFound)
                 }
             }
 
-
-            // Docente
-            put("/docente/{disciplinaName}") {
+            put("/docente/{disciplinaName}/{token}") {
                 val nome = call.parameters["disciplinaName"]
-                if (nome == null) {
+                val token = call.parameters["token"]
+                if (nome == null || token == null) {
                     call.respond(HttpStatusCode.BadRequest)
                     return@put
                 }
@@ -229,17 +237,17 @@ fun Application.configureDisciplinaSerialization(repository: DisciplinaRepositor
                     return@put
                 }
 
-                if (repository.switchDisciplinaDocente(nome, docente)) {
+                if (repository.switchDisciplinaDocente(nome, docente, token)) {
                     call.respond(HttpStatusCode.NoContent)
                 } else {
                     call.respond(HttpStatusCode.NotFound)
                 }
             }
 
-            // Apelido
-            put("/apelido/{disciplinaName}") {
+            put("/apelido/{disciplinaName}/{token}") {
                 val nome = call.parameters["disciplinaName"]
-                if (nome == null) {
+                val token = call.parameters["token"]
+                if (nome == null || token == null) {
                     call.respond(HttpStatusCode.BadRequest)
                     return@put
                 }
@@ -257,32 +265,38 @@ fun Application.configureDisciplinaSerialization(repository: DisciplinaRepositor
                     return@put
                 }
 
-                if (repository.switchDisciplinaApelido(nome, apelido)) {
+                if (repository.switchDisciplinaApelido(nome, apelido, token)) {
                     call.respond(HttpStatusCode.NoContent)
                 } else {
                     call.respond(HttpStatusCode.NotFound)
                 }
             }
-
         }
     }
 }
 
+
 fun Application.configureAtividadeSerialization(repository: AtividadeRepository) {
     routing {
         route("/atividades") {
-            get {
-                val atividades = repository.allAtividades()
-                call.respond(atividades)
-            }
-
-            get("/byName/{atividadeName}") {
-                val nome = call.parameters["atividadeName"]
-                if (nome == null) {
+            get("/{token}") {
+                val token = call.parameters["token"]
+                if (token == null) {
                     call.respond(HttpStatusCode.BadRequest)
                     return@get
                 }
-                val atividade = repository.atividadeByName(nome)
+                val atividades = repository.allAtividades(token)
+                call.respond(atividades)
+            }
+
+            get("/byName/{atividadeName}/{token}") {
+                val nome = call.parameters["atividadeName"]
+                val token = call.parameters["token"]
+                if (nome == null || token == null) {
+                    call.respond(HttpStatusCode.BadRequest)
+                    return@get
+                }
+                val atividade = repository.atividadeByName(nome, token)
                 if (atividade == null) {
                     call.respond(HttpStatusCode.NotFound)
                     return@get
@@ -290,16 +304,16 @@ fun Application.configureAtividadeSerialization(repository: AtividadeRepository)
                 call.respond(atividade)
             }
 
-            get("/byTipo/{tipo}") {
+            get("/byTipo/{tipo}/{token}") {
                 val tipoAsText = call.parameters["tipo"]
-                if (tipoAsText == null) {
+                val token = call.parameters["token"]
+                if (tipoAsText == null || token == null) {
                     call.respond(HttpStatusCode.BadRequest)
                     return@get
                 }
                 try {
                     val tipo = Tipo.valueOf(tipoAsText)
-                    val atividades = repository.atividadesByTipo(tipo)
-
+                    val atividades = repository.atividadesByTipo(tipo, token)
 
                     if (atividades.isEmpty()) {
                         call.respond(HttpStatusCode.NotFound)
@@ -311,16 +325,16 @@ fun Application.configureAtividadeSerialization(repository: AtividadeRepository)
                 }
             }
 
-            get("/byConcluido/{concluido}") {
+            get("/byConcluido/{concluido}/{token}") {
                 val concluidoAsBoolean = call.parameters["concluido"]
-                if (concluidoAsBoolean == null) {
+                val token = call.parameters["token"]
+                if (concluidoAsBoolean == null || token == null) {
                     call.respond(HttpStatusCode.BadRequest)
                     return@get
                 }
                 try {
                     val concluido = concluidoAsBoolean.toBoolean()
-                    val atividades = repository.atividadesByConcluido(concluido)
-
+                    val atividades = repository.atividadesByConcluido(concluido, token)
 
                     if (atividades.isEmpty()) {
                         call.respond(HttpStatusCode.NotFound)
@@ -332,10 +346,15 @@ fun Application.configureAtividadeSerialization(repository: AtividadeRepository)
                 }
             }
 
-            post {
+            post("/{token}") {
+                val token = call.parameters["token"]
+                if (token == null) {
+                    call.respond(HttpStatusCode.BadRequest)
+                    return@post
+                }
                 try {
                     val atividade = call.receive<Atividade>()
-                    repository.addAtividade(atividade)
+                    repository.addAtividade(atividade, token)
                     call.respond(HttpStatusCode.NoContent)
                 } catch (ex: IllegalStateException) {
                     call.respond(HttpStatusCode.BadRequest)
@@ -344,13 +363,14 @@ fun Application.configureAtividadeSerialization(repository: AtividadeRepository)
                 }
             }
 
-            delete("/{atividadeName}") {
+            delete("/{atividadeName}/{token}") {
                 val nome = call.parameters["atividadeName"]
-                if (nome == null) {
+                val token = call.parameters["token"]
+                if (nome == null || token == null) {
                     call.respond(HttpStatusCode.BadRequest)
                     return@delete
                 }
-                if (repository.removeAtividade(nome)) {
+                if (repository.removeAtividade(nome, token)) {
                     call.respond(HttpStatusCode.NoContent)
                 } else {
                     call.respond(HttpStatusCode.NotFound)
@@ -358,9 +378,10 @@ fun Application.configureAtividadeSerialization(repository: AtividadeRepository)
             }
 
             // Concluido
-            put("/concluido/{atividadeName}") {
+            put("/concluido/{atividadeName}/{token}") {
                 val nome = call.parameters["atividadeName"]
-                if (nome == null) {
+                val token = call.parameters["token"]
+                if (nome == null || token == null) {
                     call.respond(HttpStatusCode.BadRequest)
                     return@put
                 }
@@ -378,7 +399,7 @@ fun Application.configureAtividadeSerialization(repository: AtividadeRepository)
                     return@put
                 }
 
-                if (repository.switchAtividadeConcluido(nome, concluido)) {
+                if (repository.switchAtividadeConcluido(nome, concluido, token)) {
                     call.respond(HttpStatusCode.NoContent)
                 } else {
                     call.respond(HttpStatusCode.NotFound)
@@ -386,9 +407,10 @@ fun Application.configureAtividadeSerialization(repository: AtividadeRepository)
             }
 
             // Disciplina
-            put("/disciplina/{atividadeName}") {
+            put("/disciplina/{atividadeName}/{token}") {
                 val nome = call.parameters["atividadeName"]
-                if (nome == null) {
+                val token = call.parameters["token"]
+                if (nome == null || token == null) {
                     call.respond(HttpStatusCode.BadRequest)
                     return@put
                 }
@@ -406,7 +428,7 @@ fun Application.configureAtividadeSerialization(repository: AtividadeRepository)
                     return@put
                 }
 
-                if (repository.switchAtividadeDisciplina(nome, disciplina)) {
+                if (repository.switchAtividadeDisciplina(nome, disciplina, token)) {
                     call.respond(HttpStatusCode.NoContent)
                 } else {
                     call.respond(HttpStatusCode.NotFound)
@@ -414,9 +436,10 @@ fun Application.configureAtividadeSerialization(repository: AtividadeRepository)
             }
 
             // Tipo
-            put("/tipo/{atividadeName}") {
+            put("/tipo/{atividadeName}/{token}") {
                 val nome = call.parameters["atividadeName"]
-                if (nome == null) {
+                val token = call.parameters["token"]
+                if (nome == null || token == null) {
                     call.respond(HttpStatusCode.BadRequest)
                     return@put
                 }
@@ -434,7 +457,7 @@ fun Application.configureAtividadeSerialization(repository: AtividadeRepository)
                     return@put
                 }
 
-                if (repository.switchAtividadeTipo(nome, tipo)) {
+                if (repository.switchAtividadeTipo(nome, tipo, token)) {
                     call.respond(HttpStatusCode.NoContent)
                 } else {
                     call.respond(HttpStatusCode.NotFound)
@@ -442,9 +465,10 @@ fun Application.configureAtividadeSerialization(repository: AtividadeRepository)
             }
 
             // Descrição
-            put("/descricao/{atividadeName}") {
+            put("/descricao/{atividadeName}/{token}") {
                 val nome = call.parameters["atividadeName"]
-                if (nome == null) {
+                val token = call.parameters["token"]
+                if (nome == null || token == null) {
                     call.respond(HttpStatusCode.BadRequest)
                     return@put
                 }
@@ -462,7 +486,7 @@ fun Application.configureAtividadeSerialization(repository: AtividadeRepository)
                     return@put
                 }
 
-                if (repository.switchAtividadeDescricao(nome, descricao)) {
+                if (repository.switchAtividadeDescricao(nome, descricao, token)) {
                     call.respond(HttpStatusCode.NoContent)
                 } else {
                     call.respond(HttpStatusCode.NotFound)
@@ -470,9 +494,10 @@ fun Application.configureAtividadeSerialization(repository: AtividadeRepository)
             }
 
             // Name
-            put("/name/{atividadeName}") {
+            put("/name/{atividadeName}/{token}") {
                 val nome = call.parameters["atividadeName"]
-                if (nome == null) {
+                val token = call.parameters["token"]
+                if (nome == null || token == null) {
                     call.respond(HttpStatusCode.BadRequest)
                     return@put
                 }
@@ -490,7 +515,7 @@ fun Application.configureAtividadeSerialization(repository: AtividadeRepository)
                     return@put
                 }
 
-                if (repository.switchAtividadeName(nome, newName)) {
+                if (repository.switchAtividadeName(nome, newName, token)) {
                     call.respond(HttpStatusCode.NoContent)
                 } else {
                     call.respond(HttpStatusCode.NotFound)
@@ -498,8 +523,9 @@ fun Application.configureAtividadeSerialization(repository: AtividadeRepository)
             }
 
 //            // Prazo
-//            put("/prazo/{atividadeName}") {
+//            put("/prazo/{atividadeName}/{token}") {
 //                val nome = call.parameters["atividadeName"]
+//                val token = call.parameters["token"]
 //                if (nome == null) {
 //                    call.respond(HttpStatusCode.BadRequest)
 //                    return@put
