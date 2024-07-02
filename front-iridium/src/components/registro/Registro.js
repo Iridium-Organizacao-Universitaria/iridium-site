@@ -20,9 +20,7 @@ const Registro = () => {
     const redirectToProfile = (event) => {
         event.preventDefault(); // Previne o comportamento padrão do formulário
         if (validateForm()) {
-            // Simula o redirecionamento após validação
-            // o usuário precisa ser redirecionado para a sua página de perfil
-            //window.location.href = "/perfil/Perfil";
+            window.location.href = "/login/Login";
         }
     };
 

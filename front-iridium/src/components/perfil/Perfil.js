@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import '../../App.css'; // Importa o estilo geral
-import './perfil.css'; // Importa os estilos específicos da página
+import '../../App.css';
+import './perfil.css';
+import { getToken } from '../App/useToken';
 
 const Perfil = () => {
-    const [profileImage, setProfileImage] = useState('/imgs/default_profile_picture.jpeg'); // Estado inicial com a imagem padrão
+    const userToken = getToken();
+    const [profileImage, setProfileImage] = useState('/imgs/default_profile_picture.jpg'); // Estado inicial com a imagem padrão
     const [editing, setEditing] = useState(false); // Estado para controlar o modo de edição
     const [userInfo, setUserInfo] = useState({
         name: 'Nome do usuário',
@@ -59,11 +61,11 @@ const Perfil = () => {
                     <p>Iridium</p>
                 </div>
                 <nav>
-                    <a href="/disciplinas/Disciplinas">Disciplinas</a>
+                    <a href={`/disciplinas/Disciplinas/${userToken}`}>Disciplinas</a>
                     <p> | </p>
-                    <a href="/atividades/Atividades">Atividades</a>
+                    <a href={`/atividades/Atividades/${userToken}`}>Atividades</a>
                     <p> | </p>
-                    <a href="/perfil/Perfil">Perfil</a>
+                    <a href={`/perfil/Perfil/${userToken}`}>Perfil</a>
                 </nav>
             </header>
 
@@ -125,16 +127,10 @@ const Perfil = () => {
                                 className="input-field"
                             />
                         ) : (
-                            <p><span id="password">{getMaskedPassword(userInfo.password)}</span></p>
+                            // <p><span id="password">{getMaskedPassword(userInfo.password)}</span></p>
+                            <p><span id="password">{userInfo.password}</span></p>
                         )}
                     </div>
-                </div>
-                <div className="botoe-perfil">
-                    {editing ? (
-                        <button className="b_save_perfil" onClick={handleSave}>Salvar alterações</button>
-                    ) : (
-                        <button className="b_editar_perfil" onClick={handleEdit}>Editar perfil</button>
-                    )}
                 </div>
             </div>
 

@@ -13,6 +13,7 @@ data class Atividade(
     var tipo: Tipo,
     var concluido: Boolean,
     var disciplina: String,
+    var token: String,
     @Contextual
     var prazo: LocalDate,
 )

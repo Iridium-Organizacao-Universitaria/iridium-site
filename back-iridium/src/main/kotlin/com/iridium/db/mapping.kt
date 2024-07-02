@@ -43,6 +43,7 @@ object DisciplinaTable : IntIdTable("disciplina") {
     var sigla = varchar("sigla", 10)
     var apelido = varchar("apelido", 50)
     var andamento = bool("andamento").default(true)
+    var token = varchar("token", 50)
 }
 
 class DisciplinaDAO(id: EntityID<Int>) : IntEntity(id) {
@@ -52,6 +53,7 @@ class DisciplinaDAO(id: EntityID<Int>) : IntEntity(id) {
     var sigla by DisciplinaTable.sigla
     var apelido by DisciplinaTable.apelido
     var andamento by DisciplinaTable.andamento
+    var token by DisciplinaTable.token
 }
 
 fun daoToModel(dao: DisciplinaDAO) = Disciplina(
@@ -60,6 +62,7 @@ fun daoToModel(dao: DisciplinaDAO) = Disciplina(
     dao.sigla,
     dao.apelido,
     dao.andamento,
+    dao.token,
 )
 
 ////////////////// Atividades
@@ -69,6 +72,7 @@ object AtividadeTable : IntIdTable("atividade") {
     val tipo = varchar("tipo", 50)
     val concluido = bool("concluido").default(false)
     val disciplina = varchar("disciplina", 50)
+    val token = varchar("token", 50)
     val prazo = date("prazo")
 }
 
@@ -79,6 +83,7 @@ class AtividadeDAO(id: EntityID<Int>) : IntEntity(id) {
     var tipo by AtividadeTable.tipo
     var concluido by AtividadeTable.concluido
     var disciplina by AtividadeTable.disciplina
+    var token by AtividadeTable.token
     var prazo by AtividadeTable.prazo
 }
 
@@ -88,5 +93,6 @@ fun daoToModel(dao: AtividadeDAO) = Atividade(
     Tipo.valueOf(dao.tipo),
     dao.concluido,
     dao.disciplina,
+    dao.token,
     dao.prazo,
 )
