@@ -22,13 +22,13 @@ const AuthChecker = () => {
 
     return (
         <Routes>
-            <Route path="/atividade_ind/:atividadeName" element={<Atividade />} />
-            <Route path="/disciplina_ind/:disciplinaName" element={<Disciplina />} />
-            <Route path="/atividades/Atividades" element={<Atividades />} />
-            <Route path="/disciplinas/Disciplinas" element={<Disciplinas />} />
+            <Route path="/atividade_ind/:atividadeName" element={<Atividade token={token}/>} />
+            <Route path="/disciplina_ind/:disciplinaName" element={<Disciplina token={token}/>} />
+            <Route path="/atividades/Atividades" element={<Atividades token={token}/>} />
+            <Route path="/disciplinas/Disciplinas" element={<Disciplinas token={token}/>} />
             <Route path="/login/Login" element={<Login setToken={setToken}/>} />
             <Route path="/registro/Registro" element={<Registro />} />
-            <Route path="/perfil/Perfil" element={<Perfil />} />
+            <Route path="/perfil/Perfil" element={<Perfil token={token}/>} />
             <Route path="/" element={<QuemSomos />} />
         </Routes>
     );
