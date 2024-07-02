@@ -11,9 +11,9 @@ const Atividades = () => {
     const userToken = getToken();
     const [DisciplinasAll, setDisciplinasAll] = useState([]);
     const [atividades, setAtividades] = useState([]);
-    const [filtroTipo, setFiltroTipo] = useState('Todos');
+    const [filtroTipo, setFiltroTipo] = useState('Provas');
     const [filtroData, setFiltroData] = useState('Hoje');
-    const [filtroConclusao, setFiltroConclusao] = useState('Todos');
+    const [filtroConclusao, setFiltroConclusao] = useState('Não Concluídas');
     const [filtroDisciplina, setFiltroDisciplina] = useState('Todas');
     const [tipoMenuOpen, setTipoMenuOpen] = useState(false);
     const [dataMenuOpen, setDataMenuOpen] = useState(false);
