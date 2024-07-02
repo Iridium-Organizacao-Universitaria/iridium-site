@@ -103,9 +103,15 @@
     border-radius: 5px;
 }
 
-.atividades_lista li img, .provas-list li img {
-    width: 20px; /* Defina a largura desejada */
-    height: 20px; /* Mantém a proporção da imagem */
+.provas_lista li img {
+    width: 50px; /* Defina a largura desejada */
+    height: 50px; /* Mantém a proporção da imagem */
+    margin-right: 2px; /* Adiciona um espaço à direita da imagem */
+}
+
+.atividades_lista li img     {
+    width: 30px; /* Defina a largura desejada */
+    height: 30px; /* Mantém a proporção da imagem */
     margin-right: 5px; /* Adiciona um espaço à direita da imagem */
 }
 
@@ -162,15 +168,9 @@
     border: none;
 }
 
-.atividade_content {
-    display: flex;
-    align-items: center;
-}
-
 .atividade_left {
     display: flex;
     align-items: center;
-    align-content: center;
 }
 
 .atividade_right {

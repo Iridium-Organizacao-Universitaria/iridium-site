@@ -159,10 +159,29 @@
     border-radius: 5px;
 }
 
-.atividades-list li img, .provas-list li img {
-    width: 20px;  /* Defina a largura desejada */
-    height: 20px; /* Mantém a proporção da imagem */
+
+.provas-list li img {
+    width: 40px; /* Defina a largura desejada */
+    height: 40px; /* Mantém a proporção da imagem */
+    margin-right: 2px;
+}
+
+.atividade_content {
+    display: flex;
+    align-items: center;
+}
+
+.provas-list .atividade_left, .atividades-list .atividade_left {
+    display: flex;
+    align-content: center;
+    align-items: center;
+}
+
+.atividades-list  li img     {
+    width: 30px; /* Defina a largura desejada */
+    height: 30px; /* Mantém a proporção da imagem */
     margin-right: 5px; /* Adiciona um espaço à direita da imagem */
+    margin-top: auto;
 }
 
 .atividades-list li span, .provas-list li span  {

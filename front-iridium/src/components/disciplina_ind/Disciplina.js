@@ -434,8 +434,10 @@ const Disciplina = () => {
                                 <li key={index}>
                                     <div className="atividade_button">
                                         <div className="atividade_content">
-                                            <div className="atividade_left" onClick={() => handleAtividadeClick(tarefa.name)}>
-                                                <span><img src="/imgs/pin.png" alt="pin"/> {tarefa.name}</span>
+                                            <div className="atividade_left"
+                                                 onClick={() => handleAtividadeClick(tarefa.name)}>
+                                                <img src="/imgs/pin.png" alt="pin"/>
+                                                <span>{tarefa.name}</span>
                                             </div>
                                             <div className="atividade_right">
                                                 <span
@@ -460,8 +462,10 @@ const Disciplina = () => {
                                 <li key={index}>
                                     <div className="atividade_button">
                                         <div className="atividade_content">
-                                            <div className="atividade_left" onClick={() => handleAtividadeClick(prova.name)}>
-                                                <span><img src="/imgs/giz.png" alt="giz"/> {prova.name}</span>
+                                            <div className="atividade_left"
+                                                 onClick={() => handleAtividadeClick(prova.name)}>
+                                                <img src="/imgs/giz.png" alt="giz"/>
+                                                <span> {prova.name}</span>
                                             </div>
                                             <div className="atividade_right">
                                                 <span
