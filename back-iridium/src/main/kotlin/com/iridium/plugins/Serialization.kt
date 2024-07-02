@@ -144,17 +144,12 @@ fun Application.configureDisciplinaSerialization(repository: DisciplinaRepositor
             post {
                 try {
                     val disciplina = call.receive<Disciplina>()
-                    val token = call.parameters["token"]
-                    if (token == null) {
-                        call.respond(HttpStatusCode.BadRequest)
-                        return@post
-                    }
-                    repository.addDisciplina(disciplina, token)
+                    repository.addDisciplina(disciplina, disciplina.token)
                     call.respond(HttpStatusCode.NoContent)
                 } catch (ex: IllegalStateException) {
-                    call.respond(HttpStatusCode.BadRequest)
+                    call.respond(HttpStatusCode.BadRequest, "erro 1")
                 } catch (ex: JsonConvertException) {
-                    call.respond(HttpStatusCode.BadRequest)
+                    call.respond(HttpStatusCode.BadRequest, "erro 2")
                 }
             }
 
