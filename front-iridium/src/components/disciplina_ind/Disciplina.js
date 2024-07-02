@@ -324,15 +324,16 @@ const Disciplina = () => {
                             <div className="info-box">
                                 <div className={`info_box_ind ${editing ? 'edit-mode-disc' : ''}`}>
                                     <label htmlFor="nome">Nome:</label>
-                                    <input
-                                        type="text"
-                                        id="nome"
-                                        name="nome"
-                                        value={disciplinaState.name}
-                                        onChange={handleChange}
-                                        ref={nameInputRef}
-                                        autoFocus
-                                    />
+                                    {/*<input*/}
+                                    {/*    type="text"*/}
+                                    {/*    id="nome"*/}
+                                    {/*    name="nome"*/}
+                                    {/*    value={disciplinaState.name}*/}
+                                    {/*    onChange={handleChange}*/}
+                                    {/*    ref={nameInputRef}*/}
+                                    {/*    autoFocus*/}
+                                    {/*/>*/}
+                                    <p><span id="sigla">{disciplinaState.sigla}</span></p>
                                 </div>
                                 <div className={`info_box_ind ${editing ? 'edit-mode-disc' : ''}`}>
                                     <label htmlFor="sigla">Sigla:</label>

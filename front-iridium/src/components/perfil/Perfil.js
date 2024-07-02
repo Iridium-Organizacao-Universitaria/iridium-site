@@ -129,13 +129,13 @@ const Perfil = () => {
                         )}
                     </div>
                 </div>
-                <div className="botoe-perfil">
-                    {editing ? (
-                        <button className="b_save_perfil" onClick={handleSave}>Salvar alterações</button>
-                    ) : (
-                        <button className="b_editar_perfil" onClick={handleEdit}>Editar perfil</button>
-                    )}
-                </div>
+                {/*<div className="botoe-perfil">*/}
+                {/*    {editing ? (*/}
+                {/*        <button className="b_save_perfil" onClick={handleSave}>Salvar alterações</button>*/}
+                {/*    ) : (*/}
+                {/*        <button className="b_editar_perfil" onClick={handleEdit}>Editar perfil</button>*/}
+                {/*    )}*/}
+                {/*</div>*/}
             </div>
 
             <footer>
