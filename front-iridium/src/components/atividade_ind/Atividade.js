@@ -109,7 +109,7 @@ const Atividade = () => {
         deleteAtividadeWithName(name)
             .then(() => {
                 // Redireciona para a página anterior após deletar a atividade
-                navigate(`/atividades/Atividades/token?token=${userToken.usuarioId}`);
+                navigate(`/atividades/Atividades`);
             })
             .catch(error => {
                 console.error('Erro ao deletar atividade:', error);

@@ -110,6 +110,10 @@ const Disciplina = () => {
         });
     }
 
+    function sendDELETE(url) {
+        return fetch(url, { method: 'DELETE' });
+    }
+
     const sendGET = (url) => {
         return fetch(url, { headers: { 'Accept': 'application/json' } })
             .then(response => {
@@ -437,7 +441,7 @@ const Disciplina = () => {
                                                     className="data-entrega">{new Date(tarefa.prazo).toLocaleDateString()}</span>
                                                 <div>
                                                     <button className="lixo_bnt"
-                                                            onClick={() => deleteAtividade(atividade.name)}>
+                                                            onClick={() => deleteAtividade(tarefa.name)}>
                                                         <FontAwesomeIcon className="lixo_icone" icon={faTrash}/>
                                                     </button>
                                                 </div>
