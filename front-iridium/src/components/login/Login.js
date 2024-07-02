@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import '../../App.css'; // Importa o estilo geral
 import './login.css';
 
-const Login = () => {
+const Login = ({ setToken }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -19,12 +20,17 @@ const Login = () => {
         });
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
+        const result = await validateForm();
 
-        if (validateForm()) {
-            // Simula o redirecionamento após validação
+        if (result >= 0) {
             //window.location.href = "/perfil/Perfil";
+
+            const token = {
+                usuarioId: result ? result.toString() : ''
+            }
+            setToken(token);
         }
     };
 
@@ -73,10 +79,6 @@ const Login = () => {
         }
     };
 
-
-
-
-
     return (
         <div className="h">
             <header>
@@ -119,13 +121,6 @@ const Login = () => {
                     <div className="input-group">
                         <button type="submit"> Continue </button>
                     </div>
-                    {/*<div className="google-login">*/}
-                    {/*    <p>Ou continue com o Google:</p>*/}
-                    {/*    <a href="#">*/}
-                    {/*        <img src="https://logopng.com.br/logos/google-37.png" alt="logo da Google" />*/}
-                    {/*        Entrar com Google*/}
-                    {/*    </a>*/}
-                    {/*</div>*/}
                 </form>
             </div>
 
@@ -134,6 +129,10 @@ const Login = () => {
             </footer>
         </div>
     );
+};
+
+Login.propTypes = {
+    setToken: PropTypes.func.isRequired
 };
 
 export default Login;
