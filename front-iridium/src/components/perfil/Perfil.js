@@ -8,9 +8,9 @@ const Perfil = () => {
     const [profileImage, setProfileImage] = useState('/imgs/default_profile_picture.jpg'); // Estado inicial com a imagem padrão
     const [editing, setEditing] = useState(false); // Estado para controlar o modo de edição
     const [userInfo, setUserInfo] = useState({
-        n0me: '',
+        nome: '',
         email: '',
-        password: '',
+        senha: '',
     });
 
     // Referência para o input do nome no perfil
@@ -18,8 +18,9 @@ const Perfil = () => {
 
     useEffect(() => {
         sendGET(`/usuarios/token?token=${userToken.usuarioId}`).then(response => {
-            setUserInfo(response)
-        })
+            console.log("aa", response);
+            setUserInfo(response);
+        });
     }, []);
 
     useEffect(() => {
@@ -30,7 +31,7 @@ const Perfil = () => {
     }, [editing]);
 
     function sendGET(url) {
-        console.log(url)
+        console.log(url);
         return fetch(url, { headers: { 'Accept': 'application/json' } })
             .then(response => response.ok ? response.json() : []);
     }
@@ -95,14 +96,14 @@ const Perfil = () => {
                     )}
                 </div>
                 <div className="profile-info">
-                    <label htmlFor="name">Nome:</label>
+                    <label htmlFor="nome">Nome:</label>
                     <div className={`info_box ${editing ? 'edit-mode-perfil' : ''}`}>
                         {editing ? (
                             <input
                                 type="text"
-                                id="name"
-                                name="name"
-                                value={userInfo.n0me}
+                                id="nome"
+                                name="nome" // Corrigido para 'nome'
+                                value={userInfo.nome} // Corrigido para 'userInfo.nome'
                                 onChange={handleChange}
                                 className="input-field"
                                 ref={nameInputRef} // Referência para o input do nome no perfil
@@ -127,20 +128,19 @@ const Perfil = () => {
                             <p><span id="email">{userInfo.email}</span></p>
                         )}
                     </div>
-                    <label htmlFor="password">Senha:</label>
+                    <label htmlFor="senha">Senha:</label>
                     <div className={`info_box ${editing ? 'edit-mode-perfil' : ''}`}>
                         {editing ? (
                             <input
                                 type="text"
-                                id="password"
-                                name="password"
-                                value={userInfo.password}
+                                id="senha"
+                                name="senha"
+                                value={userInfo.senha}
                                 onChange={handleChange}
                                 className="input-field"
                             />
                         ) : (
-                            // <p><span id="password">{getMaskedPassword(userInfo.password)}</span></p>
-                            <p><span id="password">{userInfo.password}</span></p>
+                            <p><span id="password">{userInfo.senha}</span></p>
                         )}
                     </div>
                 </div>

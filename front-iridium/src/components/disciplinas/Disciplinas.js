@@ -38,11 +38,11 @@ const Disciplinas = () => {
             sigla: sigla,
             apelido: apelido,
             andamento: true,
-            token: userToken.usuarioId
+            token: userToken.usuarioId,
         };
-        sendPOST(`/disciplinas`, newDisciplina, userToken.usuarioId)
+        sendPOST(`/disciplinas`, newDisciplina)
             .then(() => navigate(`/disciplina_ind/${disciplinaName}`, {
-                state: { disciplinaName }
+                state: {disciplinaName}
             }));
     };
 
@@ -52,11 +52,11 @@ const Disciplinas = () => {
             .then(response => response.ok ? response.json() : []);
     }
 
-    function sendPOST(url, data, token) {
+    function sendPOST(url, data) {
         return fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({data, token})
+            body: JSON.stringify(data)
         });
     }
 
