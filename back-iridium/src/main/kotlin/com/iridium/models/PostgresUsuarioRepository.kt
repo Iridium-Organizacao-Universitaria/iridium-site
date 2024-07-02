@@ -5,11 +5,6 @@ import com.iridium.db.UsuarioDAO
 import com.iridium.db.UsuarioTable
 import com.iridium.db.daoToModel
 import com.iridium.db.suspendTransaction
-import java.sql.Date
-
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-//import org.jetbrains.exposed.sql.transactions.experimental.suspendTransaction
-import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.*
 
 class PostgresUsuarioRepository : UsuarioRepository {
