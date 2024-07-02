@@ -125,7 +125,8 @@ const Perfil = () => {
                                 className="input-field"
                             />
                         ) : (
-                            <p><span id="password">{getMaskedPassword(userInfo.password)}</span></p>
+                            // <p><span id="password">{getMaskedPassword(userInfo.password)}</span></p>
+                            <p><span id="password">{userInfo.password}</span></p>
                         )}
                     </div>
                 </div>
