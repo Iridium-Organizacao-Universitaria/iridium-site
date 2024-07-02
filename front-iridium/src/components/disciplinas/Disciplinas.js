@@ -32,16 +32,15 @@ const Disciplinas = () => {
             return;
         }
 
-        //console.log("teste1 ", disciplinaName, docente, sigla, apelido);
-
         const newDisciplina = {
             name: disciplinaName,
             docente: docente,
             sigla: sigla,
             apelido: apelido,
+            andamento: true,
             token: userToken.usuarioId
         };
-        sendPOST(`/disciplinas/${userToken.usuarioId}`, newDisciplina)
+        sendPOST(`/disciplinas`, newDisciplina, userToken.usuarioId)
             .then(() => navigate(`/disciplina_ind/${disciplinaName}`, {
                 state: { disciplinaName }
             }));
@@ -53,11 +52,11 @@ const Disciplinas = () => {
             .then(response => response.ok ? response.json() : []);
     }
 
-    function sendPOST(url, data) {
+    function sendPOST(url, data, token) {
         return fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
+            body: JSON.stringify({data, token})
         });
     }
 
@@ -105,11 +104,11 @@ const Disciplinas = () => {
                     <p>Iridium</p>
                 </div>
                 <nav>
-                    <a href={`/disciplinas/Disciplinas/${userToken}`}>Disciplinas</a>
+                    <a href={`/disciplinas/Disciplinas`}>Disciplinas</a>
                     <p> | </p>
-                    <a href={`/atividades/Atividades/${userToken}`}>Atividades</a>
+                    <a href={`/atividades/Atividades`}>Atividades</a>
                     <p> | </p>
-                    <a href={`/perfil/Perfil/${userToken}`}>Perfil</a>
+                    <a href={`/perfil/Perfil`}>Perfil</a>
                 </nav>
             </header>
 

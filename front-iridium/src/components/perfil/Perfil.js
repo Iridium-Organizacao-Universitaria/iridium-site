@@ -5,17 +5,22 @@ import { getToken } from '../App/useToken';
 
 const Perfil = () => {
     const userToken = getToken();
-    const id = userToken.id.toString();
     const [profileImage, setProfileImage] = useState('/imgs/default_profile_picture.jpg'); // Estado inicial com a imagem padrão
     const [editing, setEditing] = useState(false); // Estado para controlar o modo de edição
     const [userInfo, setUserInfo] = useState({
-        name: 'Nome do usuário',
-        email: 'email@exemplo.com',
-        password: 'senha123',
+        n0me: '',
+        email: '',
+        password: '',
     });
 
     // Referência para o input do nome no perfil
     const nameInputRef = useRef(null);
+
+    useEffect(() => {
+        sendGET(`/usuarios/token?token=${userToken.usuarioId}`).then(response => {
+            setUserInfo(response)
+        })
+    }, []);
 
     useEffect(() => {
         if (editing) {
@@ -23,6 +28,12 @@ const Perfil = () => {
             nameInputRef.current.focus();
         }
     }, [editing]);
+
+    function sendGET(url) {
+        console.log(url)
+        return fetch(url, { headers: { 'Accept': 'application/json' } })
+            .then(response => response.ok ? response.json() : []);
+    }
 
     // Função para lidar com a seleção de uma nova imagem de perfil
     const handleImageChange = (event) => {
@@ -91,14 +102,14 @@ const Perfil = () => {
                                 type="text"
                                 id="name"
                                 name="name"
-                                value={userInfo.name}
+                                value={userInfo.n0me}
                                 onChange={handleChange}
                                 className="input-field"
                                 ref={nameInputRef} // Referência para o input do nome no perfil
                                 autoFocus // Foca no input automaticamente ao entrar no modo edição
                             />
                         ) : (
-                            <p><span id="name">{userInfo.name}</span></p>
+                            <p><span id="name">{userInfo.nome}</span></p>
                         )}
                     </div>
                     <label htmlFor="email">E-mail:</label>
