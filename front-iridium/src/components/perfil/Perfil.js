@@ -5,6 +5,7 @@ import { getToken } from '../App/useToken';
 
 const Perfil = () => {
     const userToken = getToken();
+    const id = userToken.id.toString();
     const [profileImage, setProfileImage] = useState('/imgs/default_profile_picture.jpg'); // Estado inicial com a imagem padrão
     const [editing, setEditing] = useState(false); // Estado para controlar o modo de edição
     const [userInfo, setUserInfo] = useState({
@@ -61,11 +62,11 @@ const Perfil = () => {
                     <p>Iridium</p>
                 </div>
                 <nav>
-                    <a href={`/disciplinas/Disciplinas/${userToken}`}>Disciplinas</a>
+                    <a href={`/disciplinas/Disciplinas`}>Disciplinas</a>
                     <p> | </p>
-                    <a href={`/atividades/Atividades/${userToken}`}>Atividades</a>
+                    <a href={`/atividades/Atividades`}>Atividades</a>
                     <p> | </p>
-                    <a href={`/perfil/Perfil/${userToken}`}>Perfil</a>
+                    <a href={`/perfil/Perfil`}>Perfil</a>
                 </nav>
             </header>
 

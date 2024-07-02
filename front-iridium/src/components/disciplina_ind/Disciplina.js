@@ -56,7 +56,7 @@ const Disciplina = () => {
     }, [newAtv, deleteAtv]);
 
     function fetchAtividadesWithTipo(tipo) {
-        return sendGET(`/atividades/byTipo/${tipo}/${userToken}`);
+        return sendGET(`/atividades/byTipo/${tipo}/token?token=${userToken.usuarioId}`);
     }
 
     const fetchAtividades = () => {
@@ -103,7 +103,9 @@ const Disciplina = () => {
     function sendPOST(url, data) {
         return fetch(url, {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(data)
         });
     }
@@ -123,7 +125,7 @@ const Disciplina = () => {
     };
 
     function switchAndamentoDisciplina(name, andamento) {
-        sendPUT(`/disciplinas/andamento/${name}/${userToken}`, {andamento : andamento })
+        sendPUT(`/disciplinas/andamento/${name}/token?token=${userToken.usuarioId}`, {andamento : andamento })
             .then(() => {
                 fetchDisciplina();
             })
@@ -133,7 +135,7 @@ const Disciplina = () => {
     }
 
     function switchDisciplinaSigla(name, sigla) {
-        sendPUT(`/disciplinas/sigla/${name}/${userToken}`, {sigla : sigla})
+        sendPUT(`/disciplinas/sigla/${name}/token?token=${userToken.usuarioId}`, {sigla : sigla})
             .then(() => {
                 fetchDisciplina();
             })
@@ -143,7 +145,7 @@ const Disciplina = () => {
     }
 
     function switchDisciplinaDocente(name, docente) {
-        sendPUT(`/disciplinas/docente/${name}/${userToken}`, { docente :docente })
+        sendPUT(`/disciplinas/docente/${name}/token?token=${userToken.usuarioId}`, { docente :docente })
             .then(() => {
                 fetchDisciplina();
             })
@@ -153,7 +155,7 @@ const Disciplina = () => {
     }
 
     function switchDisciplinaApelido(name, apelido) {
-        sendPUT(`/disciplinas/apelido/${name}/${userToken}`, { apelido : apelido })
+        sendPUT(`/disciplinas/apelido/${name}/token?token=${userToken.usuarioId}`, { apelido : apelido })
             .then(() => {
                 fetchDisciplina();
             })
@@ -163,7 +165,7 @@ const Disciplina = () => {
     }
 
     const fetchDisciplina = () => {
-        sendGET(`/disciplinas/byName/${disciplinaState.name}/${userToken}`)
+        sendGET(`/disciplinas/byName/${disciplinaState.name}/token?token=${userToken.usuarioId}`)
             .then(response => {
                 if (response) {
                     setDisciplinaState(prevState => ({
@@ -217,7 +219,7 @@ const Disciplina = () => {
     const handleDelete = () => {
         deleteDisciplina(disciplinaState.name)
             .then(() => {
-                navigate(`/disciplinas/Disciplinas/${userToken}`);
+                navigate(`/disciplinas/Disciplinas`);
             })
             .catch(error => {
                 console.error('Erro ao deletar disciplina:', error);
@@ -225,7 +227,7 @@ const Disciplina = () => {
     };
 
     const deleteDisciplina = (name) => {
-        return fetch(`/disciplinas/${name}/${userToken}`, {
+        return fetch(`/disciplinas/${name}/token?token=${userToken.usuarioId}`, {
             method: 'DELETE'
         });
     };
@@ -239,7 +241,7 @@ const Disciplina = () => {
     };
 
     const handleAtividadeClick = (atividadeName) => {
-        navigate(`/atividade_ind/${atividadeName}/${userToken}`, {
+        navigate(`/atividade_ind/${atividadeName}`, {
             state: { atividadeName }
         });
     };
@@ -248,7 +250,7 @@ const Disciplina = () => {
         deleteAtividadeWithName(name)
             .then(() => {
                 // Redireciona para a página anterior após deletar a atividade
-                navigate(`/atividades/Atividades/${userToken}`);
+                navigate(`/atividades/Atividades`);
                 setDeleteAtv(true);
             })
             .catch(error => {
@@ -257,7 +259,7 @@ const Disciplina = () => {
     }
 
     function deleteAtividadeWithName(name) {
-        return sendDELETE(`/atividades/${name}`)
+        return sendDELETE(`/atividades/${name}/token?token=${userToken.usuarioId}`)
     }
 
     const handleCriarAtividade = async () => {
@@ -275,11 +277,12 @@ const Disciplina = () => {
             concluido: false,
             prazo: novaAtividade.data,
             disciplina: disciplinaState.name,
+            token: userToken.usuarioId,
         };
 
         // Enviar os dados da nova atividade para o backend
         try {
-            await sendPOST("/atividades/${userToken}", novaAtividadeParaEnviar);
+            await sendPOST(`/atividades/${userToken.usuarioId}`, novaAtividadeParaEnviar);
             // Limpar o estado da nova atividade após a criação bem-sucedida
             setNovaAtividade({
                 name: '',
@@ -306,11 +309,11 @@ const Disciplina = () => {
                     <p>Iridium</p>
                 </div>
                 <nav>
-                    <a href={`/disciplinas/Disciplinas/${userToken}`}>Disciplinas</a>
+                    <a href={`/disciplinas/Disciplinas`}>Disciplinas</a>
                     <p> | </p>
-                    <a href={`/atividades/Atividades/${userToken}`}>Atividades</a>
+                    <a href={`/atividades/Atividades`}>Atividades</a>
                     <p> | </p>
-                    <a href={`/perfil/Perfil/${userToken}`}>Perfil</a>
+                    <a href={`/perfil/Perfil`}>Perfil</a>
                 </nav>
             </header>
 
@@ -323,7 +326,7 @@ const Disciplina = () => {
                             <div className="info-box">
                             <div className={`info_box_ind ${editing ? 'edit-mode-disc' : ''}`}>
                                     <label htmlFor="nome">Nome:</label>
-                                    <p><span id="sigla">{disciplinaState.sigla}</span></p>
+                                    <p><span id="nome">{disciplinaState.name}</span></p>
                                 </div>
                                 <div className={`info_box_ind ${editing ? 'edit-mode-disc' : ''}`}>
                                     <label htmlFor="sigla">Sigla:</label>

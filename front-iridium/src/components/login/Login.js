@@ -25,7 +25,7 @@ const Login = ({ setToken }) => {
         const result = await validateForm();
 
         if (result >= 0) {
-            window.location.href = `/perfil/Perfil/${result}`;
+            window.location.href = `/perfil/Perfil`;
 
             const token = {
                 usuarioId: result ? result.toString() : ''

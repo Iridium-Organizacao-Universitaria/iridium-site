@@ -38,6 +38,7 @@ const Atividades = () => {
     const conclusoes = ['Todos', 'Concluídas', 'Não Concluídas'];
 
     useEffect(() => {
+        console.log(userToken.usuarioId);
         fetchAllAtividades().then(setAtividades);
         fetchAllDisciplinas().then(setDisciplinasAll);
         // Adicionar event listener para fechar menus ao clicar fora
@@ -53,11 +54,11 @@ const Atividades = () => {
     }, [atividades, filtroTipo, filtroData, filtroConclusao, filtroDisciplina]);
 
     const fetchAllAtividades = () => {
-        return sendGET("/atividades/${userToken}");
+        return sendGET(`/atividades/token?token=${userToken.usuarioId}`);
     };
 
     function fetchAllDisciplinas() {
-        return sendGET("/disciplinas/${userToken}");
+        return sendGET(`/disciplinas/token?token=${userToken.usuarioId}`);
     }
 
     function sendPOST(url, data) {
@@ -114,7 +115,6 @@ const Atividades = () => {
         setDisciplinaMenuOpen(false);
     };
 
-
     function deleteAtividade(name) {
         deleteAtividadeWithName(name)
             .then(() => {
@@ -127,7 +127,7 @@ const Atividades = () => {
     }
 
     function deleteAtividadeWithName(name) {
-        return sendDELETE(`/atividades/${name}/${userToken}`)
+        return sendDELETE(`/atividades/${name}/token?token=${userToken.usuarioId}`)
     }
 
     const filterAtividades = (atividades) => {
@@ -176,7 +176,7 @@ const Atividades = () => {
     };
 
     const handleAtividadeClick = (atividadeName) => {
-        navigate(`/atividade_ind/${atividadeName}/${userToken}`, {
+        navigate(`/atividade_ind/${atividadeName}`, {
             state: { atividadeName }
         });
     };
@@ -203,12 +203,13 @@ const Atividades = () => {
             tipo: novaAtividade.tipo,
             concluido: false,
             prazo: novaAtividade.data,
-            disciplina: novaAtividade.disciplina
+            disciplina: novaAtividade.disciplina,
+            token: userToken.usuarioId
         };
 
         // Enviar os dados da nova atividade para o backend
         try {
-            await sendPOST("/atividades/${userToken}", novaAtividadeParaEnviar);
+            await sendPOST(`/atividades/${userToken.usuarioId}`, novaAtividadeParaEnviar);
             // Limpar o estado da nova atividade após a criação bem-sucedida
             setNovaAtividade({
                 nome: '',
@@ -234,11 +235,11 @@ const Atividades = () => {
                     <p>Iridium</p>
                 </div>
                 <nav>
-                    <a href={`/disciplinas/Disciplinas/${userToken}`}>Disciplinas</a>
+                    <a href={`/disciplinas/Disciplinas`}>Disciplinas</a>
                     <p> | </p>
-                    <a href={`/atividades/Atividades/${userToken}`}>Atividades</a>
+                    <a href={`/atividades/Atividades`}>Atividades</a>
                     <p> | </p>
-                    <a href={`/perfil/Perfil/${userToken}`}>Perfil</a>
+                    <a href={`/perfil/Perfil`}>Perfil</a>
                 </nav>
             </header>
 

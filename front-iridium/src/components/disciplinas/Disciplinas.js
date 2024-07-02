@@ -21,7 +21,7 @@ const Disciplinas = () => {
     }, []);
 
     const handleClick = (disciplinaName) => {
-        navigate(`/disciplina_ind/${disciplinaName}/${userToken}`, {
+        navigate(`/disciplina_ind/${disciplinaName}`, {
             state: { disciplinaName }
         });
     };
@@ -34,14 +34,21 @@ const Disciplinas = () => {
 
         //console.log("teste1 ", disciplinaName, docente, sigla, apelido);
 
-        const newDisciplina = { name: disciplinaName, docente, sigla, apelido };
-        sendPOST('/disciplinas/${userToken}', newDisciplina)
-            .then(() => navigate(`/disciplina_ind/${disciplinaName}/${userToken}`, {
+        const newDisciplina = {
+            name: disciplinaName,
+            docente: docente,
+            sigla: sigla,
+            apelido: apelido,
+            token: userToken.usuarioId
+        };
+        sendPOST(`/disciplinas/${userToken.usuarioId}`, newDisciplina)
+            .then(() => navigate(`/disciplina_ind/${disciplinaName}`, {
                 state: { disciplinaName }
             }));
     };
 
     function sendGET(url) {
+        console.log(url)
         return fetch(url, { headers: { 'Accept': 'application/json' } })
             .then(response => response.ok ? response.json() : []);
     }
@@ -60,8 +67,8 @@ const Disciplinas = () => {
 
     function displayDisciplinasWithAndamento() {
         //const andamento = readDisciplinaAndamento();
-        const andamento_true = true;
-        const andamento_false = false;
+        const andamento_true = 'true';
+        const andamento_false = 'false';
         fetchDisciplinasWithAndamento(andamento_true).then(setDisciplinasAndamento)
         fetchDisciplinasWithAndamento(andamento_false).then(setDisciplinasPassadas)
     }
@@ -71,7 +78,7 @@ const Disciplinas = () => {
     }
 
     function fetchDisciplinasWithAndamento(andamento) {
-        return sendGET(`/disciplinas/byAndamento/${andamento}/${userToken}`);
+        return sendGET(`/disciplinas/byAndamento/${andamento}/token?token=${userToken.usuarioId}`);
     }
 
     function displayAllDisciplinas() {
@@ -83,11 +90,11 @@ const Disciplinas = () => {
     }
 
     function deleteDisciplinaWithName(name) {
-        return sendDELETE(`/disciplinas/${name}/${userToken}`);
+        return sendDELETE(`/disciplinas/${name}/${userToken.usuarioId}`);
     }
 
     function fetchAllDisciplinas() {
-        return sendGET("/disciplinas/${userToken}");
+        return sendGET(`/disciplinas/token?token=${userToken.usuarioId}`);
     }
 
     return (
