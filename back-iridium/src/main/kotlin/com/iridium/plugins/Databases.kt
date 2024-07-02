@@ -10,12 +10,13 @@ import org.jetbrains.exposed.sql.*
 //    docente VARCHAR(50),
 //    sigla VARCHAR(50),
 //    apelido VARCHAR(50),
-//    andamento BOOLEAN DEFAULT TRUE
+//    andamento BOOLEAN DEFAULT TRUE,
+//    token VARCHAR(50)
 //);
-//INSERT INTO disciplina (name, docente, sigla, apelido, andamento)
-//    VALUES ('calculo', 'zara', 'MAT0123', 'calcpi', FALSE);
-//INSERT INTO disciplina (name, docente, sigla, apelido)
-//    VALUES ('software', 'paulo', 'MAC0456', 'labjef');
+//INSERT INTO disciplina (name, docente, sigla, apelido, andamento, token)
+//    VALUES ('calculo', 'zara', 'MAT0123', 'calcpi', FALSE, '1');
+//INSERT INTO disciplina (name, docente, sigla, apelido, token)
+//    VALUES ('software', 'paulo', 'MAC0456', 'labjef', '2');
 //
 //DROP TABLE IF EXISTS atividade;
 //CREATE TABLE atividade(
@@ -25,12 +26,13 @@ import org.jetbrains.exposed.sql.*
 //    tipo VARCHAR(10),
 //    concluido BOOLEAN DEFAULT FALSE,
 //    disciplina VARCHAR(50),
-//    prazo DATE
+//    prazo DATE,
+//    token VARCHAR(50)
 //);
-//INSERT INTO atividade (name, descricao, tipo, prazo, disciplina)
-//    VALUES ('projeto iridium', 'entregar segunda', 'Prova', '2024-07-14', 'software');
-//INSERT INTO atividade (name, descricao, tipo, concluido, prazo, disciplina)
-//    VALUES ('lista', 'exercicio 2', 'Tarefa', TRUE, '2025-04-20', 'calculo');
+//INSERT INTO atividade (name, descricao, tipo, prazo, disciplina, token)
+//    VALUES ('projeto iridium', 'entregar segunda', 'Prova', '2024-07-14', 'software', '1');
+//INSERT INTO atividade (name, descricao, tipo, concluido, prazo, disciplina, token)
+//    VALUES ('lista', 'exercicio 2', 'Tarefa', TRUE, '2025-04-20', 'calculo', '2');
 //
 //DROP TABLE IF EXISTS usuario;
 //CREATE TABLE usuario(
@@ -52,7 +54,7 @@ fun Application.configureDatabases() {
         "jdbc:postgresql://localhost:5432/iridium_db",
 //        driver = "org.postgresql.Driver",
         user = "postgres",  
-        //password = "bancodados"
-        password = "Bibi2004!"
+        password = "bancodados"
+//        password = "Bibi2004!"
     )
 }

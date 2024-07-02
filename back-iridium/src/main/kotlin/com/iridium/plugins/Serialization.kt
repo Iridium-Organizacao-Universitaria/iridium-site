@@ -17,7 +17,7 @@ import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import java.sql.Date // Importe java.sql.Date para utilizar no código
+//import java.sql.Date // Importe java.sql.Date para utilizar no código
 
 object LocalDateSerializer : KSerializer<LocalDate> {
     private val formatter: DateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE
@@ -274,7 +274,6 @@ fun Application.configureDisciplinaSerialization(repository: DisciplinaRepositor
         }
     }
 }
-
 
 fun Application.configureAtividadeSerialization(repository: AtividadeRepository) {
     routing {

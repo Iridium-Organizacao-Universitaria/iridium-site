@@ -6,5 +6,6 @@ data class Disciplina(
     var docente: String,
     var sigla: String,
     var apelido: String,
-    var andamento: Boolean
+    var andamento: Boolean,
+    var token: String,
 )
