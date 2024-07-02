@@ -10,8 +10,10 @@ import org.jetbrains.exposed.sql.*
 
 
 class PostgresDisciplinaRepository : DisciplinaRepository {
-    override suspend fun allDisciplinas(): List<Disciplina> = suspendTransaction {
-        DisciplinaDAO.all().map(::daoToModel)
+    override suspend fun allDisciplinas(token: String): List<Disciplina> = suspendTransaction {
+        DisciplinaDAO
+            .find { (DisciplinaTable.token eq token) }
+            .map(::daoToModel)
     }
 
     override suspend fun disciplinasByAndamento(andamento: Boolean): List<Disciplina> = suspendTransaction {

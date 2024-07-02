@@ -43,6 +43,7 @@ object DisciplinaTable : IntIdTable("disciplina") {
     var sigla = varchar("sigla", 10)
     var apelido = varchar("apelido", 50)
     var andamento = bool("andamento").default(true)
+    var token = varchar("token", 50)
 }
 
 class DisciplinaDAO(id: EntityID<Int>) : IntEntity(id) {
@@ -52,6 +53,7 @@ class DisciplinaDAO(id: EntityID<Int>) : IntEntity(id) {
     var sigla by DisciplinaTable.sigla
     var apelido by DisciplinaTable.apelido
     var andamento by DisciplinaTable.andamento
+    var token by DisciplinaTable.token
 }
 
 fun daoToModel(dao: DisciplinaDAO) = Disciplina(
@@ -60,6 +62,7 @@ fun daoToModel(dao: DisciplinaDAO) = Disciplina(
     dao.sigla,
     dao.apelido,
     dao.andamento,
+    dao.token,
 )
 
 ////////////////// Atividades

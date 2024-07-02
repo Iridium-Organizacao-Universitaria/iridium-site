@@ -83,9 +83,14 @@ fun Application.configureUsuarioSerialization(repository: UsuarioRepository){
 
 fun Application.configureDisciplinaSerialization(repository: DisciplinaRepository) {
     routing {
-        route("/disciplinas") {
+        route("/disciplinas/{token}") {
             get {
-                val disciplinas = repository.allDisciplinas()
+                val token = call.parameters["token"]
+                if (token == null) {
+                    call.respond(HttpStatusCode.BadRequest)
+                    return@get
+                }
+                val disciplinas = repository.allDisciplinas(token)
                 call.respond(disciplinas)
             }
 
