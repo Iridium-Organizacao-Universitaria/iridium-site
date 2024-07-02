@@ -1,55 +1,43 @@
-package com.iridium.models
-
-import Disciplina
-import com.iridium.db.DisciplinaDAO
-import com.iridium.db.DisciplinaTable
-import com.iridium.db.daoToModel
-import com.iridium.db.suspendTransaction
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-import org.jetbrains.exposed.sql.*
-
-
 class PostgresDisciplinaRepository : DisciplinaRepository {
+
     override suspend fun allDisciplinas(token: String): List<Disciplina> = suspendTransaction {
-        DisciplinaDAO
-            .find { (DisciplinaTable.token eq token) }
+        DisciplinaDAO.find { DisciplinaTable.token eq token }
             .map(::daoToModel)
     }
 
-    override suspend fun disciplinasByAndamento(andamento: Boolean): List<Disciplina> = suspendTransaction {
-        DisciplinaDAO
-            .find { (DisciplinaTable.andamento eq andamento) }
+    override suspend fun disciplinasByAndamento(andamento: Boolean, token: String): List<Disciplina> = suspendTransaction {
+        DisciplinaDAO.find { (DisciplinaTable.andamento eq andamento) and (DisciplinaTable.token eq token) }
             .map(::daoToModel)
     }
 
-    override suspend fun disciplinaByName(name: String): Disciplina? = suspendTransaction {
-        DisciplinaDAO
-            .find { (DisciplinaTable.name eq name) }
+    override suspend fun disciplinaByName(name: String, token: String): Disciplina? = suspendTransaction {
+        DisciplinaDAO.find { (DisciplinaTable.name eq name) and (DisciplinaTable.token eq token) }
             .limit(1)
             .map(::daoToModel)
             .firstOrNull()
     }
 
-    override suspend fun addDisciplina(disciplina: Disciplina): Unit = suspendTransaction {
+    override suspend fun addDisciplina(disciplina: Disciplina, token: String): Unit = suspendTransaction {
         DisciplinaDAO.new {
             name = disciplina.name
             docente = disciplina.docente
             sigla = disciplina.sigla
             apelido = disciplina.apelido
+            this.token = token // Assuming the token is a field in DisciplinaDAO
         }
     }
 
-    override suspend fun removeDisciplina(name: String): Boolean = suspendTransaction {
+    override suspend fun removeDisciplina(name: String, token: String): Boolean = suspendTransaction {
         val rowsDeleted = DisciplinaTable.deleteWhere {
-            DisciplinaTable.name eq name
+            (DisciplinaTable.name eq name) and (DisciplinaTable.token eq token)
         }
         rowsDeleted == 1
     }
 
-    override suspend fun switchDisciplinaAndamento(name: String, andamento: Boolean ): Boolean = suspendTransaction {
-        val disciplina = DisciplinaTable.select { DisciplinaTable.name eq name }.singleOrNull()
+    override suspend fun switchDisciplinaAndamento(name: String, andamento: Boolean, token: String): Boolean = suspendTransaction {
+        val disciplina = DisciplinaTable.select { (DisciplinaTable.name eq name) and (DisciplinaTable.token eq token) }.singleOrNull()
         if (disciplina != null) {
-            val rowsUpdated = DisciplinaTable.update({ DisciplinaTable.name eq name }) {
+            val rowsUpdated = DisciplinaTable.update({ (DisciplinaTable.name eq name) and (DisciplinaTable.token eq token) }) {
                 it[DisciplinaTable.andamento] = andamento
             }
             rowsUpdated == 1
@@ -58,10 +46,10 @@ class PostgresDisciplinaRepository : DisciplinaRepository {
         }
     }
 
-    override suspend fun switchDisciplinaSigla(name: String, sigla: String): Boolean = suspendTransaction {
-        val disciplina = DisciplinaTable.select { DisciplinaTable.name eq name }.singleOrNull()
-        if(disciplina != null) {
-            val rowsUpdated = DisciplinaTable.update({ DisciplinaTable.name eq name }) {
+    override suspend fun switchDisciplinaSigla(name: String, sigla: String, token: String): Boolean = suspendTransaction {
+        val disciplina = DisciplinaTable.select { (DisciplinaTable.name eq name) and (DisciplinaTable.token eq token) }.singleOrNull()
+        if (disciplina != null) {
+            val rowsUpdated = DisciplinaTable.update({ (DisciplinaTable.name eq name) and (DisciplinaTable.token eq token) }) {
                 it[DisciplinaTable.sigla] = sigla
             }
             rowsUpdated == 1
@@ -70,10 +58,10 @@ class PostgresDisciplinaRepository : DisciplinaRepository {
         }
     }
 
-    override suspend fun switchDisciplinaDocente(name: String, docente: String ): Boolean = suspendTransaction {
-        val disciplina = DisciplinaTable.select { DisciplinaTable.name eq name }.singleOrNull()
-        if(disciplina != null) {
-            val rowsUpdated = DisciplinaTable.update({ DisciplinaTable.name eq name }) {
+    override suspend fun switchDisciplinaDocente(name: String, docente: String, token: String): Boolean = suspendTransaction {
+        val disciplina = DisciplinaTable.select { (DisciplinaTable.name eq name) and (DisciplinaTable.token eq token) }.singleOrNull()
+        if (disciplina != null) {
+            val rowsUpdated = DisciplinaTable.update({ (DisciplinaTable.name eq name) and (DisciplinaTable.token eq token) }) {
                 it[DisciplinaTable.docente] = docente
             }
             rowsUpdated == 1
@@ -82,10 +70,10 @@ class PostgresDisciplinaRepository : DisciplinaRepository {
         }
     }
 
-    override suspend fun switchDisciplinaApelido(name: String, apelido: String ): Boolean = suspendTransaction {
-        val disciplina = DisciplinaTable.select { DisciplinaTable.name eq name }.singleOrNull()
-        if(disciplina != null) {
-            val rowsUpdated = DisciplinaTable.update({ DisciplinaTable.name eq name }) {
+    override suspend fun switchDisciplinaApelido(name: String, apelido: String, token: String): Boolean = suspendTransaction {
+        val disciplina = DisciplinaTable.select { (DisciplinaTable.name eq name) and (DisciplinaTable.token eq token) }.singleOrNull()
+        if (disciplina != null) {
+            val rowsUpdated = DisciplinaTable.update({ (DisciplinaTable.name eq name) and (DisciplinaTable.token eq token) }) {
                 it[DisciplinaTable.apelido] = apelido
             }
             rowsUpdated == 1
