@@ -235,7 +235,7 @@ const Atividades = () => {
                 <nav>
                     <a href="/disciplinas/Disciplinas">Disciplinas</a>
                     <p> | </p>
-                    <a href="/atividades">Atividades</a>
+                    <a href="/atividades/Atividades">Atividades</a>
                     <p> | </p>
                     <a href="/perfil/Perfil">Perfil</a>
                 </nav>
