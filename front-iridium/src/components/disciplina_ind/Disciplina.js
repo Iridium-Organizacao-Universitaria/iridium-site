@@ -5,9 +5,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import '../../App.css';
 import './disciplina.css';
+import { getToken } from '../App/useToken';
 
 const Disciplina = () => {
-    // dados de exemplo só para testar o front
+    const userToken = getToken();
     const [tarefas, setTarefas] = useState([]);
     const [provas, setProvas] = useState([]);
     const location = useLocation();
@@ -55,7 +56,7 @@ const Disciplina = () => {
     }, [newAtv, deleteAtv]);
 
     function fetchAtividadesWithTipo(tipo) {
-        return sendGET(`/atividades/byTipo/${tipo}`);
+        return sendGET(`/atividades/byTipo/${tipo}/${userToken}`);
     }
 
     const fetchAtividades = () => {
@@ -88,7 +89,6 @@ const Disciplina = () => {
                 console.error('Erro ao buscar tarefas:', error);
             });
     };
-
 
     const sendPUT = (url, data) => {
         return fetch(url, {
@@ -123,7 +123,7 @@ const Disciplina = () => {
     };
 
     function switchAndamentoDisciplina(name, andamento) {
-        sendPUT(`/disciplinas/andamento/${name}`, {andamento : andamento })
+        sendPUT(`/disciplinas/andamento/${name}/${userToken}`, {andamento : andamento })
             .then(() => {
                 fetchDisciplina();
             })
@@ -133,7 +133,7 @@ const Disciplina = () => {
     }
 
     function switchDisciplinaSigla(name, sigla) {
-        sendPUT(`/disciplinas/sigla/${name}`, {sigla : sigla})
+        sendPUT(`/disciplinas/sigla/${name}/${userToken}`, {sigla : sigla})
             .then(() => {
                 fetchDisciplina();
             })
@@ -143,7 +143,7 @@ const Disciplina = () => {
     }
 
     function switchDisciplinaDocente(name, docente) {
-        sendPUT(`/disciplinas/docente/${name}`, { docente :docente })
+        sendPUT(`/disciplinas/docente/${name}/${userToken}`, { docente :docente })
             .then(() => {
                 fetchDisciplina();
             })
@@ -153,7 +153,7 @@ const Disciplina = () => {
     }
 
     function switchDisciplinaApelido(name, apelido) {
-        sendPUT(`/disciplinas/apelido/${name}`, { apelido : apelido })
+        sendPUT(`/disciplinas/apelido/${name}/${userToken}`, { apelido : apelido })
             .then(() => {
                 fetchDisciplina();
             })
@@ -163,7 +163,7 @@ const Disciplina = () => {
     }
 
     const fetchDisciplina = () => {
-        sendGET(`/disciplinas/byName/${disciplinaState.name}`)
+        sendGET(`/disciplinas/byName/${disciplinaState.name}/${userToken}`)
             .then(response => {
                 if (response) {
                     setDisciplinaState(prevState => ({
@@ -195,7 +195,6 @@ const Disciplina = () => {
     };
 
     const handleSave = () => {
-        // Aqui você pode implementar a lógica para salvar as alterações
         let disciplinaName = disciplinaState.name;
 
         switchAndamentoDisciplina(disciplinaState.name, disciplinaState.andamento);
@@ -218,7 +217,7 @@ const Disciplina = () => {
     const handleDelete = () => {
         deleteDisciplina(disciplinaState.name)
             .then(() => {
-                navigate(`/disciplinas/Disciplinas`);
+                navigate(`/disciplinas/Disciplinas/${userToken}`);
             })
             .catch(error => {
                 console.error('Erro ao deletar disciplina:', error);
@@ -226,7 +225,7 @@ const Disciplina = () => {
     };
 
     const deleteDisciplina = (name) => {
-        return fetch(`/disciplinas/${name}`, {
+        return fetch(`/disciplinas/${name}/${userToken}`, {
             method: 'DELETE'
         });
     };
@@ -240,7 +239,7 @@ const Disciplina = () => {
     };
 
     const handleAtividadeClick = (atividadeName) => {
-        navigate(`/atividade_ind/${atividadeName}`, {
+        navigate(`/atividade_ind/${atividadeName}/${userToken}`, {
             state: { atividadeName }
         });
     };
@@ -249,7 +248,7 @@ const Disciplina = () => {
         deleteAtividadeWithName(name)
             .then(() => {
                 // Redireciona para a página anterior após deletar a atividade
-                navigate('/atividades/Atividades');
+                navigate(`/atividades/Atividades/${userToken}`);
                 setDeleteAtv(true);
             })
             .catch(error => {
@@ -280,7 +279,7 @@ const Disciplina = () => {
 
         // Enviar os dados da nova atividade para o backend
         try {
-            await sendPOST("/atividades", novaAtividadeParaEnviar);
+            await sendPOST("/atividades/${userToken}", novaAtividadeParaEnviar);
             // Limpar o estado da nova atividade após a criação bem-sucedida
             setNovaAtividade({
                 name: '',
@@ -307,11 +306,11 @@ const Disciplina = () => {
                     <p>Iridium</p>
                 </div>
                 <nav>
-                    <a href="/disciplinas/Disciplinas">Disciplinas</a>
+                    <a href={`/disciplinas/Disciplinas/${userToken}`}>Disciplinas</a>
                     <p> | </p>
-                    <a href="/atividades/Atividades">Atividades</a>
+                    <a href={`/atividades/Atividades/${userToken}`}>Atividades</a>
                     <p> | </p>
-                    <a href="/perfil/Perfil">Perfil</a>
+                    <a href={`/perfil/Perfil/${userToken}`}>Perfil</a>
                 </nav>
             </header>
 
@@ -322,17 +321,8 @@ const Disciplina = () => {
                         <>
                             <h2>Editar disciplina</h2>
                             <div className="info-box">
-                                <div className={`info_box_ind ${editing ? 'edit-mode-disc' : ''}`}>
+                            <div className={`info_box_ind ${editing ? 'edit-mode-disc' : ''}`}>
                                     <label htmlFor="nome">Nome:</label>
-                                    {/*<input*/}
-                                    {/*    type="text"*/}
-                                    {/*    id="nome"*/}
-                                    {/*    name="nome"*/}
-                                    {/*    value={disciplinaState.name}*/}
-                                    {/*    onChange={handleChange}*/}
-                                    {/*    ref={nameInputRef}*/}
-                                    {/*    autoFocus*/}
-                                    {/*/>*/}
                                     <p><span id="sigla">{disciplinaState.sigla}</span></p>
                                 </div>
                                 <div className={`info_box_ind ${editing ? 'edit-mode-disc' : ''}`}>

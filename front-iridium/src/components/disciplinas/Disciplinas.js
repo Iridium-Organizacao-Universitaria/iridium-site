@@ -1,11 +1,11 @@
-// src/components/disciplinas/Disciplinas.js
-
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../App.css';
 import './disciplinas.css';
+import { getToken } from '../App/useToken';
 
 const Disciplinas = () => {
+    const userToken = getToken();
     const navigate = useNavigate();
     const [disciplinas_all, setDisciplinasAll] = useState([]);
     const [disciplinas_em_andamento, setDisciplinasAndamento] = useState([]);
@@ -21,7 +21,7 @@ const Disciplinas = () => {
     }, []);
 
     const handleClick = (disciplinaName) => {
-        navigate(`/disciplina_ind/${disciplinaName}`, {
+        navigate(`/disciplina_ind/${disciplinaName}/${userToken}`, {
             state: { disciplinaName }
         });
     };
@@ -35,8 +35,8 @@ const Disciplinas = () => {
         //console.log("teste1 ", disciplinaName, docente, sigla, apelido);
 
         const newDisciplina = { name: disciplinaName, docente, sigla, apelido };
-        sendPOST('/disciplinas', newDisciplina)
-            .then(() => navigate(`/disciplina_ind/${disciplinaName}`, {
+        sendPOST('/disciplinas/${userToken}', newDisciplina)
+            .then(() => navigate(`/disciplina_ind/${disciplinaName}/${userToken}`, {
                 state: { disciplinaName }
             }));
     };
@@ -71,7 +71,7 @@ const Disciplinas = () => {
     }
 
     function fetchDisciplinasWithAndamento(andamento) {
-        return sendGET(`/disciplinas/byAndamento/${andamento}`);
+        return sendGET(`/disciplinas/byAndamento/${andamento}/${userToken}`);
     }
 
     function displayAllDisciplinas() {
@@ -83,26 +83,26 @@ const Disciplinas = () => {
     }
 
     function deleteDisciplinaWithName(name) {
-        return sendDELETE(`/disciplinas/${name}`);
+        return sendDELETE(`/disciplinas/${name}/${userToken}`);
     }
 
     function fetchAllDisciplinas() {
-        return sendGET("/disciplinas");
+        return sendGET("/disciplinas/${userToken}");
     }
 
     return (
         <div className="h">
             <header>
                 <div id="marca">
-                    <img src="/imgs/Starfruit.png" id="logo" alt="starfruit :3" />
+                    <img src="/imgs/Starfruit.png" id="logo" alt="starfruit :3"/>
                     <p>Iridium</p>
                 </div>
                 <nav>
-                    <a href="/disciplinas/Disciplinas">Disciplinas</a>
+                    <a href={`/disciplinas/Disciplinas/${userToken}`}>Disciplinas</a>
                     <p> | </p>
-                    <a href="/atividades/Atividades">Atividades</a>
+                    <a href={`/atividades/Atividades/${userToken}`}>Atividades</a>
                     <p> | </p>
-                    <a href="/perfil/Perfil">Perfil</a>
+                    <a href={`/perfil/Perfil/${userToken}`}>Perfil</a>
                 </nav>
             </header>
 

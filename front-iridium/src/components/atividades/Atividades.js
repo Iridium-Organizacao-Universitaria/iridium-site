@@ -1,4 +1,3 @@
-// Atividades.js
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Popup from 'reactjs-popup';
@@ -6,8 +5,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import '../../App.css';
 import './atividades.css';
+import { getToken } from '../App/useToken';
 
 const Atividades = () => {
+    const userToken = getToken();
     const [DisciplinasAll, setDisciplinasAll] = useState([]);
     const [atividades, setAtividades] = useState([]);
     const [filtroTipo, setFiltroTipo] = useState('Todos');
@@ -52,11 +53,11 @@ const Atividades = () => {
     }, [atividades, filtroTipo, filtroData, filtroConclusao, filtroDisciplina]);
 
     const fetchAllAtividades = () => {
-        return sendGET("/atividades");
+        return sendGET("/atividades/${userToken}");
     };
 
     function fetchAllDisciplinas() {
-        return sendGET("/disciplinas");
+        return sendGET("/disciplinas/${userToken}");
     }
 
     function sendPOST(url, data) {
@@ -126,7 +127,7 @@ const Atividades = () => {
     }
 
     function deleteAtividadeWithName(name) {
-        return sendDELETE(`/atividades/${name}`)
+        return sendDELETE(`/atividades/${name}/${userToken}`)
     }
 
     const filterAtividades = (atividades) => {
@@ -175,7 +176,7 @@ const Atividades = () => {
     };
 
     const handleAtividadeClick = (atividadeName) => {
-        navigate(`/atividade_ind/${atividadeName}`, {
+        navigate(`/atividade_ind/${atividadeName}/${userToken}`, {
             state: { atividadeName }
         });
     };
@@ -207,7 +208,7 @@ const Atividades = () => {
 
         // Enviar os dados da nova atividade para o backend
         try {
-            await sendPOST("/atividades", novaAtividadeParaEnviar);
+            await sendPOST("/atividades/${userToken}", novaAtividadeParaEnviar);
             // Limpar o estado da nova atividade após a criação bem-sucedida
             setNovaAtividade({
                 nome: '',
@@ -233,21 +234,21 @@ const Atividades = () => {
                     <p>Iridium</p>
                 </div>
                 <nav>
-                    <a href="/disciplinas/Disciplinas">Disciplinas</a>
+                    <a href={`/disciplinas/Disciplinas/${userToken}`}>Disciplinas</a>
                     <p> | </p>
-                    <a href="/atividades/Atividades">Atividades</a>
+                    <a href={`/atividades/Atividades/${userToken}`}>Atividades</a>
                     <p> | </p>
-                    <a href="/perfil/Perfil">Perfil</a>
+                    <a href={`/perfil/Perfil/${userToken}`}>Perfil</a>
                 </nav>
             </header>
 
             <div className="atividades_tudo">
-            <h2 className="title_atvs">Atividades</h2>
+                <h2 className="title_atvs">Atividades</h2>
                 <Popup trigger=
                            {
-                    <button className="btn-nova-tarefa2" onClick={handleCriarAtividade}>Criar nova
-                               atividade</button>
-                }
+                               <button className="btn-nova-tarefa2" onClick={handleCriarAtividade}>Criar nova
+                                   atividade</button>
+                           }
                        modal nested>
                     {
                         close => (
