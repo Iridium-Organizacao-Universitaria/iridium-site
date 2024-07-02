@@ -1,3 +1,20 @@
+package com.iridium.models
+
+import Disciplina
+import com.iridium.db.DisciplinaDAO
+import com.iridium.db.DisciplinaTable
+import com.iridium.db.daoToModel
+import com.iridium.db.suspendTransaction
+//import java.time.LocalDate
+//import java.sql.Date
+//import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+//import org.jetbrains.exposed.sql.transactions.transaction
+
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+//import org.jetbrains.exposed.sql.transactions.experimental.suspendTransaction
+import org.jetbrains.exposed.sql.deleteWhere
+import org.jetbrains.exposed.sql.*
+
 class PostgresDisciplinaRepository : DisciplinaRepository {
 
     override suspend fun allDisciplinas(token: String): List<Disciplina> = suspendTransaction {
