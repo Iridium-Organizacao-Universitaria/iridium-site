@@ -41,7 +41,11 @@ class PostgresUsuarioRepository : UsuarioRepository {
             .singleOrNull()
     }
 
-//    suspend fun switchSenha(password: Password, userID : Int): Boolean = suspendTransaction { }
-//    suspend fun switchName(name: String, userID : Int): Boolean = suspendTransaction { }
-//    suspend fun switchEmail(email : String, userID : Int): Boolean = suspendTransaction { }
+    override suspend fun getUsuario(token: String): Usuario? = suspendTransaction {
+        UsuarioDAO
+            .find { UsuarioTable.id eq token.toInt() }
+            .limit(1)
+            .map(::daoToModel)
+            .firstOrNull()
+    }
 }

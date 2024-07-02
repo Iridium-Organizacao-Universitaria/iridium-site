@@ -76,7 +76,19 @@ fun Application.configureUsuarioSerialization(repository: UsuarioRepository){
                 }
             }
 
-
+            get("/{token}") {
+                val token = call.parameters["token"]
+                if (token != null) {
+                    val usuario = repository.getUsuario(token)
+                    if (usuario != null) {
+                        call.respond(usuario)
+                    } else {
+                        call.respond(HttpStatusCode.NotFound, "Token não encontrado?")
+                    }
+                } else {
+                    call.respond(HttpStatusCode.BadRequest, "Token é igual a null")
+                }
+            }
         }
     }
 }
